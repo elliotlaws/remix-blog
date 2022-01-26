@@ -1,0 +1,74 @@
+# Terminal setup
+
+## iTerm
+
+1. Install latest iTerm [https://iterm2.com/downloads.html](https://iterm2.com/downloads.html)
+
+## Install Oh My Zsh
+
+1. Install oh-my-zsh using curl
+
+```bash
+$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+1. Make zsh the default shell `chsh -s $(which zsh)` then log out and log back in again to use your new default shell.
+
+## Set the theme
+
+1. Install Powerlevel10k
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+1. Then enable it, change the value of ZSH_THEME to following in `~/.zshrc` file. Open using `open ~/.zshrc` , save file and then restart terminal.
+
+```bash
+ZSH_THEME="powerlevel10k/powerlevel10k"
+```
+
+1. After the terminal has been restarted complete the questions to configure the theme.
+
+## Install plugins
+
+1. Install Autosuggestions
+
+Clone the repo
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+Add the plugin to the list of plugins for Oh My Zsh to load (inside `~/.zshrc`)
+
+```bash
+plugins=(
+    # other plugins...
+    zsh-autosuggestions
+)
+```
+
+1. Install zsh-syntax-highlighting
+
+Clone the repo and source the script
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+```
+
+Then, enable syntax highlighting in the current interactive shell
+
+```bash
+source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+```
+
+## Configure VS Code
+
+1. In VS code, open settings.json and add the following to set the default terminal profile and ensure icons show correctly.
+
+```bash
+"terminal.integrated.defaultProfile.osx": "zsh",
+"terminal.integrated.fontFamily": "MesloLGS NF"
+```
