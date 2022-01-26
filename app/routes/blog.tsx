@@ -7,10 +7,10 @@ export const links: LinksFunction = () => {
 
 export default function Blog() {
   return (
-    <div className="flex justify-center">
-      <div className="prose prose-slate py-10">
+    <div className="flex justify-center dark:bg-gray-900">
+      <article className="prose prose-slate lg:prose-lg dark:prose-invert py-10 max-w-screen-lg">
         <Outlet />
-      </div>
+      </article>
     </div>
   );
 }

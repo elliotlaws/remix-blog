@@ -8,6 +8,7 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
+import Navbar from "./components/navbar";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -27,6 +28,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Navbar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
