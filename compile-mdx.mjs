@@ -59,7 +59,7 @@ import fetch from "node-fetch";
     const html = renderToString(React.createElement(Component));
     const hasComponents = Object.keys(files).length > 0;
 
-    await fetch(`http://localhost:8788/api/post-content`, {
+    await fetch(`https://remix-blog-a0z.pages.dev/api/post-content`, {
       method: "post",
       body: JSON.stringify({
         slug,
