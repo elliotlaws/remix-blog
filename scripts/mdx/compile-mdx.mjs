@@ -9,7 +9,7 @@ import * as React from "react";
 import fetch from "node-fetch";
 
 (async function () {
-  const dir = "./content";
+  const dir = "../../content";
   const mdxPaths = await fsp.readdir(dir);
 
   mdxPaths.forEach(async (fileName) => {
