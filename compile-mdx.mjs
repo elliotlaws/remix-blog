@@ -59,14 +59,22 @@ import fetch from "node-fetch";
     const html = renderToString(React.createElement(Component));
     const hasComponents = Object.keys(files).length > 0;
 
-    await fetch(`https://remix-blog-a0z.pages.dev/api/post-content`, {
-      method: "post",
-      body: JSON.stringify({
-        slug,
-        frontmatter,
-        html,
-        code: hasComponents ? code : undefined,
-      }),
-    });
+    const response = await fetch(
+      `https://remix-blog-a0z.pages.dev/api/post-content`,
+      {
+        method: "post",
+        body: JSON.stringify({
+          slug,
+          frontmatter,
+          html,
+          code: hasComponents ? code : undefined,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const body = await response.text();
+      console.log(body);
+    }
   });
 })();
