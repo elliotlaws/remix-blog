@@ -12,39 +12,51 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+jobs:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
- compile:
-    name: 🛠 Compile MDX
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+  compile:
+      name: 🛠 Compile MDX
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Wait for CF Pages
+          id: cf-pages
+          uses: WalshyDev/cf-pages-await@v1
+          with:
+            accountEmail: ${{ secrets.CF_ACCOUNT_EMAIL  }}
+            apiKey: ${{ secrets.CF_API_KEY  }}
+            accountId: '6acf63c45bc393cc0a8eee34b605a54a'
+            project: 'remix-blog'
+            # Add this if you want GitHub Deployments (see below)
+            githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '50'
+        - name: 🛑 Cancel Previous Runs
+          uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
+        - name: ⬇️ Checkout repo
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: '50'
 
-      - name: 🥶 Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-npm-
-            ${{ runner.OS }}-
+        - name: ⎔ Setup node
+          uses: actions/setup-node@v1
+          with:
+            node-version: 16
 
-      - name: 📦 Install npm packages
-        run: npm install
+        - name: 🥶 Cache dependencies
+          uses: actions/cache@v2
+          with:
+            path: ~/.npm
+            key: ${{ runner.OS }}-npm-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.OS }}-npm-
+              ${{ runner.OS }}-
 
-      - name: 🚀 Compile and post MDX
-        run: node ./compile-mdx.mjs
+        - name: 📦 Install npm packages
+          run: npm install
 
-          
+        - name: 🚀 Compile and post MDX
+          run: node ./compile-mdx.mjs
+
+
