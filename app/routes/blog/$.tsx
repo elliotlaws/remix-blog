@@ -35,20 +35,17 @@ export const loader: LoaderFunction = async ({ params, context }) => {
     throw new Response("Not Found", { status: 404 });
   }
 
-  return json(
-    data
-    // {
-    //   headers: {
-    //     // use weak etag because Cloudflare only supports
-    //     // strong etag on Enterprise plans :(
-    //     ETag: weakHash,
-    //     // add cache control and status for cloudflare?
-    //     "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
-    //     //'CF-Cache-Status': 'MISS',
-    //     "x-remix": "test",
-    //   },
-    // }
-  );
+  return json(data, {
+    headers: {
+      // use weak etag because Cloudflare only supports
+      // strong etag on Enterprise plans :(
+      // ETag: weakHash,
+      // add cache control and status for cloudflare?
+      "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
+      //'CF-Cache-Status': 'MISS',
+      "x-remix": "test",
+    },
+  });
 };
 
 export default function Post() {
