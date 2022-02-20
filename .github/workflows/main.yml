@@ -53,7 +53,7 @@ jobs:
             ${{ runner.OS }}-
 
       - name: 📦 Install npm packages
-        run: npm install
+        run: cd ./scripts/mdx && npm install
 
       - name: 🚀 Compile and post MDX
-        run: node ./compile-mdx.mjs
+        run: cd ./scripts/mdx && node ./compile-mdx.mjs
