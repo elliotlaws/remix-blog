@@ -1,0 +1,72 @@
+import * as path from "path";
+import * as fs from "fs";
+import * as fsp from "fs/promises";
+import { bundleMDX } from "mdx-bundler";
+import rehypeHighlight from "rehype-highlight";
+import { getMDXComponent } from "mdx-bundler/client/index.js";
+import { renderToString } from "react-dom/server.js";
+import * as React from "react";
+import fetch from "node-fetch";
+
+(async function () {
+  const dir = "./content";
+  const mdxPaths = await fsp.readdir(dir);
+
+  mdxPaths.forEach(async (fileName) => {
+    console.error(`Compiling ${fileName}...`);
+
+    let mdxSource = "";
+    let files = {};
+
+    const fullPath = path.join(dir, fileName);
+    const exists = fs.existsSync(fullPath);
+
+    const slug = fileName.replace(".mdx", "");
+
+    if (exists && (await fsp.lstat(fullPath)).isDirectory()) {
+      const mdxPath = path.join(fullPath, "index.mdx");
+      mdxSource = await fsp.readFile(mdxPath, "utf8");
+      const mdxFiles = (await fsp.readdir(fullPath)).filter(
+        (filename) => filename !== "index.mdx"
+      );
+
+      const results = await Promise.all(
+        mdxFiles.map(async (filename) =>
+          fsp.readFile(`${fullPath}/${filename}`, "utf8")
+        )
+      );
+
+      files = Object.fromEntries(
+        results.map((content, i) => [`./${mdxFiles[i]}`, content])
+      );
+    } else {
+      mdxSource = await fsp.readFile(fullPath, "utf8");
+    }
+
+    const { frontmatter, code } = await bundleMDX({
+      source: mdxSource,
+      files,
+      xdmOptions(options) {
+        options.rehypePlugins = [
+          ...(options.rehypePlugins ?? []),
+          rehypeHighlight,
+        ];
+        return options;
+      },
+    });
+
+    const Component = getMDXComponent(code);
+    const html = renderToString(React.createElement(Component));
+    const hasComponents = Object.keys(files).length > 0;
+
+    await fetch(`http://localhost:8788/api/post-content`, {
+      method: "post",
+      body: JSON.stringify({
+        slug,
+        frontmatter,
+        html,
+        code: hasComponents ? code : undefined,
+      }),
+    });
+  });
+})();

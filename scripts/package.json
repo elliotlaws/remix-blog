@@ -1,0 +1,11 @@
+{
+  "name": "mdx",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "compile": "node ./compile-mdx.mjs"
+  },
+  "author": "",
+  "license": "ISC"
+}
