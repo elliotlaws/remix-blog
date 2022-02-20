@@ -1,5 +1,8 @@
-import { ActionFunction, json } from "remix";
+import { json, LoaderFunction } from "remix";
 
-export const action: ActionFunction = async ({ request }) => {
-  return "hello";
+export const loader: LoaderFunction = async () => {
+  const data = {
+    commit: { message: "HELLO" },
+  };
+  return json(data);
 };
