@@ -9,6 +9,7 @@ export const loader: LoaderFunction = async ({ context }) => {
       return { slug, frontmatter, html };
     })
   );
+
   return json(posts, {
     headers: {
       "cache-control": "max-age=300",
@@ -25,7 +26,7 @@ export default function Index() {
       <ul>
         {posts.map(({ slug, frontmatter }) => (
           <li key={slug}>
-            <Link to={slug}>{frontmatter.title}</Link>
+            <Link to={`/${slug}`}>{frontmatter.title}</Link>
             {frontmatter.description ? (
               <p className="m-0 lg:m-0">{frontmatter.description}</p>
             ) : null}
