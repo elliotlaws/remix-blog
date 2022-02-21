@@ -14,8 +14,13 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
 };
 
+type Frontmatter = {
+  [key: string]: any;
+};
+
 type BlogContentType = {
-  frontmatter: { [key: string]: any };
+  slug: string;
+  frontmatter: Frontmatter;
   html: string;
   code: string;
   hash: string;
@@ -31,7 +36,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   }
 
   const data = (await context.BLOG.get(slug, "json")) as BlogContentType;
-  if (data === undefined) {
+  if (!data) {
     throw new Response("Not Found", { status: 404 });
   }
   const { commit }: any = (await context.BLOG.get("$$deploy-sha", "json")) ?? {
