@@ -65,16 +65,19 @@ import fetch from "node-fetch";
       .update(`${JSON.stringify(frontmatter)}${""}${code}`)
       .digest("hex");
 
-    const response = await fetch(`http://localhost:8788/api/post-content`, {
-      method: "post",
-      body: JSON.stringify({
-        slug,
-        frontmatter,
-        hash,
-        html,
-        code: hasComponents ? code : undefined,
-      }),
-    });
+    const response = await fetch(
+      `https://remix-blog-a0z.pages.dev/api/post-content`,
+      {
+        method: "post",
+        body: JSON.stringify({
+          slug,
+          frontmatter,
+          hash,
+          html,
+          code: hasComponents ? code : undefined,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const body = await response.text();
