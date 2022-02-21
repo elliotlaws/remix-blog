@@ -17,7 +17,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-1">
-            <Link to="/blog" className="py-5 px-3">
+            <Link to="/blog" prefetch="intent" className="py-5 px-3">
               Blog
             </Link>
             <Link to="" className="py-5 px-3">
