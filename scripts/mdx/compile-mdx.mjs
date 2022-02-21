@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import * as fsp from "fs/promises";
+import * as crypto from "crypto";
 import { bundleMDX } from "mdx-bundler";
 import rehypeHighlight from "rehype-highlight";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
