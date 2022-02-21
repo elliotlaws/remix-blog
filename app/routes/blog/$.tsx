@@ -29,15 +29,17 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   if (slug === undefined) {
     throw new Response("Not Found", { status: 404 });
   }
-  const { hash, ...data } = (await context.BLOG.get(
-    slug,
-    "json"
-  )) as BlogContentType;
 
+  const data = (await context.BLOG.get(slug, "json")) as BlogContentType;
+  if (data === undefined) {
+    throw new Response("Not Found", { status: 404 });
+  }
   const { commit }: any = (await context.BLOG.get("$$deploy-sha", "json")) ?? {
     commit: {},
   };
   const commitSha = commit.sha ?? "0";
+  const { frontmatter, html, code, hash } = data;
+
   // weak hash should include commit sha since changes in code
   // could result in changes to the content page
   const weakHash = generateWeakHash(commitSha, hash);
@@ -46,21 +48,20 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
     return new Response(null, { status: 304 });
   }
 
-  if (data === undefined) {
-    throw new Response("Not Found", { status: 404 });
-  }
-
-  return json(data, {
-    headers: {
-      // use weak etag because Cloudflare only supports
-      // strong etag on Enterprise plans :(
-      ETag: weakHash,
-      // // add cache control and status for cloudflare?
-      // "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
-      // //'CF-Cache-Status': 'MISS',
-      // "x-remix": "test",
-    },
-  });
+  return json(
+    { slug, frontmatter, html, code },
+    {
+      headers: {
+        // use weak etag because Cloudflare only supports
+        // strong etag on Enterprise plans :(
+        ETag: weakHash,
+        // // add cache control and status for cloudflare?
+        // "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
+        // //'CF-Cache-Status': 'MISS',
+        // "x-remix": "test",
+      },
+    }
+  );
 };
 
 export default function Post() {

@@ -1,7 +1,5 @@
 import { Link, LoaderFunction, useLoaderData, json } from "remix";
 
-declare var BLOG: KVNamespace;
-
 export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.BLOG as KVNamespace).list();
   const posts = await Promise.all(
@@ -11,7 +9,11 @@ export const loader: LoaderFunction = async ({ context }) => {
       return { slug, frontmatter, html };
     })
   );
-  return json(posts);
+  return json(posts, {
+    headers: {
+      "cache-control": "max-age=300",
+    },
+  });
 };
 
 export default function Index() {
