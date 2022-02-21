@@ -10,7 +10,7 @@ import * as React from "react";
 import fetch from "node-fetch";
 
 (async function () {
-  const dir = "../../content";
+  const dir = "../../content/blog";
   const mdxPaths = await fsp.readdir(dir);
 
   mdxPaths.forEach(async (fileName) => {
@@ -22,7 +22,7 @@ import fetch from "node-fetch";
     const fullPath = path.join(dir, fileName);
     const exists = fs.existsSync(fullPath);
 
-    const slug = fileName.replace(".mdx", "");
+    const slug = `blog/${fileName.replace(".mdx", "")}`;
 
     if (exists && (await fsp.lstat(fullPath)).isDirectory()) {
       const mdxPath = path.join(fullPath, "index.mdx");

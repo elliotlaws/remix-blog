@@ -35,7 +35,10 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const data = (await context.BLOG.get(slug, "json")) as BlogContentType;
+  const data = (await context.BLOG.get(
+    `blog/${slug}`,
+    "json"
+  )) as BlogContentType;
   if (!data) {
     throw new Response("Not Found", { status: 404 });
   }

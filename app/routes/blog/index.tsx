@@ -1,7 +1,7 @@
 import { Link, LoaderFunction, useLoaderData, json } from "remix";
 
 export const loader: LoaderFunction = async ({ context }) => {
-  const slugs = await (context.BLOG as KVNamespace).list();
+  const slugs = await (context.BLOG as KVNamespace).list({ prefix: "blog/" });
   const posts = await Promise.all(
     slugs.keys.map(async ({ name }) => {
       const data = await context.BLOG.get(name, "json");
