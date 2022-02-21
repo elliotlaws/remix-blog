@@ -17,19 +17,34 @@ export const links: LinksFunction = () => {
 type BlogContentType = {
   frontmatter: { [key: string]: any };
   html: string;
-  code?: string;
-  hash?: string;
+  code: string;
+  hash: string;
 };
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
 
-export const loader: LoaderFunction = async ({ params, context }) => {
+export const loader: LoaderFunction = async ({ request, params, context }) => {
   const slug = params["*"];
 
   if (slug === undefined) {
     throw new Response("Not Found", { status: 404 });
   }
-  const data = (await context.BLOG.get(slug, "json")) as BlogContentType;
+  const { hash, ...data } = (await context.BLOG.get(
+    slug,
+    "json"
+  )) as BlogContentType;
+
+  const { commit }: any = (await context.BLOG.get("$$deploy-sha", "json")) ?? {
+    commit: {},
+  };
+  const commitSha = commit.sha ?? "0";
+  // weak hash should include commit sha since changes in code
+  // could result in changes to the content page
+  const weakHash = generateWeakHash(commitSha, hash);
+  const etag = request.headers.get("If-None-Match");
+  if (etag === weakHash) {
+    return new Response(null, { status: 304 });
+  }
 
   if (data === undefined) {
     throw new Response("Not Found", { status: 404 });
@@ -39,11 +54,11 @@ export const loader: LoaderFunction = async ({ params, context }) => {
     headers: {
       // use weak etag because Cloudflare only supports
       // strong etag on Enterprise plans :(
-      // ETag: weakHash,
-      // add cache control and status for cloudflare?
-      "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
-      //'CF-Cache-Status': 'MISS',
-      "x-remix": "test",
+      ETag: weakHash,
+      // // add cache control and status for cloudflare?
+      // "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
+      // //'CF-Cache-Status': 'MISS',
+      // "x-remix": "test",
     },
   });
 };
@@ -71,4 +86,8 @@ export default function Post() {
       )}
     </div>
   );
+}
+
+function generateWeakHash(commitSha: string, hash: string) {
+  return `W/${commitSha.substring(0, 20)}-${hash.substring(0, 20)}`;
 }

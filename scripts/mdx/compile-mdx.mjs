@@ -59,12 +59,18 @@ import fetch from "node-fetch";
     const html = renderToString(React.createElement(Component));
     const hasComponents = Object.keys(files).length > 0;
 
+    const hash = crypto
+      .createHash("sha256")
+      .update(`${JSON.stringify(frontmatter)}${code}`)
+      .digest("hex");
+
     const response = await fetch(
       `https://remix-blog-a0z.pages.dev/api/post-content`,
       {
         method: "post",
         body: JSON.stringify({
           slug,
+          hash,
           frontmatter,
           html,
           code: hasComponents ? code : undefined,
