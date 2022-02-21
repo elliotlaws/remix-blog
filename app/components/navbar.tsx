@@ -1,3 +1,5 @@
+import { Link } from "remix";
+
 export default function Navbar() {
   return (
     <nav className="bg-gray-100 dark:bg-gray-800">
@@ -5,22 +7,22 @@ export default function Navbar() {
         <div className="flex justify-between">
           <div className="flex space-x-4">
             <div>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900"
               >
                 <h1 className="text-2xl font-bold">Elliot Laws</h1>
-              </a>
+              </Link>
             </div>
           </div>
 
           <div className="hidden md:flex items-center space-x-1">
-            <a href="/blog" className="py-5 px-3">
+            <Link to="/blog" className="py-5 px-3">
               Blog
-            </a>
-            <a href="" className="py-5 px-3">
+            </Link>
+            <Link to="" className="py-5 px-3">
               About
-            </a>
+            </Link>
           </div>
 
           <div className="md:hidden flex items-center">
