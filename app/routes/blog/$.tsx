@@ -1,18 +1,12 @@
-import {
-  HeadersFunction,
-  json,
-  LinksFunction,
-  LoaderFunction,
-  useLoaderData,
-} from "remix";
+import { HeadersFunction, json, LoaderFunction, useLoaderData } from "remix";
 import { getMDXComponent } from "~/utils/mdx.client";
 
-export const links: LinksFunction = () => [
-  {
-    rel: "stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark.min.css",
-  },
-];
+// export const links: LinksFunction = () => [
+//   {
+//     rel: "stylesheet",
+//     href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark.min.css",
+//   },
+// ];
 
 type Frontmatter = {
   [key: string]: any;

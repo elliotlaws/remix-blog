@@ -10,9 +10,13 @@ import type { MetaFunction } from "remix";
 import Navbar from "./components/navbar";
 
 import tailwindStyles from "~/styles/tailwind.css";
+import proseStyles from "~/styles/prose.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: tailwindStyles }];
+  return [
+    { rel: "stylesheet", href: tailwindStyles },
+    { rel: "stylesheet", href: proseStyles },
+  ];
 }
 
 export const meta: MetaFunction = () => {
