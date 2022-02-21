@@ -30,14 +30,6 @@ jobs:
           # Add this if you want GitHub Deployments (see below)
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🚀 Update deploy sha
-        run: node ./scripts/mdx/update-deploy-sha.js
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
         with:
@@ -59,6 +51,11 @@ jobs:
 
       - name: 📦 Install npm packages
         run: cd ./scripts/mdx && npm install
+
+      - name: 🚀 Update deploy sha
+        run: node ./scripts/mdx/update-deploy-sha.js
+        env:
+          COMMIT_SHA: ${{ github.sha }}
 
       - name: 🚀 Compile and post MDX
         run: cd ./scripts/mdx && node ./compile-mdx.mjs
