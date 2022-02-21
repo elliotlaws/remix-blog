@@ -5,9 +5,9 @@
   "license": "",
   "scripts": {
     "build": "npm run build:css && remix build",
-    "build:css": "tailwindcss -o ./app/tailwind.css",
+    "build:css": "tailwindcss -o ./app/styles/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"npm run dev:remix\" \"npm run dev:wrangler\"",
-    "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
+    "dev:css": "tailwindcss -o ./app/styles/tailwind.css --watch",
     "postinstall": "remix setup cloudflare-pages",
     "dev:remix": "remix watch",
     "dev:wrangler": "wrangler pages dev ./public --watch  --kv BLOG ./build",

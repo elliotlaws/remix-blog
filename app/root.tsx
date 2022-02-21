@@ -1,19 +1,18 @@
 import {
   Links,
   LiveReload,
-  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
-import styles from "./tailwind.css";
 import Navbar from "./components/navbar";
 
+import tailwindStyles from "~/styles/tailwind.css";
+
 export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+  return [{ rel: "stylesheet", href: tailwindStyles }];
 }
 
 export const meta: MetaFunction = () => {
