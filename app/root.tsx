@@ -12,13 +12,7 @@ import Navbar from "./components/navbar";
 import tailwindStyles from "~/styles/tailwind.css";
 
 export function links() {
-  return [
-    {
-      rel: "stylesheet",
-      href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark.min.css",
-    },
-    { rel: "stylesheet", href: tailwindStyles },
-  ];
+  return [{ rel: "stylesheet", href: tailwindStyles }];
 }
 
 export const meta: MetaFunction = () => {
