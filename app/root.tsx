@@ -10,12 +10,14 @@ import type { MetaFunction } from "remix";
 import Navbar from "./components/navbar";
 
 import tailwindStyles from "~/styles/tailwind.css";
-import proseStyles from "~/styles/prose.css";
 
 export function links() {
   return [
+    {
+      rel: "stylesheet",
+      href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark.min.css",
+    },
     { rel: "stylesheet", href: tailwindStyles },
-    { rel: "stylesheet", href: proseStyles },
   ];
 }
 
