@@ -58,4 +58,4 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
 
       - name: 🚀 Compile and post MDX
-        run: cd ./scripts/mdx && node ./compile-mdx.mjs
+        run: node ./scripts/mdx/compile-mdx.mjs

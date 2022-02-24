@@ -10,8 +10,9 @@ import * as React from "react";
 import fetch from "node-fetch";
 
 (async function () {
-  const dir = "../../content/blog";
+  const dir = `./content/blog`;
   const mdxPaths = await fsp.readdir(dir);
+  console.log(mdxPaths);
 
   mdxPaths.forEach(async (fileName) => {
     console.error(`Compiling ${fileName}...`);
@@ -65,19 +66,16 @@ import fetch from "node-fetch";
       .update(`${JSON.stringify(frontmatter)}${""}${code}`)
       .digest("hex");
 
-    const response = await fetch(
-      `https://remix-blog-a0z.pages.dev/api/post-content`,
-      {
-        method: "post",
-        body: JSON.stringify({
-          slug,
-          frontmatter,
-          hash,
-          html,
-          code: hasComponents ? code : undefined,
-        }),
-      }
-    );
+    const response = await fetch(`http://localhost:8788/api/post-content`, {
+      method: "post",
+      body: JSON.stringify({
+        slug,
+        frontmatter,
+        hash,
+        html,
+        code: hasComponents ? code : undefined,
+      }),
+    });
 
     if (!response.ok) {
       const body = await response.text();

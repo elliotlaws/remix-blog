@@ -29,6 +29,7 @@ type BlogContentType = {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
 
 export const loader: LoaderFunction = async ({ request, params, context }) => {
+  console.log(request.headers);
   const slug = params["*"];
 
   if (slug === undefined) {
@@ -52,6 +53,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   // could result in changes to the content page
   const weakHash = generateWeakHash(commitSha, hash);
   const etag = request.headers.get("If-None-Match");
+
   if (etag === weakHash) {
     return new Response(null, { status: 304 });
   }
@@ -81,15 +83,17 @@ export default function Post() {
   }
 
   return (
-    <div className="flex justify-center dark:bg-gray-900">
+    <div className="justify-center dark:bg-gray-900 py-10 max-w-screen-lg">
+      <div className="pb-8">
+        <h1 className="text-3xl">{frontmatter.title}</h1>
+      </div>
       {Component ? (
-        <article className="prose prose-slate lg:prose-lg dark:prose-invert py-10 max-w-screen-lg">
-          <h1>{frontmatter.title}</h1>
+        <main className="prose prose-slate lg:prose-lg dark:prose-invert ">
           <Component />
-        </article>
+        </main>
       ) : (
-        <article
-          className="prose prose-slate lg:prose-lg dark:prose-invert py-10 max-w-screen-lg"
+        <main
+          className="prose prose-slate lg:prose-lg dark:prose-invert  "
           dangerouslySetInnerHTML={{ __html: html }}
         />
       )}

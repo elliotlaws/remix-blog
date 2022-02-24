@@ -30,18 +30,22 @@ export default function App() {
       </head>
       <body>
         <Navbar />
-        <Outlet />
+        <div className="flex-1">
+          <div className="container p-4 m-auto lg:max-w-screen-lg">
+            <Outlet />
+          </div>
+        </div>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
         {/* Cloudflare Web Analytics */}
-        {process.env.NODE_ENV === "production" && (
+        {/* {process.env.NODE_ENV === "production" && (
           <script
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
             data-cf-beacon='{"token": "cf7ec1461d994872b4a5463f0a1b336b"}'
-          ></script>
-        )}
+          ></script> */}
+        {/* )} */}
       </body>
     </html>
   );

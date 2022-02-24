@@ -21,18 +21,30 @@ export default function Index() {
   const posts: MdxListItem[] = useLoaderData();
 
   return (
-    <div>
-      <h2>Articles</h2>
-      <ul>
+    <div className="mt-6">
+      <h1 className="text-3xl font-bold">Blog Posts</h1>
+      <div className="inline-grid grid-cols-3 gap-6 mt-6">
         {posts.map(({ slug, frontmatter }) => (
-          <li key={slug}>
-            <Link to={`/${slug}`}>{frontmatter.title}</Link>
-            {frontmatter.description ? (
-              <p className="m-0 lg:m-0">{frontmatter.description}</p>
-            ) : null}
-          </li>
+          <Link
+            key={slug}
+            to={`/${slug}`}
+            className="p-6 hover:cursor-pointer ring-2 hover:ring-4 rounded-md"
+          >
+            <div className="grid gap-2 justify-center">
+              <div className="text-2xl font-medium">{frontmatter.title}</div>
+              <p className="font-medium text-slate-700">
+                {frontmatter.date &&
+                  new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+              </p>
+              <p>{frontmatter.description}</p>
+            </div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

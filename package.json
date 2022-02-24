@@ -12,7 +12,7 @@
     "dev:remix": "remix watch",
     "dev:wrangler": "wrangler pages dev ./public --watch  --kv BLOG ./build",
     "start": "npm run dev:wrangler",
-    "compile": "node compile-mdx.mjs",
+    "compile": "node ./scripts/mdx/compile-mdx.mjs ",
     "content:watch": "node ./scripts/watch-content.js"
   },
   "dependencies": {

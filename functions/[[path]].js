@@ -13,5 +13,6 @@ const handleRequest = createPagesFunctionHandler({
 });
 
 export function onRequest(context) {
+  console.log("context", context.request.headers);
   return handleRequest(context);
 }
