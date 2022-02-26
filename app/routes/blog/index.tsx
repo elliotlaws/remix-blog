@@ -23,15 +23,22 @@ export default function Index() {
   return (
     <div className="mt-6">
       <h1 className="text-3xl font-bold">Blog Posts</h1>
-      <div className="inline-grid grid-cols-3 gap-6 mt-6">
-        {posts.map(({ slug, frontmatter }) => (
+      <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
+        {posts.map(({ slug, frontmatter }: any) => (
           <Link
             key={slug}
             to={`/${slug}`}
-            className="p-6 hover:cursor-pointer ring-2 hover:ring-4 rounded-md"
+            className="group py-4 hover:cursor-pointer transition duration-50 hover:ease-in col-span-4"
           >
             <div className="grid gap-2 justify-center">
-              <div className="text-2xl font-medium">{frontmatter.title}</div>
+              <div className="aspect-w-3 aspect-h-4">
+                {frontmatter.image.cropped && (
+                  <img
+                    src={frontmatter.image.cropped}
+                    className="rounded-lg group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
+                  />
+                )}
+              </div>
               <p className="font-medium text-slate-700">
                 {frontmatter.date &&
                   new Date(frontmatter.date).toLocaleDateString("en-GB", {
@@ -40,6 +47,7 @@ export default function Index() {
                     day: "numeric",
                   })}
               </p>
+              <div className="text-2xl font-medium">{frontmatter.title}</div>
               <p>{frontmatter.description}</p>
             </div>
           </Link>
@@ -48,3 +56,6 @@ export default function Index() {
     </div>
   );
 }
+
+// 1366 x 768
+// 560 x 747

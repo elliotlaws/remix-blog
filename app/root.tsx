@@ -10,9 +10,15 @@ import type { MetaFunction } from "remix";
 import Navbar from "./components/navbar";
 
 import tailwindStyles from "~/styles/tailwind.css";
+import globalStyles from "~/styles/global.css";
+import vendorStyles from "~/styles/vendors.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: tailwindStyles }];
+  return [
+    { rel: "stylesheet", href: tailwindStyles },
+    { rel: "stylesheet", href: globalStyles },
+    { rel: "stylesheet", href: vendorStyles },
+  ];
 }
 
 export const meta: MetaFunction = () => {
@@ -28,24 +34,31 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Navbar />
-        <div className="flex-1">
-          <div className="container p-4 m-auto lg:max-w-screen-lg">
-            <Outlet />
+      <body className="min-h-screen">
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex-1">
+            <div className="container p-4 m-auto lg:max-w-screen-lg">
+              <Outlet />
+            </div>
           </div>
-        </div>
-        <ScrollRestoration />
-        <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
-        {/* Cloudflare Web Analytics */}
-        {/* {process.env.NODE_ENV === "production" && (
+          <footer className="px-12 py-6 mt-16 border-t border-slate-600">
+            <div className="max-w-6xl mx-auto px-4">
+              <p>&copy; Elliot Laws</p>
+            </div>
+          </footer>
+          <ScrollRestoration />
+          <Scripts />
+          {process.env.NODE_ENV === "development" && <LiveReload />}
+          {/* Cloudflare Web Analytics */}
+          {/* {process.env.NODE_ENV === "production" && (
           <script
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
             data-cf-beacon='{"token": "cf7ec1461d994872b4a5463f0a1b336b"}'
           ></script> */}
-        {/* )} */}
+          {/* )} */}
+        </div>
       </body>
     </html>
   );

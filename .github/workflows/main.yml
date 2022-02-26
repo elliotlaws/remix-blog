@@ -59,3 +59,5 @@ jobs:
 
       - name: 🚀 Compile and post MDX
         run: node ./scripts/mdx/compile-mdx.mjs
+        env:
+          NODE_ENV: production

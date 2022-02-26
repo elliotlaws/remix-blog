@@ -2,46 +2,45 @@
 title: Terminal setup
 date: 2022-01-26
 description: How I setup my terminal for development on a new macs
-meta:
-  title: Terminal setup
-  description: How I setup my terminal for development on a new mac
+tags: ["terminal", "mac"]
+image:
+  url: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/926eb38c-1994-4be1-0208-600d838a8d00/public
+  cropped: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/926eb38c-1994-4be1-0208-600d838a8d00/cropped
 ---
 
-## iTerm
+## 1. iTerm
 
-1. Install latest iTerms [https://iterm2.com/downloads.html](https://iterm2.com/downloads.html)
+Install latest iTerms [https://iterm2.com/downloads.html](https://iterm2.com/downloads.html)
 
-## Install Oh My Zsh
+## 2. Install Oh My Zsh
 
-1. Install oh-my-zsh using curls
+Install oh-my-zsh using curls
 
 ```bash
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-1. Make zsh the default shell `chsh -s $(which zsh)` then log out and log back in again to use your new default shell.
+Make zsh the default shell `chsh -s $(which zsh)` then log out and log back in again to use your new default shell.
 
-## Set the theme
+## 4. Set the theme
 
-1. Install Powerlevel10k
+Install Powerlevel10k
 
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-1. Then enable it, change the value of ZSH_THEME to following in `~/.zshrc` file. Open using `open ~/.zshrc` , save file and then restart terminal.
+Then enable it, change the value of ZSH_THEME to following in `~/.zshrc` file. Open using `open ~/.zshrc` , save file and then restart terminal.
 
 ```bash
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
-1. After the terminal has been restarted complete the questions to configure the theme.
+After the terminal has been restarted complete the questions to configure the theme.
 
-## Install plugins
+## 5. Install plugins
 
-1. Install Autosuggestions
-
-Clone the repo
+Clone the zsh-autosuggestions repo
 
 ```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -56,7 +55,7 @@ plugins=(
 )
 ```
 
-1. Install zsh-syntax-highlighting
+Install zsh-syntax-highlighting
 
 Clone the repo and source the script
 
@@ -71,9 +70,9 @@ Then, enable syntax highlighting in the current interactive shell
 source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
-## Configure VS Code
+## 6. Configure VS Code
 
-1. In VS code, open settings.json and add the following to set the default terminal profile and ensure icons show correctly.
+In VS code, open settings.json and add the following to set the default terminal profile and ensure icons show correctly.
 
 ```bash
 "terminal.integrated.defaultProfile.osx": "zsh",

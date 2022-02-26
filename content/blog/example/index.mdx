@@ -3,13 +3,8 @@ title: Counter Examples
 date: 2021-01-13
 description: This is an MDX file with an interactive React component.
 image:
-  url: https://imagedelivery.net/u-2jVOQ91N--iZ9jR2vcqA/26c837c8-bb3b-4268-202e-a53c09ece800/public
-  credit:
-    url: https://unsplash.com/@peakdancer
-    text: Donna Elliot
-  source:
-    url: https://unsplash.com/photos/f3mHE2UH2zM
-    text: Unsplash
+  url: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/8aaf81ef-aaaf-49c2-fba5-8e1922647f00/public
+  cropped: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/8aaf81ef-aaaf-49c2-fba5-8e1922647f00/cropped
 posts:
   - debug
 tags: [mdx, react, counter]
@@ -21,10 +16,19 @@ Click on the **button** to increment the counter.
 
 <Counter />
 
-```ts
-import Counter from './counter'
+```tsx
+import { useState } from "react";
 
-Click on the **button** to increment the counter.
+export default function Counter() {
+  const [count, setCount] = useState(0);
 
-<Counter />
+  return (
+    <button
+      className="w-16 px-4 py-2 rounded-md !bg-black  text-slate-900"
+      onClick={() => setCount(count + 1)}
+    >
+      {count}
+    </button>
+  );
+}
 ```

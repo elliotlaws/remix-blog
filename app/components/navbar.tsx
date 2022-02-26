@@ -1,6 +1,19 @@
+import clsx from "clsx";
+import { useState } from "react";
+import { NavLink } from "remix";
 import { Link } from "remix";
 
+const LINKS = [
+  {
+    name: "Blog",
+    to: "/blog",
+  },
+  { name: "About", to: "/" },
+];
+
 export default function Navbar() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <nav className="bg-gray-100 dark:bg-gray-800">
       <div className="max-w-6xl mx-auto px-4">
@@ -17,17 +30,26 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-1">
-            <Link to="/blog" prefetch="intent" className="py-5 px-3">
-              Blog
-            </Link>
-            <Link to="" className="py-5 px-3">
-              About
-            </Link>
+            {LINKS.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                prefetch="intent"
+                className={({ isActive }) =>
+                  clsx(
+                    isActive ? "active" : "text-gray-500 hover:text-slate-600",
+                    "py-5 px-3 underlined font-medium"
+                  )
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
           </div>
 
           <div className="md:hidden flex items-center">
-            <button className="mobile-menu-button">
-              {/* <svg
+            <button onClick={() => setIsExpanded(!isExpanded)}>
+              <svg
                 className="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -35,24 +57,46 @@ export default function Navbar() {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
-              </svg> */}
+              </svg>
             </button>
           </div>
         </div>
       </div>
 
-      <div className="mobile-menu hidden md:hidden">
-        <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
+      <div
+        className={clsx([
+          isExpanded ? "block" : "hidden",
+          "md:hidden divide-y-2 border-2  ",
+        ])}
+      >
+        {/* <a href="#" className="block py-4 px-6 text-sm hover:bg-gray-200">
           Features
         </a>
-        <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
+        <a href="#" className="block py-4 px-6 text-sm hover:bg-gray-200">
           Pricing
-        </a>
+        </a> */}
+
+        {LINKS.map((link) => (
+          <NavLink
+            onClick={() => setIsExpanded(false)}
+            key={link.to}
+            to={link.to}
+            prefetch="intent"
+            className={({ isActive }) =>
+              clsx(
+                isActive ? "active" : "text-gray-500 hover:text-slate-600",
+                "py-4 px-6 font-medium block hover:bg-gray-200"
+              )
+            }
+          >
+            {link.name}
+          </NavLink>
+        ))}
       </div>
     </nav>
   );

@@ -66,7 +66,11 @@ import fetch from "node-fetch";
       .update(`${JSON.stringify(frontmatter)}${""}${code}`)
       .digest("hex");
 
-    const response = await fetch(`http://localhost:8788/api/post-content`, {
+    const env = process.env.NODE_ENV || "development";
+    const apiUrl =
+      env === "production" ? "http://elliotlaws.com" : "http://localhost:8788";
+
+    const response = await fetch(`${apiUrl}/api/post-content`, {
       method: "post",
       body: JSON.stringify({
         slug,

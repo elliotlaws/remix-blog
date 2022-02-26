@@ -4,8 +4,27 @@ import {
   LoaderFunction,
   useLoaderData,
   LinksFunction,
+  Link,
 } from "remix";
 import { getMDXComponent } from "~/utils/mdx.client";
+
+export function Tag(props: any) {
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded font-medium bg-indigo-100 text-indigo-800 mt-2">
+      <span>#</span>
+      {props.children}
+    </span>
+  );
+}
+
+export function HeroImage({ frontmatter }: any) {
+  if (!frontmatter?.image) return null;
+  return (
+    <div className="aspect-w-16 aspect-h-9">
+      <img src={frontmatter.image.url} className="rounded-lg " />
+    </div>
+  );
+}
 
 export const links: LinksFunction = () => [
   {
@@ -83,20 +102,51 @@ export default function Post() {
   }
 
   return (
-    <div className="justify-center dark:bg-gray-900 py-10 max-w-screen-lg">
-      <div className="pb-8">
-        <h1 className="text-3xl">{frontmatter.title}</h1>
+    <div className="py-8 max-w-screen-lg">
+      <div className="mb-6">
+        <Link
+          to="/blog"
+          className="group w-fit flex items-center font-medium text-xl text-gray-400 hover:text-gray-500"
+        >
+          <span className="group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in">{`<-`}</span>
+          Back to posts
+        </Link>
       </div>
-      {Component ? (
-        <main className="prose prose-slate lg:prose-lg dark:prose-invert ">
-          <Component />
-        </main>
-      ) : (
-        <main
-          className="prose prose-slate lg:prose-lg dark:prose-invert  "
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      )}
+      <HeroImage frontmatter={frontmatter} />
+      <div className=" dark:bg-gray-900 py-8 max-w-screen-lg">
+        <div className="lg:px-16">
+          <div className="pb-8 grid gap-2">
+            <h1 className="text-4xl font-extrabold">{frontmatter.title}</h1>
+            <p className="font-medium text-gray-500 text-lg">
+              {frontmatter.date &&
+                new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+            </p>
+            {frontmatter.tags && (
+              <div className="flex items-center gap-2">
+                {frontmatter.tags.map((tag: string) => (
+                  <Link key={tag} to={`/blog/tags/${tag}`}>
+                    <Tag>{tag}</Tag>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          {Component ? (
+            <main className="max-w-none prose prose-slate lg:prose-lg dark:prose-invert">
+              <Component />
+            </main>
+          ) : (
+            <main
+              className="max-w-none prose prose-slate lg:prose-lg dark:prose-invert  "
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
