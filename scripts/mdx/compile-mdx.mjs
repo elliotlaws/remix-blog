@@ -68,7 +68,9 @@ import fetch from "node-fetch";
 
     const env = process.env.NODE_ENV || "development";
     const apiUrl =
-      env === "production" ? "http://elliotlaws.com" : "http://localhost:8788";
+      env === "production"
+        ? "https://remix-blog-a0z.pages.dev"
+        : "http://localhost:8788";
 
     const response = await fetch(`${apiUrl}/api/post-content`, {
       method: "post",
