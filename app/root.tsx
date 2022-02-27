@@ -44,7 +44,7 @@ export default function App() {
           </div>
           <footer className="px-12 py-6 mt-16 border-t border-slate-600">
             <div className="max-w-6xl mx-auto px-4">
-              <p>&copy; Elliot Laws</p>
+              <p className="font-medium">&copy; Elliot Laws</p>
             </div>
           </footer>
           <ScrollRestoration />

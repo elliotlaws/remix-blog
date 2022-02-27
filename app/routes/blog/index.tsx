@@ -22,7 +22,9 @@ export default function Index() {
 
   return (
     <div className="mt-6">
-      <h1 className="text-3xl font-bold">Blog Posts</h1>
+      <h1 className="text-3xl font-bold text-center md:text-left">
+        Blog Posts
+      </h1>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
         {posts.map(({ slug, frontmatter }: any) => (
           <Link
