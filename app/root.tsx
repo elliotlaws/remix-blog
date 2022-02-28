@@ -43,7 +43,7 @@ export default function App() {
             </div>
           </div>
           <footer className="py-6 mt-16 border-t border-slate-600">
-            <div className="max-w-6xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4">
               <p className="font-medium">&copy; Elliot Laws</p>
             </div>
           </footer>

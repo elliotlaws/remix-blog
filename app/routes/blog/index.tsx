@@ -21,10 +21,8 @@ export default function Index() {
   const posts: MdxListItem[] = useLoaderData();
 
   return (
-    <div className="mt-6">
-      <h1 className="text-3xl font-bold text-center md:text-left">
-        Blog Posts
-      </h1>
+    <div className="mt-4">
+      <h1 className="text-3xl font-semibold text-center md:text-left">{`<Posts />`}</h1>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
         {posts.map(({ slug, frontmatter }: any) => (
           <Link

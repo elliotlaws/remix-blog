@@ -108,7 +108,7 @@ export default function Post() {
           to="/blog"
           className="group w-fit flex items-center font-medium text-xl text-gray-400 hover:text-gray-500"
         >
-          <span className="group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in">{`<-`}</span>
+          <span className="group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in">{`</`}</span>
           Back to posts
         </Link>
       </div>
@@ -116,7 +116,7 @@ export default function Post() {
       <div className=" dark:bg-gray-900 py-8 max-w-screen-lg">
         <div className="lg:px-16">
           <div className="pb-8 grid gap-2">
-            <h1 className="text-4xl font-extrabold">{frontmatter.title}</h1>
+            <h1 className="text-4xl font-bold">{frontmatter.title}</h1>
             <p className="font-medium text-gray-500 text-lg">
               {frontmatter.date &&
                 new Date(frontmatter.date).toLocaleDateString("en-GB", {
