@@ -6,8 +6,10 @@ import {
   MenuLink,
   MenuList,
   MenuPopover,
+  useMenuButtonContext,
 } from "@reach/menu-button";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { NavLink } from "remix";
 import { Link } from "remix";
@@ -68,52 +70,120 @@ export default function Navbar() {
 export function MobileMenu() {
   return (
     <Menu>
-      <MenuButton>
-        <svg
-          className="w-6 h-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </MenuButton>
-      <MenuPopover
-        position={(r) => ({
-          top: `calc(${Number(r?.top) + Number(r?.height)}px + 1em)`, // 2.25 rem = py-9 from navbar
-          left: 0,
-          bottom: 0,
-          right: 0,
-        })}
-        style={{
-          zIndex: 50,
-          background: "white",
-          height: "fit-content",
-          width: "100vw",
-        }}
-        className="slide-down"
-      >
-        <div className="slide-down">
-          <MenuItems className="divide-y-2 border-2 md:hidden slide-down">
-            {LINKS.map((link) => (
-              <MenuLink
-                className="py-4 px-6 font-medium block hover:bg-gray-200 divide-y-2"
-                key={link.to}
-                to={link.to}
-                as={Link}
-              >
-                {link.name}
-              </MenuLink>
-            ))}
-          </MenuItems>
-        </div>
-      </MenuPopover>
+      <MobileMenuButton />
+      <MobileMenuList />
     </Menu>
+  );
+}
+
+const topVariants = {
+  open: { rotate: 45, y: 7 },
+  closed: { rotate: 0, y: 0 },
+};
+
+const centerVariants = {
+  open: { opacity: 0 },
+  closed: { opacity: 1 },
+};
+
+const bottomVariants = {
+  open: { rotate: -45, y: -5 },
+  closed: { rotate: 0, y: 0 },
+};
+
+function MobileMenuButton() {
+  const { isExpanded } = useMenuButtonContext();
+  const state = isExpanded ? "open" : "closed";
+
+  return (
+    <MenuButton>
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <motion.rect
+          animate={state}
+          variants={topVariants}
+          x="6"
+          y="9"
+          width="20"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        />
+        <motion.rect
+          animate={state}
+          variants={centerVariants}
+          x="6"
+          y="15"
+          width="20"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        />
+        <motion.rect
+          animate={state}
+          variants={bottomVariants}
+          x="6"
+          y="21"
+          width="20"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        />
+      </svg>
+    </MenuButton>
+  );
+}
+
+function MobileMenuList() {
+  const { isExpanded } = useMenuButtonContext();
+
+  return (
+    <AnimatePresence>
+      {isExpanded ? (
+        <MenuPopover
+          position={(r) => ({
+            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1em)`, // 2.25 rem = py-9 from navbar
+            left: 0,
+            bottom: 0,
+            right: 0,
+          })}
+          style={{
+            zIndex: 50,
+            background: "white",
+            height: "fit-content",
+            width: "100vw",
+          }}
+          className="slide-down"
+        >
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{
+              duration: 0.15,
+              ease: "linear",
+            }}
+          >
+            <MenuItems className="divide-y-2 border-2 md:hidden focus:outline-none">
+              {LINKS.map((link) => (
+                <MenuLink
+                  className="py-4 px-6 font-medium block hover:bg-gray-200 divide-y-2"
+                  key={link.to}
+                  to={link.to}
+                  as={Link}
+                >
+                  {link.name}
+                </MenuLink>
+              ))}
+            </MenuItems>
+          </motion.div>
+        </MenuPopover>
+      ) : null}
+    </AnimatePresence>
   );
 }
