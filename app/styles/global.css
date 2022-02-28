@@ -32,7 +32,3 @@ pre code.hljs {
   background-color: currentColor;
   transform: scaleX(1);
 }
-
-:focus:not(:focus-visible) {
-  outline: none;
-}

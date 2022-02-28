@@ -19,12 +19,10 @@ const LINKS = [
     name: "Blog",
     to: "/blog",
   },
-  { name: "About", to: "/" },
+  { name: "About", to: "/about" },
 ];
 
 export default function Navbar() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
     <nav className="bg-gray-100 dark:bg-gray-800">
       <div className="max-w-6xl mx-auto px-4">
@@ -96,13 +94,14 @@ function MobileMenuButton() {
   const state = isExpanded ? "open" : "closed";
 
   return (
-    <MenuButton>
+    <MenuButton className="focus:outline-none">
       <svg
         width="32"
         height="32"
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="z-100"
       >
         <motion.rect
           animate={state}
@@ -147,21 +146,15 @@ function MobileMenuList() {
       {isExpanded ? (
         <MenuPopover
           position={(r) => ({
-            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1em)`, // 2.25 rem = py-9 from navbar
+            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1.5em)`,
             left: 0,
             bottom: 0,
             right: 0,
           })}
-          style={{
-            zIndex: 50,
-            background: "white",
-            height: "fit-content",
-            width: "100vw",
-          }}
-          className="slide-down"
+          className="h-fit z-50 bg-white"
         >
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{
@@ -169,10 +162,10 @@ function MobileMenuList() {
               ease: "linear",
             }}
           >
-            <MenuItems className="divide-y-2 border-2 md:hidden focus:outline-none">
+            <MenuItems className="divide-y-2 border-none md:hidden focus:outline-none p-0">
               {LINKS.map((link) => (
                 <MenuLink
-                  className="py-4 px-6 font-medium block hover:bg-gray-200 divide-y-2"
+                  className="p-6 !font-medium text-base hover:bg-gray-200 focus:bg-gray-200 divide-y-2 flex items-center"
                   key={link.to}
                   to={link.to}
                   as={Link}
