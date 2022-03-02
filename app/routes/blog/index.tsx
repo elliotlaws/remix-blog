@@ -1,4 +1,5 @@
 import { Link, LoaderFunction, useLoaderData, json } from "remix";
+import { getImageProps } from "~/components/image";
 
 export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.BLOG as KVNamespace).list({ prefix: "blog/" });
@@ -32,9 +33,13 @@ export default function Index() {
           >
             <div className="grid gap-2 justify-center">
               <div className="aspect-w-3 aspect-h-4">
-                {frontmatter.image.cropped && (
+                {frontmatter.image.url && (
                   <img
-                    src={frontmatter.image.cropped}
+                    {...getImageProps(
+                      frontmatter?.image.url,
+                      frontmatter?.image.credit,
+                      "cropped"
+                    )}
                     className="rounded-lg group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
                   />
                 )}

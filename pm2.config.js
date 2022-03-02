@@ -20,8 +20,7 @@ module.exports = {
         "./styles/**/*.css",
       ],
       env: {
-        NODE_ENV: process.env.NODE_ENV ?? "development",
-        FORCE_COLOR: "1",
+        NODE_ENV: process.env.NODE_ENV || "development",
       },
     },
     {
@@ -29,7 +28,7 @@ module.exports = {
       script: "wrangler pages dev ./public --watch  --kv BLOG ./build",
       ignore_watch: ["."],
       env: {
-        NODE_ENV: process.env.NODE_ENV ?? "development",
+        NODE_ENV: process.env.NODE_ENV || "development",
       },
     },
     {

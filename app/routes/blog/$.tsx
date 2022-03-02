@@ -6,6 +6,7 @@ import {
   LinksFunction,
   Link,
 } from "remix";
+import Image, { getImageProps } from "~/components/image";
 import { getMDXComponent } from "~/utils/mdx.client";
 
 export function Tag(props: any) {
@@ -18,10 +19,17 @@ export function Tag(props: any) {
 }
 
 export function HeroImage({ frontmatter }: any) {
-  if (!frontmatter?.image) return null;
+  if (!frontmatter?.image.url) return null;
+
+  const imageProps = getImageProps(
+    frontmatter?.image.url,
+    frontmatter?.image.credit,
+    "blogPage"
+  );
+
   return (
     <div className="aspect-w-16 aspect-h-9">
-      <img src={frontmatter.image.url} className="rounded-lg " />
+      <img className="rounded-lg" {...imageProps} />
     </div>
   );
 }

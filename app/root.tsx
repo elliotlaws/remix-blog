@@ -34,7 +34,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen dark:bg-zinc-800 dark:text-zinc-200">
+      <body className="min-h-screen dark:bg-[#1d1e25fc] dark:text-zinc-200">
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
