@@ -24,21 +24,21 @@ const LINKS = [
 
 export default function Navbar() {
   return (
-    <nav className="dark:bg-gray-800">
+    <nav className="dark:text-zinc-200">
       <div className="max-w-7xl mx-auto px-4 py-9">
         <div className="flex justify-between items-center">
           <div className="flex space-x-4">
             <div>
               <Link
                 to="/"
-                className="flex items-center px-2  hover:text-gray-900"
+                className="flex items-center px-2 hover:text-gray-900 dark:hover:text-zinc-300"
               >
                 <h1 className="text-2xl font-semibold">Elliot Laws</h1>
               </Link>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-5">
             {LINKS.map((link) => (
               <NavLink
                 key={link.to}
@@ -46,8 +46,10 @@ export default function Navbar() {
                 prefetch="intent"
                 className={({ isActive }) =>
                   clsx(
-                    isActive ? "active" : "text-gray-500 hover:text-slate-600",
-                    "py-5 px-3 underlined font-medium"
+                    isActive
+                      ? "active dark:text-zinc-100"
+                      : "dark:text-zinc-400",
+                    "py-5 underlined font-medium dark:text-zinc-200 dark:hover:text-zinc-200"
                   )
                 }
               >
@@ -170,14 +172,14 @@ function MobileMenuList() {
           className="z-50"
         >
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: -40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -50, opacity: 0 }}
+            exit={{ y: -40, opacity: 0 }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.15,
               ease: "linear",
             }}
-            className="bg-white text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12 dark:border-gray-600"
+            className="bg-white dark:bg-zinc-900 text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12 "
           >
             <MenuItems className="border-none bg-transparent p-0">
               {LINKS.map((link) => (

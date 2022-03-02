@@ -27,18 +27,18 @@ export const meta: MetaFunction = () => {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen">
+      <body className="min-h-screen dark:bg-zinc-800 dark:text-zinc-200">
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
-            <div className="container p-4 m-auto lg:max-w-screen-lg">
+            <div className="container px-4 m-auto lg:max-w-screen-lg">
               <Outlet />
             </div>
           </div>

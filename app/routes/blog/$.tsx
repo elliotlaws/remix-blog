@@ -106,18 +106,20 @@ export default function Post() {
       <div className="mb-6">
         <Link
           to="/blog"
-          className="group w-fit flex items-center font-medium text-xl text-gray-400 hover:text-gray-500"
+          className="group w-fit flex items-center font-medium text-xl text-zinc-400 hover:text-gray-500"
         >
           <span className="group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in">{`</`}</span>
           Back to posts
         </Link>
       </div>
       <HeroImage frontmatter={frontmatter} />
-      <div className=" dark:bg-gray-900 py-8 max-w-screen-lg">
+      <div className="py-8 max-w-screen-lg">
         <div className="lg:px-16">
           <div className="pb-8 grid gap-2">
-            <h1 className="text-4xl font-bold">{frontmatter.title}</h1>
-            <p className="font-medium text-gray-500 text-lg">
+            <h1 className="text-4xl font-bold dark:text-white">
+              {frontmatter.title}
+            </h1>
+            <p className="font-medium text-zinc-400 text-lg">
               {frontmatter.date &&
                 new Date(frontmatter.date).toLocaleDateString("en-GB", {
                   year: "numeric",
@@ -136,12 +138,12 @@ export default function Post() {
             )}
           </div>
           {Component ? (
-            <main className="max-w-none prose prose-slate lg:prose-lg dark:prose-invert">
+            <main className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert">
               <Component />
             </main>
           ) : (
             <main
-              className="max-w-none prose prose-slate lg:prose-lg dark:prose-invert  "
+              className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert"
               dangerouslySetInnerHTML={{ __html: html }}
             />
           )}
