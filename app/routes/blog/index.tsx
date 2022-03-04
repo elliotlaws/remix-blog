@@ -35,11 +35,17 @@ export default function Index() {
               <div className="aspect-w-3 aspect-h-4">
                 {frontmatter.image.url && (
                   <img
-                    {...getImageProps(
-                      frontmatter?.image.url,
-                      frontmatter?.image.credit,
-                      "cropped"
-                    )}
+                    {...getImageProps({
+                      url: frontmatter?.image.url,
+                      alt: frontmatter?.image.credit,
+                      widths: [280, 560, 840, 1100, 1300, 1650],
+                      sizes: [
+                        "(max-width: 1023px) 80vw",
+                        "(min-width: 1024px) and (max-width: 1279px) 50vw",
+                        "(min-width: 1280px) 900px",
+                      ],
+                      aspectRatio: "3:4",
+                    })}
                     className="rounded-lg group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
                   />
                 )}

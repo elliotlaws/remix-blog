@@ -6,7 +6,7 @@ import {
   LinksFunction,
   Link,
 } from "remix";
-import Image, { getImageProps } from "~/components/image";
+import { getImageProps } from "~/components/image";
 import { getMDXComponent } from "~/utils/mdx.client";
 
 export function Tag(props: any) {
@@ -21,11 +21,17 @@ export function Tag(props: any) {
 export function HeroImage({ frontmatter }: any) {
   if (!frontmatter?.image.url) return null;
 
-  const imageProps = getImageProps(
-    frontmatter?.image.url,
-    frontmatter?.image.credit,
-    "blogPage"
-  );
+  const imageProps = getImageProps({
+    url: frontmatter?.image.url,
+    alt: frontmatter?.image.credit,
+    widths: [280, 560, 840, 1100, 1650, 2500, 2100, 3100],
+    sizes: [
+      "(max-width:1023px) 80vw",
+      "(min-width:1024px) and (max-width:1620px) 67vw",
+      "1100px",
+    ],
+    aspectRatio: "16:9",
+  });
 
   return (
     <div className="aspect-w-16 aspect-h-9">
