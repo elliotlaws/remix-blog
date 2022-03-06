@@ -76,10 +76,12 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   if (!data) {
     throw new Response("Not Found", { status: 404 });
   }
+
   const { commit }: any = (await context.BLOG.get("$$deploy-sha", "json")) ?? {
     commit: {},
   };
   const commitSha = commit.sha ?? "0";
+
   const { frontmatter, html, code, hash } = data;
 
   // weak hash should include commit sha since changes in code
@@ -97,9 +99,9 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
       headers: {
         // use weak etag because Cloudflare only supports
         // strong etag on Enterprise plans :(
-        ETag: weakHash,
+        // ETag: weakHash,
         // // add cache control and status for cloudflare?
-        // "Cache-Control": "maxage=1, s-maxage=60, stale-while-revalidate",
+        "cache-control": "max-age=3600000",
         // //'CF-Cache-Status': 'MISS',
         // "x-remix": "test",
       },
