@@ -11,7 +11,7 @@ let refreshTimeout = undefined;
 
 chokidar.watch(path.join("./content")).on("change", async (updatedFile) => {
   console.log("changed", updatedFile);
-  const command = `node scripts/mdx/compile-mdx.mjs`;
+  const command = `node scripts/mdx/compile-mdx.mjs --json --file ${updatedFile}`;
   const lastModified = Math.floor(fs.statSync(updatedFile).mtimeMs);
 
   // reset existing timer so we don't build multiple times

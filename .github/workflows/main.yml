@@ -1,18 +1,49 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
+  changes:
+    name: 🔎 Determine deployable changes
+    runs-on: ubuntu-latest
+    outputs:
+      DEPLOYABLE: ${{steps.deploy_changes.outputs.DEPLOYABLE}}
+      CONTENT: ${{steps.content_changes.outputs.CONTENT}}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "50"
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: 🔎 Determine deployable changes
+        id: deploy_changes
+        run: >-
+          echo ::set-output name=DEPLOYABLE::$(node ./scripts/is-deployable.js ${{
+          github.sha }})
+
+      - name: ❓ Deployable
+        run: >-
+          echo "DEPLOYABLE: ${{steps.deploy_changes.outputs.DEPLOYABLE}}"
+
+      - name: 🔎 Determine content changes
+        id: content_changes
+        run: >-
+          echo ::set-output name=CONTENT::$(node ./scripts/get-changed-content.js ${{
+          github.sha }})
+
+      - name: ❓ Content
+        run: >-
+          echo "CONTENT: ${{steps.content_changes.outputs.CONTENT}}"
+
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   compile:
     name: 🛠 Compile MDX
@@ -50,6 +81,14 @@ jobs:
             ${{ runner.OS }}-
 
       - name: 📦 Install npm packages
+        run: npm install && npm run postinstall
+
+      - name: 🛠 Build Remix app
+        run: npm run build
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+
+      - name: 📦 Install npm packages
         run: cd ./scripts/mdx && npm install
 
       - name: 🚀 Update deploy sha
@@ -58,6 +97,11 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
 
       - name: 🚀 Compile and post MDX
-        run: node ./scripts/mdx/compile-mdx.mjs
+        run: node ./scripts/mdx/compile-mdx.mjs --json --file ${{needs.changes.outputs.CONTENT}}
         env:
           NODE_ENV: production
+
+      - name: 🚀 Update content sha
+        run: cd ./scripts/mdx && node ./update-content-sha.js
+        env:
+          COMMIT_SHA: ${{ github.sha }}

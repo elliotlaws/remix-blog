@@ -30,13 +30,8 @@ async function go() {
     commit: await getCommit(),
   };
 
-  // fs.writeFileSync(
-  //   path.join(__dirname, "../public/build/info.json"),
-  //   JSON.stringify(buildInfo, null, 2)
-  // );
-
   const response = await fetch(
-    `https://remix-blog-a0z.pages.dev/api/update-deploy-sha`,
+    `https://remix-blog-a0z.pages.dev/api/update-content-sha`,
     {
       method: "post",
       body: JSON.stringify(buildInfo),
@@ -49,7 +44,7 @@ async function go() {
     console.log({ status: response.status, statusText: response.statusText });
     process.exit(1);
   }
-  console.log("deploy sha updated", buildInfo);
+  console.log("content sha updated", buildInfo);
   process.exit(0);
 }
 go();

@@ -1,11 +1,12 @@
-import fs from "fs";
-import path from "path";
-import fetch from "node-fetch";
-
+const path = require("path");
+const fs = require("fs");
+// this is installed by remix...
+// eslint-disable-next-line import/no-extraneous-dependencies
+const fetch = require("node-fetch");
 const commit = process.env.COMMIT_SHA;
 
 async function getCommit() {
-  if (!commit) return { sha: "" };
+  if (!commit) return `No COMMIT_SHA environment variable set.`;
   try {
     const res = await fetch(
       `https://api.github.com/repos/elliotlaws/remix-blog/commits/${commit}`
@@ -30,27 +31,11 @@ async function go() {
     commit: await getCommit(),
   };
 
-  // fs.writeFileSync(
-  //   path.join(__dirname, "../public/build/info.json"),
-  //   JSON.stringify(buildInfo, null, 2)
-  // );
-
-  const response = await fetch(
-    `https://remix-blog-a0z.pages.dev/api/update-deploy-sha`,
-    {
-      method: "post",
-      body: JSON.stringify(buildInfo),
-      headers: {
-        authorization: `Bearer ${process.env.POST_API_KEY}`,
-      },
-    }
+  fs.writeFileSync(
+    path.join(__dirname, "../public/build/info.json"),
+    JSON.stringify(buildInfo, null, 2)
   );
-  if (!response.ok) {
-    console.log({ status: response.status, statusText: response.statusText });
-    process.exit(1);
-  }
-  console.log("deploy sha updated", buildInfo);
-  process.exit(0);
+  console.log("build info generated", buildInfo);
 }
 go();
 

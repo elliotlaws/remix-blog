@@ -15,7 +15,8 @@
     "dev:wrangler": "wrangler pages dev ./public --watch  --kv BLOG ./build",
     "start": "npm run dev:wrangler",
     "compile": "node ./scripts/mdx/compile-mdx.mjs ",
-    "content:watch": "node ./scripts/watch-content.js"
+    "content:watch": "node ./scripts/watch-content.js",
+    "build:gen": "npm run css:build && remix build --sourcemap && node ./scripts/generate-build-info.js"
   },
   "dependencies": {
     "@reach/menu-button": "^0.16.2",
