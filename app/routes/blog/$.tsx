@@ -1,6 +1,7 @@
 import {
   HeadersFunction,
   json,
+  MetaFunction,
   LoaderFunction,
   useLoaderData,
   LinksFunction,
@@ -107,6 +108,19 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
       },
     }
   );
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  let title = "Elliot Laws Blog";
+  let description = "";
+  if (data) {
+    title = `${data.frontmatter.title} - ${title}`;
+    description = data.frontmatter.description;
+  }
+  return {
+    title,
+    description,
+  };
 };
 
 export default function Post() {

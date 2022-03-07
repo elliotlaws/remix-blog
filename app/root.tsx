@@ -22,7 +22,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "Elliot Laws Blog" };
 };
 
 export default function App() {
@@ -50,14 +50,6 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           {process.env.NODE_ENV === "development" && <LiveReload />}
-          {/* Cloudflare Web Analytics */}
-          {/* {process.env.NODE_ENV === "production" && (
-          <script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "cf7ec1461d994872b4a5463f0a1b336b"}'
-          ></script> */}
-          {/* )} */}
         </div>
       </body>
     </html>

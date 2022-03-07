@@ -1,0 +1,255 @@
+---
+title: React + TypeScript + Emotion
+date: 2022-02-25
+description: Styling a React TypeScript application with Emotion
+tags: ["Styling", "CSS-in-JS"]
+image:
+  url: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/cd06a33b-55ee-44c0-a264-784352801100
+  credit: Image by [Tengyart](https://unsplash.com/photos/DoqtEEn8SOo)
+---
+
+Recently, I had to setup a new create-react-app project with TypeScript and opted to go with a CSS in JS solution that allows css styles to be defined in .ts files. The library that my team decided to use is called Emotion.
+
+In this post, I'll explain the process that was used to setup and add styles into the app using Emotion. I'll also cover specifics relating to TypeScript integration and how theming and global styles can be handled.
+
+## Summary
+
+- Setup
+- Using the CSS prop with TypeScript
+- Theming
+- Global Styles
+
+## Setup
+
+To install into the project:
+
+```bash
+npm install --save @emotion/react
+
+OR
+
+yarn add @emotion/react
+```
+
+Emotion provides us with two main ways of styling elements, with the 'css' prop or using styled components.
+
+For create-react-app projects, using the css prop requires that the JSX pragma be present at the top of the file that uses it. See https://emotion.sh/docs/css-prop#jsx-pragma for more details.
+
+So to use the css prop, we need to place the following code at the top of the file before all our imports.
+
+```tsx
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+```
+
+With this setup, we can now use it like this.
+
+```tsx
+render(
+  <div
+    css={{
+      backgroundColor: "hotpink",
+      "&:hover": {
+        color: "lightgreen",
+      },
+    }}
+  >
+    This has a hotpink background.
+  </div>
+);
+```
+
+Alternatively, you can use styled components like this.
+
+```tsx
+import styled from "@emotion/styled";
+
+const Button = styled.button({
+  color: "turquoise",
+});
+
+render(<Button>This my button component.</Button>);
+```
+
+## Using the CSS prop with TypeScript
+
+To make things strongly typed for TypeScript we can also import the 'css' function provided by Emotion and use it like this.
+
+```tsx
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
+
+const titleStyle = css({
+  boxSizing: "border-box",
+  width: 300,
+  height: 200,
+});
+
+render(
+  <div>
+    <p css={titleStyle}>This is a styled title</p>
+  </div>
+);
+```
+
+This approach is okay, but if we have lots of different styles in our component then we would have to declare lots of different constants for individual element styles.
+
+To improve this, I decided to go with an approach that allows us to declare our object styles in a similar way to how you would declare styles in CSS, with individual classes containing different styles.
+
+To get started with this approach, we first need to add a function that isn't provided out of the box with Emotion. Create a new file src/types/emotion-styles.ts and add the following code.
+
+```ts
+import { Interpolation, Theme } from "@emotion/react";
+
+function createStyles<T extends { [key: string]: Interpolation<Theme> }>(
+  arg: T
+): T {
+  return arg;
+}
+
+export { createStyles };
+```
+
+With this setup, we can now declare our styles like this in our components.
+
+```tsx
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+import { createStyles } from "types/emotion-styles";
+
+const styles = createStyles({
+  container: {
+    backgroundColor: "white",
+    padding: "2em",
+  },
+  text: {
+    color: "grey",
+    fontSize: "1.5em",
+  },
+});
+
+export const StylingExample = () => {
+  return (
+    <div css={styles.container}>
+      <p css={styles.text}>This text will be grey</p>
+    </div>
+  );
+};
+```
+
+This is much cleaner and provides all the same benefits of using the CSS function provided by Emotion to create object styles, with the addition of us now being able to define our styles as you would in plain CSS with class names. Our styles are strongly typed and we still get IntelliSense in VS code.
+
+## Theming
+
+Emotion does provide a theming solution straight out of the box, but I decided to go with a much simpler approach. Emotion's theming solution will not be covered in this section, but if you're interested you can find out more here. In this walkthrough we'll just be declaring theme colours.
+
+Start by creating a new file src/styles/colours.ts and declare a new object consisting of your theme colours.
+
+```ts
+export const colours = {
+  black: "#010101",
+  primary: "#00378B",
+  primaryHover: "#022B6B",
+  secondary: "#F20000",
+  secondaryHover: "#cf0000",
+  green: "#26AE50",
+  yellow: "#FAB234",
+  greys: {
+    label: "#8E8E93",
+    placeholdersIcons: "#BCBCBD",
+    dividersDisabled: "#D2D2D2",
+    bordersBg: "#E4E4E5",
+    bg: "#EBECEC",
+    bgHover: "#F5F5F5",
+  },
+};
+```
+
+With this setup, we can now use our colours like this. Notice how we're now importing colours from our styles folder and using them in our object styles.
+
+```tsx
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+import { colours } from "styles/colours";
+import { createStyles } from "types/emotion-styles";
+
+const styles = createStyles({
+  container: {
+    backgroundColor: colours.greys.bg,
+    padding: "2em",
+  },
+  text: {
+    color: colours.primary,
+    fontSize: "1.5em",
+  },
+});
+
+export const StylingExample = () => {
+  return (
+    <div css={styles.container}>
+      <p css={styles.text}>This text will be our primary colour</p>
+    </div>
+  );
+};
+```
+
+## Global Styles
+
+Emotion includes a `<Global />` component which can be used to insert global css like resets or font faces into your app. It accepts a styles prop which accepts the same values as the css prop except it inserts styles globally.
+
+In order to keep things separate, start by creating a separate TypeScript file src/styles/global.ts. We can use string styles with template literals, to allow us to declare global styles for html elements like you would in a normal css file. See Emotion's documentation on String Styles for more info (scroll down until you get to String Styles).
+
+Notice how because we are using template literals, we can also use our theme colours by interpolating the hex value. In this example we've used a theme colour in our H2 styles.
+
+```tsx
+import { css } from '@emotion/react'
+import { colours } from 'styles.colours'
+import AvenirStd from '../fonts/AvenirLTStd-Roman.otf'
+import AvenirBlack from '../fonts/AvenirLTStd-Black.otf'
+
+export const globalStyles = css`
+  @font-face {
+    font-family: 'AvenirStd';
+    src: url(${AvenirStd}) format('opentype');
+  }
+  @font-face {
+    font-family: 'AvenirBlack';
+    src: url(${AvenirBlack}) format('opentype');
+  }
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    font-family: 'AvenirStd';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  // Using our theme colour to style h2
+  h2 {
+    color: ${colours.greys.heading}
+  }
+  *:focus {
+    outline-style: solid;
+    outline-offset: -1px;
+  }
+}
+```
+
+The `<Global />` component can then be inserted into the place above where we render our app. We import our globalStyles from our styles folder and pass it to the `<Global />` component via the styles prop.
+
+```tsx
+import { Global } from "@emotion/react";
+import { globalStyles } from "styles/global";
+
+render(
+  <>
+    <Global styles={globalStyles} />
+    <App />
+  </>
+);
+```

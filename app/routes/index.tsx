@@ -1,7 +1,8 @@
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
+    <div className="grid gap-4">
+      <h1 className="font-semibold text-3xl">Welcome to the blog</h1>
+      <p>Blog created using Remix Run + Cloudflare Pages</p>
     </div>
   );
 }
