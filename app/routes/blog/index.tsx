@@ -21,11 +21,15 @@ export const loader: LoaderFunction = async ({ context }) => {
 export default function Index() {
   const posts: MdxListItem[] = useLoaderData();
 
+  const orderedPosts = posts.sort(
+    (a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date)
+  );
+
   return (
     <div className="mt-4 dark:text-zinc-200">
       <h1 className="text-3xl font-semibold text-center md:text-left dark:text-zinc-200">{`<Posts />`}</h1>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
-        {posts.map(({ slug, frontmatter }: any) => (
+        {orderedPosts.map(({ slug, frontmatter }: any) => (
           <Link
             key={slug}
             to={`/${slug}`}

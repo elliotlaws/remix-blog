@@ -36,7 +36,12 @@ export function HeroImage({ frontmatter }: any) {
 
   return (
     <div className="aspect-w-16 aspect-h-9">
-      <img className="rounded-lg" {...imageProps} />
+      <img
+        className="rounded-lg"
+        {...imageProps}
+        onLoad={() => console.log("image has loaded")}
+      />
+      {/* <img src={frontmatter.image.blurDataUrl} /> */}
     </div>
   );
 }
@@ -63,7 +68,6 @@ type BlogContentType = {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
 
 export const loader: LoaderFunction = async ({ request, params, context }) => {
-  console.log(request.headers);
   const slug = params["*"];
 
   if (slug === undefined) {
