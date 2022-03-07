@@ -47,6 +47,8 @@ jobs:
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   compile:
     name: 🛠 Compile MDX
+    if: needs.changes.outputs.CONTENT != ''
+    needs: [changes]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
