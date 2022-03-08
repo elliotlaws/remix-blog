@@ -7,6 +7,7 @@ import {
   LinksFunction,
   Link,
 } from "remix";
+import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
 import { getMDXComponent } from "~/utils/mdx.client";
 
@@ -35,15 +36,23 @@ export function HeroImage({ frontmatter }: any) {
   });
 
   return (
-    <div className="aspect-w-16 aspect-h-9">
-      <img
-        className="rounded-lg"
-        {...imageProps}
-        onLoad={() => console.log("image has loaded")}
-      />
-      {/* <img src={frontmatter.image.blurDataUrl} /> */}
-    </div>
+    <BlurrableImage
+      blurDataUrl={frontmatter.image.blurDataUrl}
+      className="aspect-w-16 aspect-h-9"
+      img={<img className="rounded-lg" {...imageProps} />}
+    />
   );
+
+  // return (
+  //   <div className="aspect-w-16 aspect-h-9">
+  //     <img
+  //       className="rounded-lg"
+  //       {...imageProps}
+  //       onLoad={() => console.log("image has loaded")}
+  //     />
+  //     {/* <img src={frontmatter.image.blurDataUrl} /> */}
+  //   </div>
+  // );
 }
 
 export const links: LinksFunction = () => [

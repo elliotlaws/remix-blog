@@ -44,6 +44,39 @@ jobs:
         run: >-
           echo "CONTENT: ${{steps.content_changes.outputs.CONTENT}}"
 
+  deploy:
+    name: Deploy
+    needs: [changes]
+    if: needs.changes.outputs.DEPLOYABLE == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+      - name: 📦 Install npm packages
+        run: npm install && npm run postinstall
+
+      - name: 🛠 Build Remix app
+        run: npm run build
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+
+      - name: Deploy a Cloudflare Pages Project
+      - uses: tomjschuster/cloudflare-pages-deploy-action@v0
+        with:
+          account-id: "6acf63c45bc393cc0a8eee34b605a54a"
+          project-name: "remix-blog"
+          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
+          email: "${{ secrets.CF_EMAIL }}"
+
+      - name: 🚀 Update deploy sha
+        run: node ./scripts/mdx/update-deploy-sha.js
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   compile:
     name: 🛠 Compile MDX
@@ -51,18 +84,6 @@ jobs:
     needs: [changes]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Wait for CF Pages
-        id: cf-pages
-        uses: WalshyDev/cf-pages-await@v1
-        with:
-          accountEmail: ${{ secrets.CF_ACCOUNT_EMAIL  }}
-          apiKey: ${{ secrets.CF_API_KEY  }}
-          accountId: "6acf63c45bc393cc0a8eee34b605a54a"
-          project: "remix-blog"
-          # Add this if you want GitHub Deployments (see below)
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
         with:
@@ -83,20 +104,7 @@ jobs:
             ${{ runner.OS }}-
 
       - name: 📦 Install npm packages
-        run: npm install && npm run postinstall
-
-      - name: 🛠 Build Remix app
-        run: npm run build
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-
-      - name: 📦 Install npm packages
         run: cd ./scripts/mdx && npm install
-
-      - name: 🚀 Update deploy sha
-        run: node ./scripts/mdx/update-deploy-sha.js
-        env:
-          COMMIT_SHA: ${{ github.sha }}
 
       - name: 🚀 Compile and post MDX
         run: node ./scripts/mdx/compile-mdx.mjs --json --file ${{needs.changes.outputs.CONTENT}}
