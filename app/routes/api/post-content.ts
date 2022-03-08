@@ -20,7 +20,7 @@ export const action: ActionFunction = async ({ request, context }) => {
 };
 
 async function getBlurDataUrl(url: string) {
-  const imageUrl = `https://elliotlaws.com/cdn-cgi/image/fit=cover,blur=100,w=900/${url}`;
+  const imageUrl = `https://elliotlaws.com/cdn-cgi/image/fit=cover,blur=100,width=900/${url}`;
   const res = await fetch(imageUrl);
 
   const arrayBuffer = await res.arrayBuffer();
