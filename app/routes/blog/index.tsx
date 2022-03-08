@@ -47,11 +47,12 @@ export default function Index() {
                         {...getImageProps({
                           url: frontmatter?.image.url,
                           alt: frontmatter?.image.credit,
-                          widths: [280, 560, 840, 1100, 1300, 1650],
+                          widths: [280, 560, 840],
                           sizes: [
-                            "(max-width: 1023px) 80vw",
-                            "(min-width: 1024px) and (max-width: 1279px) 50vw",
-                            "(min-width: 1280px) 900px",
+                            "(max-width:639px) 80vw",
+                            "(min-width:640px) and (max-width:1023px) 40vw",
+                            "(min-width:1024px) and (max-width:1620px) 25vw",
+                            "420px",
                           ],
                           aspectRatio: "3:4",
                         })}
