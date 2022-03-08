@@ -78,6 +78,15 @@ jobs:
         run: npm run build
         env:
           COMMIT_SHA: ${{ github.sha }}
+          
+      - name: Deploy a Cloudflare Pages Project
+        uses: tomjschuster/cloudflare-pages-deploy-action@v0.0.10
+        with:
+          api-key: ${{ secrets.CF_API_KEY  }}
+          email: ${{ secrets.CF_ACCOUNT_EMAIL  }}
+          account-id: 6acf63c45bc393cc0a8eee34b605a54a
+          project-name: remix-blog
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Update deploy sha
         run: node ./scripts/mdx/update-deploy-sha.js
