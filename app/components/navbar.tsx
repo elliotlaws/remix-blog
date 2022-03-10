@@ -13,12 +13,15 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { NavLink } from "remix";
 import { Link } from "remix";
+import { Switch } from "@headlessui/react";
+import { Theme, useTheme } from "~/utils/theme-provider";
 
 const LINKS = [
   {
     name: "Blog",
     to: "/blog",
   },
+  { name: "Music", to: "/music" },
   { name: "About", to: "/about" },
 ];
 
@@ -57,7 +60,7 @@ export default function Navbar() {
               </NavLink>
             ))}
           </div>
-
+          <MyToggle />
           <div className="md:hidden flex items-center z-100">
             <MobileMenu />
           </div>
@@ -200,5 +203,72 @@ function MobileMenuList() {
         </MenuPopover>
       ) : null}
     </AnimatePresence>
+  );
+}
+
+function MyToggle() {
+  const [theme, setTheme] = useTheme();
+  const enabled = theme === Theme.DARK;
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) =>
+      prevTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
+    );
+  };
+
+  return (
+    <div className="flex gap-2">
+      <Switch.Group>
+        <Switch.Label passive>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={clsx(
+              "h-6 w-6",
+              theme === Theme.LIGHT ? "opacity-100" : "opacity-50"
+            )}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+        </Switch.Label>
+        <Switch
+          checked={enabled}
+          onChange={toggleTheme}
+          className={`${
+            enabled ? "bg-blue-600" : "bg-gray-500"
+          } relative inline-flex items-center h-6 rounded-full w-11`}
+        >
+          <span
+            className={`${
+              enabled ? "translate-x-6" : "translate-x-1"
+            } inline-block w-4 h-4 transform bg-white rounded-full transform transition ease-in-out duration-200`}
+          />
+        </Switch>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={clsx(
+            "h-6 w-6",
+            theme === Theme.DARK ? "opacity-100" : "opacity-50"
+          )}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      </Switch.Group>
+    </div>
   );
 }

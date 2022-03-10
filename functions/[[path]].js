@@ -8,11 +8,11 @@ const handleRequest = createPagesFunctionHandler({
   getLoadContext: (context) => {
     return {
       BLOG: context.env.BLOG,
+      SESSION_SECRET: context.env.SESSION_SECRET,
     };
   },
 });
 
 export function onRequest(context) {
-  console.log("context", context.request.headers);
   return handleRequest(context);
 }

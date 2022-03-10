@@ -10,6 +10,7 @@ import { bundleMDX } from "mdx-bundler";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import rehypeHighlight from "rehype-highlight";
 import { Command } from "commander/esm.mjs";
+import calculateReadTime from "reading-time";
 (async function () {
   config();
   const program = new Command();
@@ -94,62 +95,25 @@ import { Command } from "commander/esm.mjs";
       const html = renderToString(React.createElement(Component));
       const hasComponents = Object.keys(files).length > 0;
 
-      // let seriesRoot = undefined
-      // let series = undefined
-      // if (parts.length > 3) {
-      //   // get series root (strip content/ from path)
-      //   seriesRoot = path.join(parts.slice(1, 3).join('/'))
-      // }
-      // if (parts[parts.length - 1] === 'series.mdx') {
-      //   // this is a series so get frontmatter
-      //   frontmatter.slug = slug
-      //   seriesMap.set(seriesRoot, frontmatter)
-      //   Array.from(frontmatter['posts']).forEach(post => {
-      //     let postPath = path.join('content', seriesRoot, post)
-      //     const fullPath = path.join(rootPath, postPath)
-      //     const exists = fs.existsSync(fullPath)
-      //     if (!exists) {
-      //       postPath += '.mdx'
-      //     }
-      //     if (!mdxPaths.includes(postPath)) {
-      //       mdxPaths.push(postPath)
-      //     }
-      //   })
-      // } else if (seriesRoot) {
-      //   // this is a blog post in a series
-      //   series = seriesMap.get(seriesRoot)
-      //   if (!series) {
-      //     // series not in local map, so get it from the API
-      //     const response = await fetch(
-      //       `${process.env.API_URL}/get-content/${seriesRoot}/series`,
-      //     )
-      //     if (response.ok) {
-      //       let { frontmatter } = await response.json()
-      //       frontmatter.slug = `${seriesRoot}/series`
-      //       series = frontmatter
-      //       seriesMap.set(seriesRoot, series)
-      //     } else {
-      //       // series not found, so reprocess this file after the series is created
-      //       continue
-      //     }
-      //   }
-      // }
-
       const hash = crypto
         .createHash("sha256")
         .update(`${JSON.stringify(frontmatter)}${""}${code}`)
         .digest("hex");
+
+      const readTime = calculateReadTime(mdxSource);
 
       const env = process.env.NODE_ENV || "development";
       const apiUrl =
         env === "production"
           ? "https://remix-blog-a0z.pages.dev"
           : "http://localhost:8788";
+
       const response = await fetch(`${apiUrl}/api/post-content`, {
         method: "post",
         body: JSON.stringify({
           slug,
           frontmatter,
+          readTime,
           hash,
           html,
           code: hasComponents ? code : undefined,

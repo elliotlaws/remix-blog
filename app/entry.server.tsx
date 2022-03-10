@@ -8,8 +8,6 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  console.log(responseHeaders);
-
   const markup = renderToString(
     <RemixServer context={remixContext} url={request.url} />
   );

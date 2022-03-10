@@ -42,17 +42,6 @@ export function HeroImage({ frontmatter }: any) {
       img={<img className="rounded-lg" {...imageProps} />}
     />
   );
-
-  // return (
-  //   <div className="aspect-w-16 aspect-h-9">
-  //     <img
-  //       className="rounded-lg"
-  //       {...imageProps}
-  //       onLoad={() => console.log("image has loaded")}
-  //     />
-  //     {/* <img src={frontmatter.image.blurDataUrl} /> */}
-  //   </div>
-  // );
 }
 
 export const links: LinksFunction = () => [
@@ -72,6 +61,7 @@ type BlogContentType = {
   html: string;
   code: string;
   hash: string;
+  readTime: any;
 };
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
@@ -96,7 +86,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   };
   const commitSha = commit.sha ?? "0";
 
-  const { frontmatter, html, code, hash } = data;
+  const { frontmatter, html, code, hash, readTime } = data;
 
   // weak hash should include commit sha since changes in code
   // could result in changes to the content page
@@ -108,7 +98,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
   }
 
   return json(
-    { slug, frontmatter, html, code },
+    { slug, frontmatter, html, code, readTime },
     {
       headers: {
         // use weak etag because Cloudflare only supports
@@ -137,7 +127,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function Post() {
-  const { html, frontmatter, code } = useLoaderData();
+  const { html, frontmatter, code, readTime } = useLoaderData();
   let Component = null;
 
   if (typeof window !== "undefined" && code) {
@@ -151,7 +141,20 @@ export default function Post() {
           to="/blog"
           className="group w-fit flex items-center font-medium text-xl text-zinc-400 hover:text-gray-500"
         >
-          <span className="group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in">{`</`}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+            />
+          </svg>
           Back to posts
         </Link>
       </div>
@@ -168,7 +171,8 @@ export default function Post() {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                })}
+                })}{" "}
+              - {readTime?.text}
             </p>
             {frontmatter.tags && (
               <div className="flex items-center gap-2">
