@@ -28,7 +28,7 @@ const LINKS = [
 export default function Navbar() {
   return (
     <nav className="dark:text-zinc-200">
-      <div className="max-w-7xl mx-auto px-4 py-9">
+      <div className="max-w-7xl mx-auto px-2 py-9">
         <div className="flex justify-between items-center">
           <div className="flex space-x-4">
             <div>
@@ -36,7 +36,9 @@ export default function Navbar() {
                 to="/"
                 className="flex items-center px-2 hover:text-gray-900 dark:hover:text-zinc-300"
               >
-                <h1 className="text-2xl font-semibold">Elliot Laws</h1>
+                <h1 className="text-2xl font-semibold tracking-wide">
+                  Elliot Laws
+                </h1>
               </Link>
             </div>
           </div>
