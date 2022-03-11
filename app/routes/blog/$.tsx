@@ -135,11 +135,11 @@ export default function Post() {
   }
 
   return (
-    <div className="py-8 max-w-screen-lg">
+    <div className="py-6 max-w-screen-lg">
       <div className="mb-6">
         <Link
           to="/blog"
-          className="group w-fit flex items-center font-medium text-xl text-zinc-400 hover:text-gray-500"
+          className="group w-fit flex items-center font-medium text-xl dark:text-zinc-400 dark:hover:text-gray-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ export default function Post() {
             <h1 className="text-4xl font-bold dark:text-white">
               {frontmatter.title}
             </h1>
-            <p className="font-medium text-zinc-400 text-lg">
+            <p className="font-medium dark:text-zinc-400 text-lg">
               {frontmatter.date &&
                 new Date(frontmatter.date).toLocaleDateString("en-GB", {
                   year: "numeric",

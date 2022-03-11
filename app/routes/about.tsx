@@ -3,21 +3,23 @@ import { getImageProps } from "~/components/image";
 
 export default function Index() {
   return (
-    <div className="grid pt-10 grid-cols-1 lg:grid-cols-2 gap-10">
-      <div className="mb-4 mr-6 text-lg text-zinc-400">
-        <h2 className="text-3xl text-white mb-4 font-semibold">
+    <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
+        <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold">
           Hey, I'm Elliot 👋
         </h2>
-        <h2 className="text-xl text-white font-medium mb-4">
+        <h2 className="text-xl text-black dark:text-white font-medium mb-4">
           👨‍💻 Software Engineer
         </h2>
-        <h2 className="text-xl text-white font-medium mb-4">🥁 Drummer</h2>
+        <h2 className="text-xl text-black dark:text-white font-medium mb-4">
+          🥁 Drummer
+        </h2>
         <p>
           I'm a software engineer. I was born in 1992 and grew up in Hartlepool,
           North East England. I went to Leeds Metropolitan University (now Leeds
           Beckett) and graduated with a degree in Music Technology.
         </p>
-        <h3 className="text-xl text-white font-semibold my-4">
+        <h3 className="text-xl text-black dark:text-white font-semibold my-4">
           Software Development
         </h3>
         <p>
@@ -26,21 +28,23 @@ export default function Index() {
           is my favourite and I've since concentrated my efforts in becoming
           more of a React + TypeScript + Node engineer.
         </p>
-        <h3 className="text-xl text-white font-semibold my-4">Music</h3>
+        <h3 className="text-xl text-black dark:text-white font-semibold my-4">
+          Music
+        </h3>
         <p>
           When I'm not coding, I'll be playing my drums and practising with my
           band AVACET. We're a 3-piece post-punk band from Leeds,{" "}
           <a
             href="https://avacet.bandcamp.com/"
             target="_blank"
-            className="text-zinc-300"
+            className="dark:text-zinc-300"
           >
             check us out.
           </a>
         </p>
         <Link
           to=""
-          className="mt-6 group flex gap-2 items-center font-medium text-xl text-white hover:text-zinc-300"
+          className="mt-6 group flex gap-2 items-center font-medium text-xl text-black dark:text-white dark:hover:text-zinc-300"
         >
           How I became a software engineer
           <svg

@@ -9,12 +9,12 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group py-4 hover:cursor-pointer transition duration-50 hover:ease-in col-span-4"
+      className="group hover:cursor-pointer transition duration-50 hover:ease-in col-span-4"
     >
-      <div className="grid gap-2 justify-center">
+      <div className="grid gap-2">
         {frontmatter?.image?.url && (
           <BlurrableImage
-            className="aspect-w-4 aspect-h-3"
+            className="aspect-w-16 aspect-h-9"
             blurDataUrl={frontmatter?.image?.blurDataUrl}
             img={
               <img
@@ -28,9 +28,9 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                     "(min-width:1024px) and (max-width:1620px) 25vw",
                     "420px",
                   ],
-                  aspectRatio: "4:3",
+                  aspectRatio: "16:9",
                 })}
-                className="rounded-md group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
+                className="rounded-lg group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
               />
             }
           />

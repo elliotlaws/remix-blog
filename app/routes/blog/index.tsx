@@ -31,14 +31,14 @@ export default function Index() {
   return (
     <div className="mt-4 dark:text-zinc-200">
       <div className="flex justify-between items-baseline">
-        <h1 className="text-3xl font-semibold text-center md:text-left dark:text-zinc-200">
+        <h1 className="text-3xl pb-2 font-semibold text-center md:text-left dark:text-zinc-200">
           Blog Posts
         </h1>
         <p className="text-lg">{posts.length} Articles</p>
       </div>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
         {orderedPosts.map((article) => (
-          <ArticleCard article={article} />
+          <ArticleCard article={article} key={article.slug} />
         ))}
       </div>
     </div>

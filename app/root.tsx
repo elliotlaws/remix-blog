@@ -62,7 +62,7 @@ function App() {
         <Links />
         <NonFlashOfWrongThemeEls ssrTheme={Boolean(data.theme)} />
       </head>
-      <body className="min-h-screen bg-white text-gray-900 dark:bg-[#1d1e25fc] dark:text-zinc-200">
+      <body className="min-h-screen min-w-screen bg-white text-gray-900 dark:bg-[#1d1e25fc] dark:text-zinc-200">
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
@@ -72,7 +72,9 @@ function App() {
           </div>
           <footer className="py-6 mt-16 border-t border-slate-600">
             <div className="max-w-7xl mx-auto px-4">
-              <p className="font-medium">&copy; Elliot Laws</p>
+              <p className="font-medium text-zinc-700 dark:text-white">
+                &copy; 2022 Elliot Laws —— Leeds
+              </p>
             </div>
           </footer>
           <ScrollRestoration />
