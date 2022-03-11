@@ -1,9 +1,12 @@
+import calculateReadingTime from "reading-time";
+
 declare var BLOG: KVNamespace;
 
 type MdxPage = {
   code: string;
   slug: string;
   editLink: string;
+  readTime?: ReturnType<typeof calculateReadingTime>;
 
   /**
    * It's annoying that all these are set to optional I know, but there's
@@ -13,33 +16,18 @@ type MdxPage = {
    * these values are missing to avoid runtime errors.
    */
   frontmatter: {
-    archived?: boolean;
-    draft?: boolean;
     title?: string;
+    date?: string;
     description?: string;
-    meta?: {
-      keywords?: Array<string>;
-      [key as string]: string;
+    tags?: Array<string>;
+    image?: {
+      url: string;
+      blurDataUrl?: string;
+      credit: string;
     };
-
-    // Post meta
-    categories?: Array<string>;
-    date: string;
-    bannerBlurDataUrl?: string;
-    bannerCloudinaryId?: string;
-    bannerCredit?: string;
-    bannerAlt?: string;
-    bannerTitle?: string;
-    socialImageTitle?: string;
-    socialImagePreTitle?: string;
-    translations?: Array<{
-      language: string;
-      link: string;
-      author?: {
-        name: string;
-        link?: string;
-      };
-    }>;
+    meta?: {
+      [key: string]: string;
+    };
   };
 };
 
