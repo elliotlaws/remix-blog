@@ -42,7 +42,7 @@ export default function Navbar() {
                 to="/"
                 className="flex items-center px-2 hover:text-gray-900 dark:hover:text-zinc-300"
               >
-                <h1 className="text-2xl font-semibold tracking-wide">
+                <h1 className="text-2xl font-medium tracking-wide">
                   Elliot Laws
                 </h1>
               </Link>
@@ -165,7 +165,7 @@ function MobileMenuList() {
       {isExpanded ? (
         <MenuPopover
           position={(r) => ({
-            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1.8rem)`, // 2.25 rem = py-9 from navbar
+            top: `calc(${Number(r?.top) + Number(r?.height)}px + 2.5rem)`, // 2.25 rem = py-9 from navbar
             left: 0,
             bottom: 0,
             right: 0,
@@ -181,7 +181,7 @@ function MobileMenuList() {
               duration: shouldReduceMotion ? 0 : 0.15,
               ease: "linear",
             }}
-            className="bg-white dark:bg-[#1d1e25fc] text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12 "
+            className="bg-white dark:bg-[#1d1e25fc] text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12"
           >
             <MenuItems className="border-none bg-transparent p-0">
               {LINKS.map((link) => (
@@ -194,10 +194,10 @@ function MobileMenuList() {
                   {link.name}
                 </MenuLink>
               ))}
+              <div className="p-8 w-screen flex justify-center">
+                <DarkModeToggle />
+              </div>
             </MenuItems>
-            <div className="p-8 w-screen flex justify-center">
-              <DarkModeToggle />
-            </div>
           </motion.div>
         </MenuPopover>
       ) : null}
