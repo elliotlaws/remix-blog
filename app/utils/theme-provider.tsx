@@ -14,8 +14,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 ThemeContext.displayName = "ThemeContext";
 
 const prefersLightMQ = "(prefers-color-scheme: light)";
-const getPreferredTheme = () =>
-  window.matchMedia(prefersLightMQ).matches ? Theme.LIGHT : Theme.DARK;
+const getPreferredTheme = () => {
+  return window.matchMedia(prefersLightMQ).matches ? Theme.LIGHT : Theme.DARK;
+};
 
 function ThemeProvider({
   children,
@@ -26,8 +27,11 @@ function ThemeProvider({
 }) {
   const [theme, setTheme] = useState<Theme | null>(() => {
     if (specifiedTheme) {
-      if (themes.includes(specifiedTheme)) return specifiedTheme;
-      else return null;
+      if (themes.includes(specifiedTheme)) {
+        return specifiedTheme;
+      } else {
+        return null;
+      }
     }
 
     // there's no way for us to know what the theme should be in this context
@@ -98,7 +102,7 @@ const clientThemeCode = `
   if (themeAlreadyApplied) {
     // this script shouldn't exist if the theme is already applied!
     console.warn(
-      "Hi there, could you let Matt know you're seeing this message? Thanks!",
+      "Hi there, could you let Elliot know you're seeing this message? Thanks!",
     );
   } else {
     cl.add(theme);
@@ -129,9 +133,7 @@ function NonFlashOfWrongThemeEls({ ssrTheme }: { ssrTheme: boolean }) {
         name="color-scheme"
         content={theme === "light" ? "light dark" : "dark light"}
       />
-      {ssrTheme ? null : (
-        <script dangerouslySetInnerHTML={{ __html: clientThemeCode }} />
-      )}
+      <script dangerouslySetInnerHTML={{ __html: clientThemeCode }} />
     </>
   );
 }

@@ -58,7 +58,7 @@ function FeaturedArticle({
     <Link
       key={slug}
       to={`/${slug}`}
-      className="bg-zinc-200 dark:bg-gray-800 pb-4 lg:bg-inherit rounded-lg group  hover:cursor-pointer transition duration-50 hover:ease-in col-span-4 grid grid-cols-4 md:grid-cols-span-12 lg:grid-cols-12 gap-6"
+      className="lg:bg-inherit rounded-lg group  hover:cursor-pointer transition duration-50 hover:ease-in col-span-4 grid grid-cols-4 md:grid-cols-span-12 lg:grid-cols-12 gap-6"
     >
       <div className="col-span-4 md:col-span-6 lg:col-span-8">
         {frontmatter?.image?.url && (
@@ -85,11 +85,11 @@ function FeaturedArticle({
           />
         )}
       </div>
-      <div className="col-span-4 grid content-between px-4 lg:px-0">
+      <div className="col-span-4 grid content-between">
         <div>
           <h3 className="font-medium text-lg mb-4 md:mb-6">Featured Post</h3>
 
-          <div className="text-3xl font-medium mb-2">{frontmatter.title}</div>
+          <div className="text-2xl font-medium mb-2">{frontmatter.title}</div>
           <p className="text-lg dark:text-zinc-400 mb-2">
             {frontmatter.description}
           </p>
@@ -105,7 +105,7 @@ function FeaturedArticle({
         </div>
 
         <div>
-          <div className="flex gap-2 items-center mt-10 pb-2 lg:pb-0">
+          <div className="flex gap-2 items-center mt-10">
             <p className="text-lg dark:text-white  dark:group-hover:text-zinc-300">
               Read the full post
             </p>

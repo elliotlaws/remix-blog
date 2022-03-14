@@ -14,6 +14,7 @@ import Navbar from "./components/navbar";
 import tailwindStyles from "~/styles/tailwind.css";
 import globalStyles from "~/styles/global.css";
 import vendorStyles from "~/styles/vendors.css";
+import proseStyles from "~/styles/prose.css";
 import clsx from "clsx";
 import {
   NonFlashOfWrongThemeEls,
@@ -28,6 +29,26 @@ export function links() {
     { rel: "stylesheet", href: tailwindStyles },
     { rel: "stylesheet", href: globalStyles },
     { rel: "stylesheet", href: vendorStyles },
+    { rel: "stylesheet", href: proseStyles },
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "/favicons/apple-touch-icon.png",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: "/favicons/favicon-32x32.png",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      href: "/favicons/favicon-16x16.png",
+    },
+    { rel: "manifest", href: "/site.webmanifest" },
+    { rel: "icon", href: "/favicon.ico" },
   ];
 }
 
@@ -40,7 +61,7 @@ export type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ context, request }) => {
-  const themeSession = await getThemeSession(request, context.SESSION_SECRET);
+  const themeSession = await getThemeSession(request);
 
   const data: LoaderData = {
     theme: themeSession.getTheme(),
@@ -62,7 +83,7 @@ function App() {
         <Links />
         <NonFlashOfWrongThemeEls ssrTheme={Boolean(data.theme)} />
       </head>
-      <body className="min-h-screen min-w-screen bg-white text-gray-900 dark:bg-[#1d1e25fc] dark:text-zinc-200">
+      <body className="min-h-screen min-w-screen bg-primary text-gray-900 dark:text-zinc-200">
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
