@@ -30,7 +30,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-lg"
+                className="rounded-lg group-hover:scale-[1.01] group-hover:transition ease-out group-hover:ease-in"
               />
             }
           />
