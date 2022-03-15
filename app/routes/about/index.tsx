@@ -1,12 +1,36 @@
+import { motion } from "framer-motion";
 import { Link } from "remix";
 import { getImageProps } from "~/components/image";
+
+const WavingHand = () => (
+  <motion.div
+    style={{
+      marginBottom: "-20px",
+      marginRight: "-45px",
+      paddingBottom: "20px",
+      paddingRight: "45px",
+      display: "inline-block",
+    }}
+    animate={{ rotate: 20 }}
+    transition={{
+      repeat: 7,
+      repeatType: "mirror",
+      duration: 0.2,
+      delay: 0.5,
+      ease: "easeInOut",
+      type: "tween",
+    }}
+  >
+    👋
+  </motion.div>
+);
 
 export default function Index() {
   return (
     <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
         <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold">
-          Hey, I'm Elliot 👋
+          Hey, I'm Elliot <WavingHand />
         </h2>
         <h2 className="text-xl text-black dark:text-white font-medium mb-4">
           👨‍💻 Software Engineer
@@ -43,7 +67,7 @@ export default function Index() {
           </a>
         </p>
         <Link
-          to=""
+          to="software-engineer-story"
           className="mt-6 group flex gap-2 items-center font-medium text-xl text-black dark:text-white dark:hover:text-zinc-300"
         >
           How I became a software engineer
@@ -62,21 +86,6 @@ export default function Index() {
             />
           </svg>
         </Link>
-        {/* <h3 className="text-xl text-white font-semibold my-4">
-          How I became a software engineer
-        </h3>
-        <p>
-          My first 'proper' job after University was working as a Data Verifier
-          at StepChange Debt Charity (yes, it's as mundane as it sounds). I
-          quickly grew very fed up and bored in this role and started messing
-          around with VB scripts and Excel to create a 'note generator/template'
-          app for the department to use. This eventually got me recognised by
-          the IT department and I got my first job in IT as a Service Desk
-          Engineer. Although this gave me my first step into the world of IT, it
-          was never really for me (I posessed little patience for resetting
-          passwords). I always knew that I wanted to pursue the whole web/app
-          developer thing
-        </p> */}
       </div>
       <div>
         <img
