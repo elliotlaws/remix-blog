@@ -61,7 +61,8 @@ export type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ context, request }) => {
-  const themeSession = await getThemeSession(request);
+  console.log("context", context);
+  const themeSession = await getThemeSession(request, context?.env);
 
   const data: LoaderData = {
     theme: themeSession.getTheme(),

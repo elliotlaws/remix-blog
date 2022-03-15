@@ -5,12 +5,7 @@ import * as build from "../build";
 
 const handleRequest = createPagesFunctionHandler({
   build,
-  getLoadContext: (context) => {
-    return {
-      BLOG: context.env.BLOG,
-      SESSION_SECRET: context.env.SESSION_SECRET,
-    };
-  },
+  getLoadContext: (context) => context,
 });
 
 export function onRequest(context) {

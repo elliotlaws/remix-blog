@@ -36,3 +36,7 @@ type MdxPage = {
  * pretty big and the pages that simply list the pages shouldn't include the code.
  */
 type MdxListItem = Omit<MdxPage, "code">;
+
+declare global {
+  type Env = { BLOG: string; SESSION_SECRET: string };
+}

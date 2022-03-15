@@ -10,7 +10,7 @@ export const action: ActionFunction = async ({ request, context }) => {
     const blurDataUrl = await getBlurDataUrl(data.frontmatter.image.url);
     data.frontmatter.image["blurDataUrl"] = blurDataUrl;
 
-    await context.BLOG.put(data.slug, JSON.stringify(data));
+    await context.env.BLOG.put(data.slug, JSON.stringify(data));
     return json({ success: true });
   } catch (e) {
     if (e instanceof Error) {

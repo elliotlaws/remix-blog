@@ -5,7 +5,7 @@ import { getThemeSession } from "~/utils/theme.server";
 import { isTheme } from "~/utils/theme-provider";
 
 export const action: ActionFunction = async ({ request, context }) => {
-  const themeSession = await getThemeSession(request, context.SESSION_SECRET);
+  const themeSession = await getThemeSession(request, context.env);
   const requestText = await request.text();
   const form = new URLSearchParams(requestText);
   const theme = form.get("theme");

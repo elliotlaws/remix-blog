@@ -2,25 +2,21 @@ import { createCookieSessionStorage } from "remix";
 
 import { Theme, isTheme } from "./theme-provider";
 
-// const sessionSecret = process.env.SESSION_SECRET;
-// if (!sessionSecret) {
-//   throw new Error("SESSION_SECRET must be set");
-// }
-
-const createThemeStorage = (sessionSecret: string) =>
-  createCookieSessionStorage({
+function createSessionStorage(env: Env) {
+  return createCookieSessionStorage({
     cookie: {
       name: "my_remix_theme",
       secure: true,
-      secrets: [sessionSecret],
+      secrets: [env.SESSION_SECRET],
       sameSite: "lax",
       path: "/",
       httpOnly: true,
     },
   });
+}
 
-async function getThemeSession(request: Request, sessionSecret = "secret") {
-  const themeStorage = createThemeStorage(sessionSecret);
+async function getThemeSession(request: Request, env: Env) {
+  const themeStorage = createSessionStorage(env);
   const session = await themeStorage.getSession(request.headers.get("Cookie"));
   return {
     getTheme: () => {

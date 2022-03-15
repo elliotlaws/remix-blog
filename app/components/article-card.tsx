@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { MdxListItem } from "types";
+import type { MdxListItem } from "types";
 import { BlurrableImage } from "./blurrable-image";
 import { getImageProps } from "./image";
 
@@ -9,9 +9,9 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group hover:cursor-pointer transition duration-50 hover:ease-in col-span-4"
+      className="group hover:cursor-pointer col-span-4"
     >
-      <div className="grid gap-2">
+      <div className="grid gap-2 ">
         {frontmatter?.image?.url && (
           <BlurrableImage
             className="aspect-w-16 aspect-h-9"
@@ -30,7 +30,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-lg group-hover:scale-[1.01] transition ease-out group-hover:ease-in"
+                className="rounded-lg"
               />
             }
           />
