@@ -27,7 +27,7 @@ const LINKS = [
     name: "Blog",
     to: "/blog",
   },
-  { name: "Music", to: "/music" },
+  // { name: "Music", to: "/music" },
   { name: "About", to: "/about" },
 ];
 

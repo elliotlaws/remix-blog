@@ -177,7 +177,7 @@ export default function Post() {
                 })}{" "}
               - {readTime?.text}
             </p>
-            {frontmatter.tags && (
+            {/* {frontmatter.tags && (
               <div className="flex items-center gap-2">
                 {frontmatter.tags.map((tag: string) => (
                   <Link key={tag} to={`/blog/tags/${tag}`}>
@@ -185,7 +185,7 @@ export default function Post() {
                   </Link>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
           {Component ? (
             <main className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert">

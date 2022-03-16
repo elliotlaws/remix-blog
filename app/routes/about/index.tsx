@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Link } from "remix";
+import { Link, LoaderFunction, useLoaderData } from "remix";
+import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
 
 const WavingHand = () => (
@@ -88,21 +89,25 @@ export default function Index() {
         </Link>
       </div>
       <div>
-        <img
-          className="rounded-lg"
-          {...getImageProps({
-            url: `https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/c9d6c155-2832-419d-c7cd-6ca477226e00`,
-            alt: "me",
-            widths: [512, 650, 840, 1024, 1300, 1680, 2000, 2520],
-            sizes: [
-              "(max-width: 1023px) 80vw",
-              "(min-width: 1024px) and (max-width: 1620px) 40vw",
-              "650px",
-            ],
-            aspectRatio: "2425:3279",
-          })}
-          width="2425"
-          height="3279"
+        <BlurrableImage
+          img={
+            <img
+              className="rounded-lg"
+              {...getImageProps({
+                url: `https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/c9d6c155-2832-419d-c7cd-6ca477226e00`,
+                alt: "me",
+                widths: [512, 650, 840, 1024, 1300, 1680, 2000, 2520],
+                sizes: [
+                  "(max-width: 1023px) 80vw",
+                  "(min-width: 1024px) and (max-width: 1620px) 40vw",
+                  "650px",
+                ],
+                aspectRatio: "2425:3279",
+              })}
+              width="2425"
+              height="3279"
+            />
+          }
         />
       </div>
     </div>
