@@ -7,7 +7,7 @@ export const action: ActionFunction = async ({ request, context }) => {
       return new Response(`Unauthorized ${key}`, { status: 401 });
     }
     const data = await request.json();
-    await context.env.BLOG.put("$$content-sha", JSON.stringify(data));
+    await context.env.CONTENT.put("$$content-sha", JSON.stringify(data));
     return json({ success: true });
   } catch (e) {
     //@ts-expect-error

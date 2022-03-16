@@ -73,7 +73,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const data = (await context.env.BLOG.get(
+  const data = (await context.env.CONTENT.get(
     `blog/${slug}`,
     "json"
   )) as BlogContentType;
@@ -81,7 +81,7 @@ export const loader: LoaderFunction = async ({ request, params, context }) => {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const { commit }: any = (await context.env.BLOG.get(
+  const { commit }: any = (await context.env.CONTENT.get(
     "$$deploy-sha",
     "json"
   )) ?? {

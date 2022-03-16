@@ -3,12 +3,12 @@ import { MdxListItem } from "types";
 import { ArticleCard } from "~/components/article-card";
 
 export const loader: LoaderFunction = async ({ context }) => {
-  const slugs = await (context.env.BLOG as KVNamespace).list({
+  const slugs = await (context.env.CONTENT as KVNamespace).list({
     prefix: "blog/",
   });
   const posts = await Promise.all(
     slugs.keys.map(async ({ name }) => {
-      const data = await context.env.BLOG.get(name, "json");
+      const data = await context.env.CONTENT.get(name, "json");
       const { slug, frontmatter, html, readTime } = data as any;
       return { slug, frontmatter, html, readTime };
     })

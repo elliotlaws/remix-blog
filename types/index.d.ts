@@ -1,7 +1,5 @@
 import calculateReadingTime from "reading-time";
 
-declare var BLOG: KVNamespace;
-
 type MdxPage = {
   code: string;
   slug: string;
