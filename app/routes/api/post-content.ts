@@ -2,10 +2,10 @@ import { ActionFunction, json } from "remix";
 
 export const action: ActionFunction = async ({ request, context }) => {
   try {
-    // const key = request.headers.get("Authorization");
-    // if (key !== `Bearer ${context.env.POST_API_KEY}`) {
-    //   return new Response(`Unauthorized ${key}`, { status: 401 });
-    // }
+    const key = request.headers.get("Authorization");
+    if (key !== `Bearer ${context.env.POST_API_KEY}`) {
+      return new Response(`Unauthorized ${key}`, { status: 401 });
+    }
     const data = (await request.json()) as any;
     const blurDataUrl = await getBlurDataUrl(data.frontmatter.image.url);
     data.frontmatter.image["blurDataUrl"] = blurDataUrl;
