@@ -49,16 +49,16 @@ export default function Index() {
         </h3>
         <p>
           My first 'proper' dev job was working as a full-stack engineer,
-          working with C#, SQL and various different front-end frameworks. React
-          is my favourite and I've since concentrated my efforts in becoming
-          more of a React + TypeScript + Node engineer.
+          working with C#, SQL and various front-end frameworks. React is my
+          favourite, and I've since concentrated my efforts on becoming more of
+          a React + TypeScript + Node engineer.
         </p>
         <h3 className="text-xl text-black dark:text-white font-semibold my-4">
           Music
         </h3>
         <p>
-          When I'm not coding, I'll be playing my drums and practising with my
-          band AVACET. We're a 3-piece post-punk band from Leeds,{" "}
+          When I'm not coding, I'll play my drums and practice with my band
+          AVACET. We're a 3-piece post-punk band from Leeds;{" "}
           <a
             href="https://avacet.bandcamp.com/"
             target="_blank"
