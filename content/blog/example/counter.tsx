@@ -11,6 +11,7 @@ export default function Counter() {
         justifyContent: "center",
         borderRadius: "5px",
         background: "lightgrey",
+        color: "black",
       }}
     >
       {count}
