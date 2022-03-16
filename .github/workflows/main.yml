@@ -39,6 +39,8 @@ jobs:
         run: >-
           echo ::set-output name=CONTENT::$(node ./scripts/get-changed-content.js ${{
           github.sha }})
+        env:
+          API_URL: ${{ secrets.API_URL }}
 
       - name: ❓ Content
         run: >-

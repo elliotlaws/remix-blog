@@ -31,7 +31,7 @@ async function go() {
   };
 
   const response = await fetch(
-    `https://remix-blog-a0z.pages.dev/api/update-content-sha`,
+    `${process.env.API_URL}/api/update-content-sha`,
     {
       method: "post",
       body: JSON.stringify(buildInfo),
