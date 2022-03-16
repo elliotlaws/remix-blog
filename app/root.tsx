@@ -53,7 +53,12 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: "Elliot Laws Blog" };
+  return {
+    title: "Elliot Laws",
+    description: "Elliot Laws Blog",
+    keywords:
+      "Learn React, Learn TypeScript, Node, Software Engineering, Software Developer",
+  };
 };
 
 export type LoaderData = {

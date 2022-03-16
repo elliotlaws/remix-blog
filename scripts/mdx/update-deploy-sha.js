@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import fetch from "node-fetch";
 
 const commit = process.env.COMMIT_SHA;
