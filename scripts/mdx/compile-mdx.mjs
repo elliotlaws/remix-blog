@@ -11,6 +11,7 @@ import { getMDXComponent } from "mdx-bundler/client/index.js";
 import rehypeHighlight from "rehype-highlight";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
+
 (async function () {
   config();
   const program = new Command();
@@ -31,7 +32,7 @@ import calculateReadTime from "reading-time";
   const results = {};
   let hasError = false;
   const processed = {};
-  const seriesMap = new Map();
+
   // process files until empty
   while (mdxPaths.length) {
     let mdxPath = mdxPaths[0];
@@ -52,6 +53,7 @@ import calculateReadTime from "reading-time";
       let mdxSource = "";
       let files = {};
       const exists = fs.existsSync(fullPath);
+
       if (exists && (await fsp.lstat(fullPath)).isDirectory()) {
         mdxSource = await fsp.readFile(`${fullPath}/index.mdx`, "utf8");
         const mdxFiles = (await fsp.readdir(fullPath)).filter(
@@ -67,7 +69,6 @@ import calculateReadTime from "reading-time";
         );
       } else {
         if (!fullPath.endsWith(".mdx")) fullPath += ".mdx";
-        // verify file exists
         if (!fs.existsSync(fullPath)) continue;
         mdxSource = await fsp.readFile(fullPath, "utf8");
       }
@@ -102,13 +103,13 @@ import calculateReadTime from "reading-time";
 
       const readTime = calculateReadTime(mdxSource);
 
-      const env = process.env.NODE_ENV || "development";
-      const apiUrl =
-        env === "production"
-          ? "https://remix-blog-a0z.pages.dev"
-          : "http://localhost:8788";
+      // const env = process.env.NODE_ENV || "development";
+      // const apiUrl =
+      //   env === "production"
+      //     ? process.env.PROD_API_URL
+      //     : process.env.LOCAL_API_URL;
 
-      const response = await fetch(`${apiUrl}/api/post-content`, {
+      const response = await fetch(`${process.env.API_URL}/api/post-content`, {
         method: "post",
         body: JSON.stringify({
           slug,
@@ -118,7 +119,11 @@ import calculateReadTime from "reading-time";
           html,
           code: hasComponents ? code : undefined,
         }),
+        headers: {
+          authorization: `Bearer ${process.env.POST_API_KEY}`,
+        },
       });
+
       if (!response.ok) {
         const body = await response.text();
         results[mdxPath] = {
@@ -128,6 +133,7 @@ import calculateReadTime from "reading-time";
         };
         hasError = true;
       }
+
       results[mdxPath] = {
         status: response.status,
         statusText: response.statusText,
@@ -145,10 +151,3 @@ import calculateReadTime from "reading-time";
   }
   process.exit(hasError ? 1 : 0);
 })();
-
-// function getSeriesPostNumber(posts, slug) {
-//   // get last segment of slug
-//   const parts = slug.split('/')
-//   const last = parts[parts.length - 1]
-//   return posts.indexOf(last) + 1
-// }

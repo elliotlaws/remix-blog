@@ -26,7 +26,7 @@ module.exports = {
     {
       name: "Wrangler",
       script:
-        "wrangler pages dev ./public --watch --binding SESSION_SECRET=BLUE --kv BLOG ./build",
+        "wrangler pages dev ./public --watch --binding SESSION_SECRET=secret POST_API_KEY=super-secret API_URL=http://localhost:8788 --kv BLOG ./build",
       ignore_watch: ["."],
       env: {
         NODE_ENV: process.env.NODE_ENV || "development",
