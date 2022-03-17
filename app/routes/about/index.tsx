@@ -33,7 +33,11 @@ export default function Index() {
         <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold leading-10">
           Hey <WavingHand /> &nbsp;I'm Elliot,&nbsp;
           <span className="text-zinc-600 dark:text-zinc-400">
-            A Leeds based Software Engineer 👨‍💻 and Drummer 🥁
+            A Leeds based{" "}
+            <span className="text-black dark:text-white">
+              Software Engineer 👨‍💻{" "}
+            </span>{" "}
+            and <span className="text-black dark:text-white">Drummer 🥁 </span>
           </span>
         </h2>
         {/* <h2 className="text-xl text-black dark:text-white font-medium mb-4">
