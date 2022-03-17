@@ -1,6 +1,7 @@
 // try to keep this dep-free so we don't have to install deps
 const { getChangedFiles, fetchJson } = require("./get-changed-files");
 const [currentCommitSha] = process.argv.slice(2);
+
 async function go() {
   const buildInfo = await fetchJson(
     `https://remix-blog-a0z.pages.dev/api/build/info.json`
