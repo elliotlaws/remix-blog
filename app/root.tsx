@@ -25,6 +25,7 @@ import {
 import { getThemeSession } from "./utils/theme.server";
 import { GithubIcon } from "./components/icons";
 import { LinkedInIcon } from "./components/icons/linkedin-icon";
+import { externalLinks } from "./external-links";
 
 export function links() {
   return [
@@ -87,7 +88,7 @@ export const meta: MetaFunction = () => {
     title: "Elliot Laws",
     description: "Elliot Laws Blog",
     keywords:
-      "Learn React, Learn TypeScript, Node, Software Engineering, Software Developer",
+      "Learn React, Learn TypeScript, Node, Software Engineering, Software Developer, Remix Run",
   };
 };
 
@@ -96,7 +97,6 @@ export type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ context, request }) => {
-  console.log("context", context);
   const themeSession = await getThemeSession(request, context?.env);
 
   const data: LoaderData = {
@@ -141,12 +141,17 @@ function Footer() {
   return (
     <footer className="py-8 mt-16 border-t border-slate-600">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-        <p className="font-medium text-zinc-700 dark:text-white">
-          &copy; 2022 Elliot Laws —— Leeds
+        <p className="text-zinc-700 dark:text-white flex items-center gap-2">
+          <span className="text-xl">&copy;</span> 2022 Elliot Laws —— Leeds
         </p>
         <div className="flex gap-4 items-center">
-          <GithubIcon size={32} />
-          <LinkedInIcon size={38} />
+          <p className="hidden lg:block">Links</p>
+          <a href={externalLinks.github}>
+            <GithubIcon size={32} />
+          </a>
+          <a href={externalLinks.linkedIn}>
+            <LinkedInIcon size={38} />
+          </a>
         </div>
       </div>
     </footer>

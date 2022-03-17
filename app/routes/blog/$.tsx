@@ -167,7 +167,7 @@ export default function Post() {
           <h1 className="text-4xl font-bold dark:text-white">
             {frontmatter.title}
           </h1>
-          <p className="font-medium dark:text-zinc-400 text-lg">
+          <p className="dark:text-zinc-400 text-lg">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",

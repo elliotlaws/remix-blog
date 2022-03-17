@@ -35,7 +35,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             }
           />
         )}
-        <p className="font-medium text-zinc-700 dark:text-zinc-400 mt-1.5">
+        <p className="text-zinc-700 dark:text-zinc-400 mt-1.5">
           {frontmatter.date &&
             new Date(frontmatter.date).toLocaleDateString("en-GB", {
               year: "numeric",

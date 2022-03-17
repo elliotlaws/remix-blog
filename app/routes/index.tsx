@@ -93,7 +93,7 @@ function FeaturedArticle({
 
           <div className="text-2xl font-medium mb-2">{frontmatter.title}</div>
           <p className="dark:text-zinc-400 mb-2">{frontmatter.description}</p>
-          <p className="font-medium text-slate-700 dark:text-zinc-400 mt-2">
+          <p className="text-slate-700 dark:text-zinc-400 mt-4">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",
