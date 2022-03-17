@@ -124,9 +124,14 @@ pre {
 .prose pre {
   position: relative;
   background-color: #2e3039;
+  margin: 2em 0;
 }
-.prose pre code {
+.prose pre code.hljs {
   font-size: 16px;
+  padding: 2em;
+}
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+  padding: 0;
 }
 .prose pre[data-filename]:before {
   content: attr(data-filename);
@@ -458,6 +463,9 @@ pre {
 .prose .tweet-embed .tweet-time {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-secondary);
+}
+.prose pre .code.hljs {
+  overflowx: "none !important";
 }
 .prose .tweet-embed .tweet-time a {
   color: var(--text-secondary);

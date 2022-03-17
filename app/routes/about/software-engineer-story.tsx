@@ -15,11 +15,11 @@ export default function Index() {
       <p>
         Eventually, this got me recognised by the IT department, and I got my
         first job in IT as a Service Desk Engineer. Although this gave me my
-        first step into the world of IT, it was never really for me (I possessed
-        little patience for resetting passwords). However, I always knew I
-        wanted to pursue the whole web/app developer thing, so I applied for
-        internal web developer roles. Finally, after my third attempt, I got a
-        Junior 'Web Developer' job.
+        first step into IT, it was never really for me (I possessed little
+        patience for resetting passwords). However, I always knew I wanted to
+        pursue the whole web/app developer thing, so I applied for internal web
+        developer roles. Finally, after my third attempt, I got a Junior 'Web
+        Developer' job.
       </p>
       <p>
         The job turned out to be more application support than web development.
@@ -33,7 +33,7 @@ export default function Index() {
         find a 'proper' dev job.
       </p>
       <p>
-        I landed on Answer Digital; they were a digital consultancy, and the
+        I landed at Answer Digital; they were a digital consultancy, and the
         role included a three-month training academy to learn the fundamentals
         of full-stack development. The tech stack was .NET on the back-end with
         various JS frameworks. After only a few months on the job, I'd been on
@@ -41,8 +41,8 @@ export default function Index() {
         different set of technologies. I found it challenging to settle into the
         role and get used to the constant change in tech. However, of all the
         technologies/languages/frameworks I touched, React and TypeScript became
-        my favourite. So I made a move into the world of React, Node and
-        TypeScript in my next role as a Front-End Developer at Sycous.
+        my favourite. So I moved into React, Node and TypeScript in my next role
+        as a Front-End Developer at Sycous.
       </p>
     </div>
   );

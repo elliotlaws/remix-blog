@@ -30,19 +30,22 @@ export default function Index() {
   return (
     <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
-        <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold">
-          Hey, I'm Elliot <WavingHand />
+        <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold leading-10">
+          Hey <WavingHand /> &nbsp;I'm Elliot,&nbsp;
+          <span className="text-zinc-600 dark:text-zinc-400">
+            A Leeds based Software Engineer 👨‍💻 and Drummer 🥁
+          </span>
         </h2>
-        <h2 className="text-xl text-black dark:text-white font-medium mb-4">
+        {/* <h2 className="text-xl text-black dark:text-white font-medium mb-4">
           👨‍💻 Software Engineer
         </h2>
         <h2 className="text-xl text-black dark:text-white font-medium mb-4">
           🥁 Drummer
-        </h2>
+        </h2> */}
         <p>
-          I'm a software engineer. I was born in 1992 and grew up in Hartlepool,
-          North East England. I went to Leeds Metropolitan University (now Leeds
-          Beckett) and graduated with a degree in Music Technology.
+          I was born in 1992 and grew up in Hartlepool, North East England. I
+          went to Leeds Metropolitan University (now Leeds Beckett) and
+          graduated with a degree in Music Technology.
         </p>
         <h3 className="text-xl text-black dark:text-white font-semibold my-4">
           Software Development

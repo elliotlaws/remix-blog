@@ -23,9 +23,39 @@ import {
   useTheme,
 } from "./utils/theme-provider";
 import { getThemeSession } from "./utils/theme.server";
+import { GithubIcon } from "./components/icons";
+import { LinkedInIcon } from "./components/icons/linkedin-icon";
 
 export function links() {
   return [
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/inter-v8-latin-regular.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/inter-v8-latin-500.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/inter-v8-latin-600.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/inter-v8-latin-700.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
     { rel: "stylesheet", href: tailwindStyles },
     { rel: "stylesheet", href: globalStyles },
     { rel: "stylesheet", href: vendorStyles },
@@ -97,19 +127,29 @@ function App() {
               <Outlet />
             </div>
           </div>
-          <footer className="py-6 mt-16 border-t border-slate-600">
-            <div className="max-w-7xl mx-auto px-4">
-              <p className="font-medium text-zinc-700 dark:text-white">
-                &copy; 2022 Elliot Laws —— Leeds
-              </p>
-            </div>
-          </footer>
+          <Footer />
           <ScrollRestoration />
           <Scripts />
           {process.env.NODE_ENV === "development" && <LiveReload />}
         </div>
       </body>
     </html>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="py-8 mt-16 border-t border-slate-600">
+      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <p className="font-medium text-zinc-700 dark:text-white">
+          &copy; 2022 Elliot Laws —— Leeds
+        </p>
+        <div className="flex gap-4 items-center">
+          <GithubIcon size={32} />
+          <LinkedInIcon size={38} />
+        </div>
+      </div>
+    </footer>
   );
 }
 

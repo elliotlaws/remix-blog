@@ -89,13 +89,11 @@ function FeaturedArticle({
       </div>
       <div className="col-span-4 grid content-between">
         <div>
-          <h3 className="font-medium text-lg mb-4 md:mb-6">Featured Post</h3>
+          {/* <h3 className="font-medium text-lg mb-4 md:mb-6">Featured Post</h3> */}
 
           <div className="text-2xl font-medium mb-2">{frontmatter.title}</div>
-          <p className="text-lg dark:text-zinc-400 mb-2">
-            {frontmatter.description}
-          </p>
-          <p className="font-medium text-slate-700 dark:text-zinc-400 mt-1.5">
+          <p className="dark:text-zinc-400 mb-2">{frontmatter.description}</p>
+          <p className="font-medium text-slate-700 dark:text-zinc-400 mt-2">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",

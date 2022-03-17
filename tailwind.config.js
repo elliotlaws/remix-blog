@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   darkMode: "class",
   content: ["./app/**/*.{ts,tsx,jsx,js}"],
@@ -9,25 +11,35 @@ module.exports = {
       xl: "1500px", // this is the "design resolution"
     },
     extend: {
-      typography: {
-        lg: {
-          css: {
-            code: {
-              background: "none",
-            },
-            p: {
-              margin: ".8em 0",
-            },
-            pre: {
-              margin: "1.5em 0",
-            },
-            h2: {
-              fontSize: "1.5em",
-              fontWeight: "bold",
-              margin: "1em 0",
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+      },
+      typography: (theme) => {
+        return {
+          DEFAULT: {
+            css: [{}],
+          },
+          lg: {
+            css: {
+              code: {
+                background: "none",
+                padding: 0,
+              },
+              p: {},
+              pre: {
+                margin: "2em 0",
+              },
+              h1: {
+                padding: "16px",
+              },
+              h2: {
+                fontSize: "1.5em",
+                fontWeight: "bold",
+                margin: "1em 0",
+              },
             },
           },
-        },
+        };
       },
     },
   },

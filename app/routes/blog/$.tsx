@@ -162,22 +162,21 @@ export default function Post() {
         </Link>
       </div>
       <HeroImage frontmatter={frontmatter} />
-      <div className="py-8 max-w-screen-lg">
-        <div className="lg:px-16">
-          <div className="pb-8 grid gap-2">
-            <h1 className="text-4xl font-bold dark:text-white">
-              {frontmatter.title}
-            </h1>
-            <p className="font-medium dark:text-zinc-400 text-lg">
-              {frontmatter.date &&
-                new Date(frontmatter.date).toLocaleDateString("en-GB", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}{" "}
-              - {readTime?.text}
-            </p>
-            {/* {frontmatter.tags && (
+      <div className="py-8 max-w-screen-lg lg:px-[4rem]">
+        <div className="pb-8 grid gap-2 ">
+          <h1 className="text-4xl font-bold dark:text-white">
+            {frontmatter.title}
+          </h1>
+          <p className="font-medium dark:text-zinc-400 text-lg">
+            {frontmatter.date &&
+              new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}{" "}
+            - {readTime?.text}
+          </p>
+          {/* {frontmatter.tags && (
               <div className="flex items-center gap-2">
                 {frontmatter.tags.map((tag: string) => (
                   <Link key={tag} to={`/blog/tags/${tag}`}>
@@ -186,18 +185,17 @@ export default function Post() {
                 ))}
               </div>
             )} */}
-          </div>
-          {Component ? (
-            <main className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert">
-              <Component />
-            </main>
-          ) : (
-            <main
-              className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
-          )}
         </div>
+        {Component ? (
+          <main className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert">
+            <Component />
+          </main>
+        ) : (
+          <main
+            className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        )}
       </div>
     </div>
   );

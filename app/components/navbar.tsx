@@ -42,9 +42,7 @@ export default function Navbar() {
                 to="/"
                 className="flex items-center px-2 hover:text-gray-900 dark:hover:text-zinc-300"
               >
-                <h1 className="text-2xl font-medium tracking-wide">
-                  Elliot Laws
-                </h1>
+                <h1 className="text-2xl font-medium">Elliot Laws</h1>
               </Link>
             </div>
           </div>

@@ -44,8 +44,8 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             })}{" "}
           - {readTime?.text}
         </p>
-        <div className="text-2xl font-medium">{frontmatter.title}</div>
-        <p className="text-lg text-zinc-500 dark:text-zinc-400">
+        <h2 className="text-2xl font-medium">{frontmatter.title}</h2>
+        <p className="text-zinc-500 dark:text-zinc-400">
           {frontmatter.description}
         </p>
       </div>
