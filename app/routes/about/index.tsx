@@ -40,12 +40,6 @@ export default function Index() {
             and <span className="text-black dark:text-white">Drummer 🥁 </span>
           </span>
         </h2>
-        {/* <h2 className="text-xl text-black dark:text-white font-medium mb-4">
-          👨‍💻 Software Engineer
-        </h2>
-        <h2 className="text-xl text-black dark:text-white font-medium mb-4">
-          🥁 Drummer
-        </h2> */}
         <p>
           I was born in 1992 and grew up in Hartlepool, North East England. I
           went to Leeds Metropolitan University (now Leeds Beckett) and

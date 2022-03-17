@@ -1,0 +1,41 @@
+---
+title: How I created this blog
+date: 2022-03-17
+description: Rundown of the tech and services used along with general steps taken.
+tags: ["blog", "remix run", "cloudflare pages", "tailwind css"]
+image:
+  url: https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/ecf1c69f-8009-4589-430c-de81537dca00
+---
+
+### Tech and services used
+
+Here is a quick rundown of the services and tech used:
+
+- Remix Run - My JS framework of choice
+- Tailwind CSS - utility classes for styling
+- MDX Bundler - for bundling MDX files
+- Framer motion - animation library
+- Workers KV - Where I store my compiled MDX content
+- Cloudflare Pages - To host the site
+- Cloudflare Images - For hosting and serving responsive images
+- Github Actions - CI/CD pipelines via GitHub Actions
+
+I'll briefly detail the steps I took to build the site in this post, but it won't be a in-depth walthrough/tutorial. Maybe I'll post this at a later date.
+
+Full disclosure, I've got to give credit to [kiliman](https://github.com/kiliman/kiliman-dev/blob/main/scripts/mdx/compile-mdx.mjs) for the implementation of using Github actions to compile MDX content and push to a Workers KV. It's an excellent alternative for working around the restriction of not having access to a node environment using Cloudflare.
+
+Here is a rough order in which I built the site:
+
+- Setup Remix project with Cloudflare Pages deployment
+- Created new Github repo and integrated with Cloudflare Pages
+- Ensured I could deploy to Cloudflare Pages
+- Configured Tailwind CSS for styling
+- Added blog content in the form of MDX files
+- CompileMDX script
+- Created GitHub actions to compile and post changed MDX content to a Workers KV
+- Served responsive images on the site (hosted in Cloudflare Images)
+- Added dark/light mode support
+
+### What do I want to do in future?
+
+- Add support for post tags/keywords so you can see posts relating to a particular topic.
