@@ -1,8 +1,5 @@
 // try to keep this dep-free so we don't have to install deps
 const fs = require("fs");
-const fsp = require("fs/promises");
-const { promisify } = require("util");
-const exists = promisify(fs.exists);
 const path = require("path");
 
 const { getChangedFiles, fetchJson } = require("./get-changed-files");
