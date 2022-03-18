@@ -4,7 +4,7 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "npm run build:css:prod && remix build",
+    "build": "npm run build:css:prod && remix build --sourcemap && node ./scripts/generate-build-info.js",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles",
     "build:css:prod": "npm run build:css -- --env production",
     "clean": "rimraf ./node_modules/.cache ./server/dist ./build ./public/build \"./app/styles/**/*.css\"",
