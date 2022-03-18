@@ -83,8 +83,8 @@ jobs:
         with:
           node-version: 16
 
-      # - name: 📦 Install npm packages
-      #   run: cd ./scripts/mdx && npm install
+      - name: 📦 Install npm packages
+        run: cd ./scripts/mdx && npm install
 
       - name: 🚀 Update deploy sha
         run: node ./scripts/mdx/update-deploy-sha.js
