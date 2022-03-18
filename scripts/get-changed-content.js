@@ -57,13 +57,13 @@ async function go() {
   const contentFiles = changedFiles
     .filter(({ filename }) => filename.startsWith("content"))
     .map(({ filename }) => {
-      // const parts = filename.split("/");
+      const parts = filename.split("/");
 
-      // if (!filename.endsWith(".mdx") || filename.endsWith("/index.mdx")) {
-      //   const newParts = parts.slice(0, parts.length - 1).join("/");
-      //   console.log("newParts", newParts);
-      //   return newParts;
-      // }
+      if (!filename.endsWith(".mdx") || filename.endsWith("/index.mdx")) {
+        const newParts = parts.slice(0, parts.length - 1).join("/");
+        // console.log("newParts", newParts);
+        return newParts;
+      }
       // filename.replace(/^content\//, "");
       // const newFilename = filename.replace(/^content\//, "");
 
