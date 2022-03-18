@@ -6,7 +6,7 @@ export default function Counter() {
       className="px-4 py-2 hover:cursor-pointer ring-2 hover:ring-4 rounded-md transition ease-out hover:ease-in"
       onClick={() => setCount(count + 1)}
       style={{
-        width: "50px",
+        width: "51px",
         display: "flex",
         justifyContent: "center",
         borderRadius: "5px",
