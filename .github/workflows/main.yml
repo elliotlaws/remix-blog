@@ -17,7 +17,7 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
         with:
-          fetch-depth: "0"
+          fetch-depth: "50"
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v2
@@ -72,14 +72,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-
-      - name: 📦 Install npm packages
-        run: npm install && npm run postinstall
-
-      - name: 🛠 Build Remix app
-        run: npm run build
-        env:
-          COMMIT_SHA: ${{ github.sha }}
 
       - name: Deploy a Cloudflare Pages Project
         uses: tomjschuster/cloudflare-pages-deploy-action@v0.0.10

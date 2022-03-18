@@ -14,11 +14,6 @@ async function go() {
     "https://elliotlaws.com/api/get-content-sha"
   );
 
-  // const buildInfo = {
-  //   commit: { sha: "bef15c2dbfba2bd3f4a6f22e88f12c2d06d44d86" },
-  // };
-
-  // const currentCommitSha = "898d9cbe6bc93c0cbdb11b9006403e15a5f3679b";
   const compareCommitSha = buildInfo.commit.sha;
 
   let changedFiles = [];
@@ -34,43 +29,38 @@ async function go() {
     });
   } else {
     // get initial content list
-    // const filelist = [];
-    // function walk(dir) {
-    //   const files = fs.readdirSync(dir);
-    //   files.forEach((file) => {
-    //     const filePath = path.join(dir, file);
-    //     if (fs.statSync(filePath).isDirectory()) {
-    //       walk(filePath);
-    //     } else {
-    //       filelist.push(filePath);
-    //     }
-    //   });
-    // }
-    // walk("./content");
-    // changedFiles = filelist.map((filename) => ({
-    //   changeType: "added",
-    //   filename,
-    // }));
+    const filelist = [];
+    function walk(dir) {
+      const files = fs.readdirSync(dir);
+      files.forEach((file) => {
+        const filePath = path.join(dir, file);
+        if (fs.statSync(filePath).isDirectory()) {
+          walk(filePath);
+        } else {
+          filelist.push(filePath);
+        }
+      });
+    }
+    walk("./content");
+    changedFiles = filelist.map((filename) => ({
+      changeType: "added",
+      filename,
+    }));
   }
 
   // get list of files that are content
   const contentFiles = changedFiles
     .filter(({ filename }) => filename.startsWith("content"))
     .map(({ filename }) => {
+      let contentFile = filename;
+
+      // make sure index.mdx file gets recompiled if component has changed
       const parts = filename.split("/");
-
       if (!filename.endsWith(".mdx") || filename.endsWith("/index.mdx")) {
-        const newParts = parts.slice(0, parts.length - 1).join("/");
-        // console.log("newParts", newParts);
-        return newParts;
+        contentFile = parts.slice(0, parts.length - 1).join("/");
       }
-      // filename.replace(/^content\//, "");
-      // const newFilename = filename.replace(/^content\//, "");
 
-      // console.log("fileName", filename);
-      // console.log("new fileName", newFilename);
-
-      return filename;
+      return contentFile;
     });
 
   console.log(Array.from(new Set(contentFiles)).filter(Boolean).join(" "));
