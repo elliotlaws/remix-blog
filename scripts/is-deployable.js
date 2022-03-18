@@ -4,7 +4,7 @@ const [currentCommitSha] = process.argv.slice(2);
 
 async function go() {
   const buildInfo = await fetchJson(
-    `https://remix-blog-a0z.pages.dev/api/build/info.json`
+    `https://remix-blog-a0z.pages.dev/build/info.json`
   );
   const compareCommitSha = buildInfo.commit.sha;
   const changedFiles = await getChangedFiles(
