@@ -15,7 +15,7 @@ async function go() {
   // );
 
   const buildInfo = {
-    commit: { sha: "44b05693a6bf2525beea9bd088d0ef0ff21373d5" },
+    commit: { sha: "bef15c2dbfba2bd3f4a6f22e88f12c2d06d44d86" },
   };
 
   const currentCommitSha = "898d9cbe6bc93c0cbdb11b9006403e15a5f3679b";
