@@ -67,7 +67,7 @@ async function go() {
       // filename.replace(/^content\//, "");
       // const newFilename = filename.replace(/^content\//, "");
 
-      console.log("fileName", filename);
+      // console.log("fileName", filename);
       // console.log("new fileName", newFilename);
 
       return filename;
