@@ -7,18 +7,18 @@ const path = require("path");
 
 const { getChangedFiles, fetchJson } = require("./get-changed-files");
 
-// const [currentCommitSha] = process.argv.slice(2);
+const [currentCommitSha] = process.argv.slice(2);
 
 async function go() {
-  // const buildInfo = await fetchJson(
-  //   "https://elliotlaws.com/api/get-content-sha"
-  // );
+  const buildInfo = await fetchJson(
+    "https://elliotlaws.com/api/get-content-sha"
+  );
 
-  const buildInfo = {
-    commit: { sha: "bef15c2dbfba2bd3f4a6f22e88f12c2d06d44d86" },
-  };
+  // const buildInfo = {
+  //   commit: { sha: "bef15c2dbfba2bd3f4a6f22e88f12c2d06d44d86" },
+  // };
 
-  const currentCommitSha = "898d9cbe6bc93c0cbdb11b9006403e15a5f3679b";
+  // const currentCommitSha = "898d9cbe6bc93c0cbdb11b9006403e15a5f3679b";
   const compareCommitSha = buildInfo.commit.sha;
 
   let changedFiles = [];
