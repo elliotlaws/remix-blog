@@ -4,7 +4,7 @@ const [currentCommitSha] = process.argv.slice(2);
 
 async function go() {
   const buildInfo = await fetchJson(
-    `"https://elliotlaws.com/api/get-deploy-sha"`
+    "https://elliotlaws.com/api/get-deploy-sha"
   );
   const compareCommitSha = buildInfo.commit.sha;
   const changedFiles = await getChangedFiles(
