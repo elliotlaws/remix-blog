@@ -12,7 +12,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        sans: ["DM Sans"],
       },
       typography: (theme) => {
         return {

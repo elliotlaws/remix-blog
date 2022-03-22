@@ -8,6 +8,8 @@ export const action: ActionFunction = async ({ request, context }) => {
     }
     const data = (await request.json()) as any;
     const blurDataUrl = await getBlurDataUrl(data.frontmatter.image.url);
+    // const colour = await getAverageColor(data.frontmatter.image.url);
+    // data.frontmatter.image["colour"] = colour;
     data.frontmatter.image["blurDataUrl"] = blurDataUrl;
 
     await context.env.CONTENT.put(data.slug, JSON.stringify(data));

@@ -38,15 +38,13 @@ export default function Index() {
   );
 
   return (
-    <div className="grid gap-4">
-      <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
-        <div className="col-span-4 md:col-span-8 lg:col-span-12">
-          <FeaturedArticle article={featuredArticle} />
-        </div>
-        {otherPosts.map((article) => (
-          <ArticleCard article={article} key={article.slug} />
-        ))}
+    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 mt-6">
+      <div className="col-span-4 md:col-span-8 lg:col-span-12">
+        <FeaturedArticle article={featuredArticle} />
       </div>
+      {otherPosts.map((article) => (
+        <ArticleCard article={article} key={article.slug} />
+      ))}
     </div>
   );
 }
@@ -81,17 +79,15 @@ function FeaturedArticle({
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-lg"
+                className="rounded-md"
               />
             }
           />
         )}
       </div>
-      <div className="col-span-4 grid content-between">
+      <div className="col-span-4 grid content-around">
         <div>
-          {/* <h3 className="font-medium text-lg mb-4 md:mb-6">Featured Post</h3> */}
-
-          <div className="text-2xl font-medium mb-2">{frontmatter.title}</div>
+          <h2 className="text-3xl font-medium mb-2">{frontmatter.title}</h2>
           <p className="dark:text-zinc-400 mb-2">{frontmatter.description}</p>
           <p className="text-slate-700 dark:text-zinc-400 mt-4">
             {frontmatter.date &&
@@ -106,10 +102,10 @@ function FeaturedArticle({
 
         <div>
           <div className="flex gap-2 items-center mt-10">
-            <p className="text-lg dark:text-white  dark:group-hover:text-zinc-300">
+            <p className="text-xl dark:text-white  dark:group-hover:text-zinc-300">
               Read the full post
             </p>
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-10 w-10 group-hover:translate-x-1 block mr-2 transition ease-out hover:ease-in"
               fill="none"
@@ -122,7 +118,10 @@ function FeaturedArticle({
                 strokeLinejoin="round"
                 d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
-            </svg>
+            </svg> */}
+            <div className="h-10 w-10 text-2xl group-hover:translate-x-1 transition ease-out hover:ease-in flex items-center">
+              →
+            </div>
           </div>
         </div>
       </div>

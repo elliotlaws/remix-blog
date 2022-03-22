@@ -1,17 +1,20 @@
 import { Link } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import type { MdxListItem } from "types";
 import { BlurrableImage } from "./blurrable-image";
 import { getImageProps } from "./image";
 
 export function ArticleCard({ article }: { article: MdxListItem }) {
   const { slug, frontmatter, readTime } = article;
+
   return (
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group hover:cursor-pointer col-span-4"
+      className="group hover:cursor-pointer col-span-4 bg-zinc-200 dark:bg-zinc-700 rounded-md"
     >
-      <div className="grid gap-2 ">
+      <div id="output"></div>
+      <div className="grid">
         {frontmatter?.image?.url && (
           <BlurrableImage
             className="aspect-w-16 aspect-h-9"
@@ -30,24 +33,26 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-lg group-hover:scale-[1.01] group-hover:transition ease-out group-hover:ease-in"
+                className="rounded-t-md"
               />
             }
           />
         )}
-        <p className="text-zinc-700 dark:text-zinc-400 mt-1.5">
-          {frontmatter.date &&
-            new Date(frontmatter.date).toLocaleDateString("en-GB", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}{" "}
-          - {readTime?.text}
-        </p>
-        <h2 className="text-2xl font-medium">{frontmatter.title}</h2>
-        <p className="text-zinc-500 dark:text-zinc-400">
-          {frontmatter.description}
-        </p>
+        <div className="px-4 py-4 grid">
+          <h2 className="text-xl mb-2 font-medium">{frontmatter.title}</h2>
+          <p className="text-zinc-500 dark:text-zinc-400 mb-6">
+            {frontmatter.description}
+          </p>
+          <p className="text-zinc-700 dark:text-zinc-400 text-sm font-medium mb-2 ">
+            {frontmatter.date &&
+              new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}{" "}
+            - {readTime?.text}
+          </p>
+        </div>
       </div>
     </Link>
   );

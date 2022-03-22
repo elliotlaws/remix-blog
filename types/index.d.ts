@@ -38,3 +38,7 @@ type MdxListItem = Omit<MdxPage, "code">;
 declare global {
   type Env = { BLOG: string; SESSION_SECRET: string };
 }
+
+declare module useImageColor {
+  type useImageColor = any;
+}

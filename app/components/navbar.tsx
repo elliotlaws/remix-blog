@@ -27,7 +27,7 @@ const LINKS = [
     name: "Blog",
     to: "/blog",
   },
-  // { name: "Music", to: "/music" },
+  { name: "Music", to: "/music" },
   { name: "About", to: "/about" },
 ];
 
@@ -179,9 +179,9 @@ function MobileMenuList() {
               duration: shouldReduceMotion ? 0 : 0.15,
               ease: "linear",
             }}
-            className="bg-white dark:bg-[#1d1e25fc] text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12"
+            className="bg-primary text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12"
           >
-            <MenuItems className="border-none bg-transparent p-0">
+            <MenuItems className="border-none bg-primary p-0">
               {LINKS.map((link) => (
                 <MenuLink
                   className="text-base font-medium p-6  hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b border-gray-200"

@@ -31,7 +31,7 @@ export default function Index() {
     <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
         <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold leading-10">
-          Hey <WavingHand /> &nbsp;I'm Elliot,&nbsp;
+          Hi <WavingHand /> &nbsp;I'm Elliot,&nbsp;
           <span className="text-zinc-600 dark:text-zinc-400">
             A Leeds based{" "}
             <span className="text-black dark:text-white">
@@ -73,7 +73,7 @@ export default function Index() {
           className="mt-6 group flex gap-2 items-center font-medium text-xl text-black dark:text-white dark:hover:text-zinc-300"
         >
           How I became a software engineer
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 group-hover:translate-x-1 block mr-2 transition ease-out hover:ease-in"
             fill="none"
@@ -86,14 +86,17 @@ export default function Index() {
               strokeLinejoin="round"
               d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
             />
-          </svg>
+          </svg> */}
+          <div className="h-10 w-10 text-xl group-hover:translate-x-1 transition ease-out hover:ease-in flex items-center">
+            →
+          </div>
         </Link>
       </div>
       <div>
         <BlurrableImage
           img={
             <img
-              className="rounded-lg"
+              className="rounded-md"
               {...getImageProps({
                 url: `https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/c9d6c155-2832-419d-c7cd-6ca477226e00`,
                 alt: "me",

@@ -39,7 +39,7 @@ export function HeroImage({ frontmatter }: any) {
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
       className="aspect-w-16 aspect-h-9"
-      img={<img className="rounded-lg" {...imageProps} />}
+      img={<img className="rounded-md" {...imageProps} />}
     />
   );
 }
@@ -142,9 +142,9 @@ export default function Post() {
       <div className="mb-6">
         <Link
           to="/blog"
-          className="group w-fit flex items-center font-medium text-xl dark:text-zinc-400 dark:hover:text-gray-500"
+          className="group w-fit flex items-center font-medium text-lg dark:text-zinc-400 dark:hover:text-gray-500"
         >
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in"
             fill="none"
@@ -157,7 +157,10 @@ export default function Post() {
               strokeLinejoin="round"
               d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
             />
-          </svg>
+          </svg> */}
+          <div className="h-6 w-6 text-2xl group-hover:-translate-x-1 flex items-center mr-2 transition ease-out hover:ease-in">
+            ←
+          </div>
           Back to posts
         </Link>
       </div>

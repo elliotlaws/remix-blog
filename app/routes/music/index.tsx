@@ -1,3 +1,7 @@
 export default function Index() {
-  return <div>Music</div>;
+  return (
+    <div>
+      <div></div>
+    </div>
+  );
 }
