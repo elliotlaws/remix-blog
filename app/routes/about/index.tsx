@@ -30,7 +30,7 @@ export default function Index() {
   return (
     <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
-        <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold leading-10">
+        <h2 className="text-3xl text-black dark:text-white mb-4 font-medium leading-10">
           Hi <WavingHand /> &nbsp;I'm Elliot,&nbsp;
           <span className="text-zinc-600 dark:text-zinc-400">
             A Leeds based{" "}
@@ -45,7 +45,7 @@ export default function Index() {
           went to Leeds Metropolitan University (now Leeds Beckett) and
           graduated with a degree in Music Technology.
         </p>
-        <h3 className="text-xl text-black dark:text-white font-semibold my-4">
+        <h3 className="text-xl text-black dark:text-white my-4">
           Software Development
         </h3>
         <p>
@@ -54,9 +54,7 @@ export default function Index() {
           favourite, and I've since concentrated my efforts on becoming more of
           a React + TypeScript + Node engineer.
         </p>
-        <h3 className="text-xl text-black dark:text-white font-semibold my-4">
-          Music
-        </h3>
+        <h3 className="text-xl text-black dark:text-white my-4">Music</h3>
         <p>
           When I'm not coding, I'll play my drums and practice with my band
           AVACET. We're a 3-piece post-punk band from Leeds;{" "}
@@ -70,7 +68,7 @@ export default function Index() {
         </p>
         <Link
           to="software-engineer-story"
-          className="mt-6 group flex gap-2 items-center font-medium text-xl text-black dark:text-white dark:hover:text-zinc-300"
+          className="mt-6 group flex gap-2 items-center text-xl text-black dark:text-white dark:hover:text-zinc-300"
         >
           How I became a software engineer
           {/* <svg
@@ -96,7 +94,7 @@ export default function Index() {
         <BlurrableImage
           img={
             <img
-              className="rounded-md"
+              className="rounded-lg"
               {...getImageProps({
                 url: `https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/c9d6c155-2832-419d-c7cd-6ca477226e00`,
                 alt: "me",

@@ -39,7 +39,7 @@ export function HeroImage({ frontmatter }: any) {
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
       className="aspect-w-16 aspect-h-9"
-      img={<img className="rounded-md" {...imageProps} />}
+      img={<img className="rounded-lg" {...imageProps} />}
     />
   );
 }

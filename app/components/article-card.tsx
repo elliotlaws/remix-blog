@@ -11,9 +11,8 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group hover:cursor-pointer col-span-4 bg-zinc-200 dark:bg-zinc-700 rounded-md"
+      className="group hover:cursor-pointer col-span-4 bg-white dark:bg-[#25252ef0] rounded-lg"
     >
-      <div id="output"></div>
       <div className="grid">
         {frontmatter?.image?.url && (
           <BlurrableImage
@@ -33,17 +32,17 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-t-md"
+                className="rounded-t-lg"
               />
             }
           />
         )}
-        <div className="px-4 py-4 grid">
-          <h2 className="text-xl mb-2 font-medium">{frontmatter.title}</h2>
+        <div className="px-4 py-4 grid ">
+          <h2 className="text-xl mb-2">{frontmatter.title}</h2>
           <p className="text-zinc-500 dark:text-zinc-400 mb-6">
             {frontmatter.description}
           </p>
-          <p className="text-zinc-700 dark:text-zinc-400 text-sm font-medium mb-2 ">
+          <p className="text-zinc-700 dark:text-zinc-400 text-sm mb-2 ">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",

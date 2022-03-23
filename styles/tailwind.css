@@ -93,7 +93,7 @@
 @layer components {
   .bg-primary {
     /* // @apply bg-white dark:bg-[#1d1e25fd]; */
-    @apply bg-white dark:bg-[#212129f0];
+    @apply bg-[#f7f7f7] dark:bg-[#212129f0];
   }
 
   .btn-primary {

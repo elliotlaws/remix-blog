@@ -33,7 +33,7 @@ export default function Index() {
   return (
     <div className="mt-4 dark:text-zinc-200">
       <div className="flex justify-between items-baseline">
-        <h1 className="text-3xl pb-2 font-medium text-center md:text-left dark:text-zinc-200">
+        <h1 className="text-3xl pb-2 text-center md:text-left dark:text-zinc-200">
           Blog Posts
         </h1>
         <p className="text-lg">{posts.length} Articles</p>

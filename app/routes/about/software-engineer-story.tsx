@@ -2,7 +2,7 @@ export default function Index() {
   return (
     <div className="text-lg text-zinc-600 dark:text-zinc-400 lg:px-16 prose lg:prose-lg max-w-none mt-6">
       <div className="flex text-6xl text-black dark:text-white">🤷‍♂️ → 👨‍💻</div>
-      <h2 className="text-3xl text-black dark:text-white mb-4 font-semibold mt-6">
+      <h2 className="text-3xl text-black font-medium dark:text-white mb-4 mt-6">
         How I became a software engineer
       </h2>
       <p>

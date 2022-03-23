@@ -79,7 +79,7 @@ function FeaturedArticle({
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-md"
+                className="rounded-lg"
               />
             }
           />
@@ -87,7 +87,7 @@ function FeaturedArticle({
       </div>
       <div className="col-span-4 grid content-around">
         <div>
-          <h2 className="text-3xl font-medium mb-2">{frontmatter.title}</h2>
+          <h2 className="text-3xl mb-2">{frontmatter.title}</h2>
           <p className="dark:text-zinc-400 mb-2">{frontmatter.description}</p>
           <p className="text-slate-700 dark:text-zinc-400 mt-4">
             {frontmatter.date &&
