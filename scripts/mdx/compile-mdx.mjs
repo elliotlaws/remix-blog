@@ -11,7 +11,6 @@ import { getMDXComponent } from "mdx-bundler/client/index.js";
 import rehypeHighlight from "rehype-highlight";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
-import { getAverageColor } from "fast-average-color-node";
 
 (async function () {
   config();
