@@ -66,9 +66,6 @@ export default function Navbar() {
               </NavLink>
             ))}
           </div>
-          {/* <div className="hidden md:block">
-            <MyToggle />
-          </div> */}
           <div className="hidden md:block">
             <DarkModeToggle />
           </div>

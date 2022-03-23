@@ -166,10 +166,11 @@ export default function Post() {
       </div>
       <HeroImage frontmatter={frontmatter} />
       <div className="py-8 max-w-screen-lg lg:px-[4rem]">
-        <div className="pb-8 grid gap-2 ">
+        <div className="pb-8 grid gap-4">
           <h1 className="text-4xl font-bold dark:text-white">
             {frontmatter.title}
           </h1>
+
           <p className="dark:text-zinc-400 text-lg">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
@@ -195,10 +196,13 @@ export default function Post() {
           </main>
         ) : (
           <main
-            className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert"
+            className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert pb-14"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
+        <div className="text-4xl text-center">
+          <p className="font-bold">〰</p>
+        </div>
       </div>
     </div>
   );

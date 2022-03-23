@@ -28,7 +28,7 @@ const WavingHand = () => (
 
 export default function Index() {
   return (
-    <div className="grid mt-6 grid-cols-1 lg:grid-cols-2 gap-10">
+    <div className="grid mt-6 grid-cols-1 gap-10 lg:px-24">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
         <h2 className="text-3xl text-black dark:text-white mb-4 font-medium leading-10">
           Hi <WavingHand /> &nbsp;I'm Elliot,&nbsp;
@@ -90,11 +90,11 @@ export default function Index() {
           </div>
         </Link>
       </div>
-      <div>
+      {/* <div>
         <BlurrableImage
           img={
             <img
-              className="rounded-lg"
+              className=""
               {...getImageProps({
                 url: `https://imagedelivery.net/aMtDG4Tev1jnhCpXZQ7ubg/c9d6c155-2832-419d-c7cd-6ca477226e00`,
                 alt: "me",
@@ -111,7 +111,7 @@ export default function Index() {
             />
           }
         />
-      </div>
+      </div> */}
     </div>
   );
 }

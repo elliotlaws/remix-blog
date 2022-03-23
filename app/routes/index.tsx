@@ -8,6 +8,7 @@ export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.env.CONTENT as KVNamespace).list({
     prefix: "blog/",
   });
+
   const posts = await Promise.all(
     slugs.keys.map(async ({ name }) => {
       const data = await context.env.CONTENT.get(name, "json");
@@ -105,20 +106,6 @@ function FeaturedArticle({
             <p className="text-xl dark:text-white  dark:group-hover:text-zinc-300">
               Read the full post
             </p>
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 group-hover:translate-x-1 block mr-2 transition ease-out hover:ease-in"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg> */}
             <div className="h-10 w-10 text-2xl group-hover:translate-x-1 transition ease-out hover:ease-in flex items-center">
               →
             </div>

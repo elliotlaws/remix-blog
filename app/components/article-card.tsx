@@ -11,7 +11,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group hover:cursor-pointer col-span-4 bg-white dark:bg-[#25252ef0] rounded-lg"
+      className="group hover:cursor-pointer col-span-4  rounded-lg hover:-translate-y-2 transition-all duration-100 ease-out drop-shadow-sm hover:drop-shadow-md"
     >
       <div className="grid">
         {frontmatter?.image?.url && (
@@ -37,7 +37,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             }
           />
         )}
-        <div className="px-4 py-4 grid ">
+        <div className="px-4 py-4 grid bg-white dark:bg-[#25252ef0] rounded-b-lg">
           <h2 className="text-xl mb-2">{frontmatter.title}</h2>
           <p className="text-zinc-500 dark:text-zinc-400 mb-6">
             {frontmatter.description}
@@ -52,6 +52,9 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             - {readTime?.text}
           </p>
         </div>
+        {/* <div className="hidden group-hover:block text-center text-2xl font-medium">
+          -
+        </div> */}
       </div>
     </Link>
   );
