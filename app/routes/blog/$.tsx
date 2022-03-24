@@ -38,8 +38,8 @@ export function HeroImage({ frontmatter }: any) {
   return (
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
-      className="aspect-w-16 aspect-h-9"
-      img={<img className="rounded-lg" {...imageProps} />}
+      className="aspect-w-16 aspect-h-9 lg:m-2"
+      img={<img className="lg:rounded-lg" {...imageProps} />}
     />
   );
 }
@@ -139,25 +139,11 @@ export default function Post() {
 
   return (
     <div className="py-6 max-w-screen-lg">
-      <div className="mb-6">
+      <div className="mb-6 px-4">
         <Link
           to="/blog"
           className="group w-fit flex items-center font-medium text-lg dark:text-zinc-400 dark:hover:text-gray-500"
         >
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 group-hover:-translate-x-1 block mr-2 transition ease-out hover:ease-in"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-            />
-          </svg> */}
           <div className="h-6 w-6 text-2xl group-hover:-translate-x-1 flex items-center mr-2 transition ease-out hover:ease-in">
             ←
           </div>
@@ -166,7 +152,7 @@ export default function Post() {
       </div>
       <HeroImage frontmatter={frontmatter} />
       <div className="py-8 max-w-screen-lg lg:px-[4rem]">
-        <div className="pb-8 grid gap-4">
+        <div className="pb-8 grid gap-2 mx-[1rem] lg:mx-[2rem]">
           <h1 className="text-4xl font-bold dark:text-white">
             {frontmatter.title}
           </h1>

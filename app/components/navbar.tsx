@@ -146,8 +146,8 @@ function MobileMenuList() {
       document.body.classList.add("fixed");
       document.body.classList.add("overflow-y-scroll");
       // alternatively, get bounding box of the menu, and set body height to that.
-      document.body.style.height = "100vh";
       document.body.style.width = "100vw";
+      document.body.style.height = "100vh";
     } else {
       document.body.classList.remove("fixed");
       document.body.classList.remove("overflow-y-scroll");
@@ -160,28 +160,26 @@ function MobileMenuList() {
       {isExpanded ? (
         <MenuPopover
           position={(r) => ({
-            top: `calc(${Number(r?.top) + Number(r?.height)}px + 2.5rem)`, // 2.25 rem = py-9 from navbar
+            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1.75rem)`, // 2.25 rem = py-9 from navbar
             left: 0,
             bottom: 0,
             right: 0,
           })}
-          style={{ display: "block" }}
-          className="z-50"
         >
           <motion.div
-            initial={{ y: -40, opacity: 0 }}
+            initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -40, opacity: 0 }}
+            exit={{ y: -30, opacity: 0 }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.15,
               ease: "linear",
             }}
-            className="bg-primary text-base flex h-full flex-col overflow-y-scroll border-t border-gray-200 pb-12"
+            className="backdrop-blur-md text-base flex h-full flex-col overflow-y-scroll border-t-2 border-gray-200 pb-12"
           >
-            <MenuItems className="border-none bg-primary p-0">
+            <MenuItems className="border-none bg-primary p-0 min-h-screen">
               {LINKS.map((link) => (
                 <MenuLink
-                  className="text-base font-medium p-6  hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b border-gray-200"
+                  className="text-base font-medium p-6  hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b-2 border-gray-200"
                   key={link.to}
                   as={Link}
                   to={link.to}
@@ -306,7 +304,7 @@ function DarkModeToggle() {
 
   return (
     <motion.button
-      className="hover:bg-gray-200 transition duration-60 hover:ease-in dark:hover:bg-gray-800 p-1 rounded-lg"
+      className="hover:bg-gray-200 transition duration-60 hover:ease-in dark:hover:bg-[#25252ef0] p-1 rounded-lg"
       onClick={toggleTheme}
       initial={false}
       animate={isChecked ? "checked" : "unchecked"}

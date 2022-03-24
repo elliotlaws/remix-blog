@@ -39,14 +39,14 @@ export function links() {
     {
       rel: "preload",
       as: "font",
-      href: "/fonts/dm-sans-latin-500.woff2",
+      href: "/fonts/dm-sans-v10-latin-500.woff2",
       type: "font/woff2",
       crossOrigin: "anonymous",
     },
     {
       rel: "preload",
       as: "font",
-      href: "/fonts/dm-sans-latin-700.woff2",
+      href: "/fonts/dm-sans-v10-latin-700.woff2",
       type: "font/woff2",
       crossOrigin: "anonymous",
     },
@@ -71,7 +71,6 @@ export function links() {
       sizes: "16x16",
       href: "/favicons/favicon-16x16.png",
     },
-    { rel: "manifest", href: "/site.webmanifest" },
     { rel: "icon", href: "/favicon.ico" },
   ];
 }
@@ -116,7 +115,7 @@ function App() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
-            <div className="container px-4 m-auto lg:max-w-screen-lg">
+            <div className="container m-auto lg:max-w-screen-lg">
               <Outlet />
             </div>
           </div>

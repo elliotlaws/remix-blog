@@ -39,7 +39,7 @@ export default function Index() {
   );
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 mt-6">
+    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 mt-6 px-4">
       <div className="col-span-4 md:col-span-8 lg:col-span-12">
         <FeaturedArticle article={featuredArticle} />
       </div>

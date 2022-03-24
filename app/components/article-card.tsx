@@ -39,10 +39,10 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
         )}
         <div className="px-4 py-4 grid bg-white dark:bg-[#25252ef0] rounded-b-lg">
           <h2 className="text-xl mb-2">{frontmatter.title}</h2>
-          <p className="text-zinc-500 dark:text-zinc-400 mb-6">
+          <p className="text-zinc-600 dark:text-zinc-400 mb-6">
             {frontmatter.description}
           </p>
-          <p className="text-zinc-700 dark:text-zinc-400 text-sm mb-2 ">
+          <p className="text-zinc-600 dark:text-zinc-400 mb-2">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",
