@@ -12,9 +12,7 @@ const exec = require("util").promisify(require("child_process").exec);
   // We have files in local kv so return early
   if (exists && fs.readdirSync("./.mf/kv/CONTENT/blog") > 0) return;
 
-  const mdxFiles = fs.readdirSync("./content/blog");
-
-  mdxFiles.forEach(async (file) => {
+  fs.readdirSync("./content/blog").forEach(async (file) => {
     const filePath = `content/blog/${file}`;
     const command = `node scripts/mdx/compile-mdx.mjs --json --file ${filePath}`;
 

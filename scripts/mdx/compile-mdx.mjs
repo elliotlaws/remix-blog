@@ -22,10 +22,11 @@ import calculateReadTime from "reading-time";
 
   program.parse(process.argv);
   const options = program.opts();
-  // if (!process.env.API_URL) {
-  //   console.error('missing API_URL')
-  //   process.exit(1)
-  // }
+
+  if (!process.env.API_URL) {
+    console.error("missing API_URL");
+    process.exit(1);
+  }
 
   const rootPath = options.root ?? process.cwd();
   const mdxPaths = options.file;
