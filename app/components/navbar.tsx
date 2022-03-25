@@ -1,10 +1,8 @@
 import {
   Menu,
   MenuButton,
-  MenuItem,
   MenuItems,
   MenuLink,
-  MenuList,
   MenuPopover,
   useMenuButtonContext,
 } from "@reach/menu-button";
@@ -16,7 +14,7 @@ import {
   useReducedMotion,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink } from "remix";
 import { Link } from "remix";
 import { Switch } from "@headlessui/react";

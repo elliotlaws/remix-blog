@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import { useEffect, useState } from "react";
 import type { MdxListItem } from "types";
 import { BlurrableImage } from "./blurrable-image";
 import { getImageProps } from "./image";
@@ -52,9 +51,6 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             - {readTime?.text}
           </p>
         </div>
-        {/* <div className="hidden group-hover:block text-center text-2xl font-medium">
-          -
-        </div> */}
       </div>
     </Link>
   );

@@ -10,7 +10,6 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import Navbar from "./components/navbar";
-
 import tailwindStyles from "~/styles/tailwind.css";
 import globalStyles from "~/styles/global.css";
 import vendorStyles from "~/styles/vendors.css";
@@ -23,8 +22,7 @@ import {
   useTheme,
 } from "./utils/theme-provider";
 import { getThemeSession } from "./utils/theme.server";
-import { GithubIcon } from "./components/icons";
-import { LinkedInIcon } from "./components/icons/linkedin-icon";
+import { GithubIcon, LinkedInIcon } from "./components/icons";
 import { externalLinks } from "./external-links";
 
 export function links() {

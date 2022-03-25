@@ -2,7 +2,7 @@ import * as React from "react";
 import clsx from "clsx";
 import { useSSRLayoutEffect } from "~/utils/misc";
 
-function BlurrableImage({
+export function BlurrableImage({
   img,
   blurDataUrl,
   ...rest
@@ -63,5 +63,3 @@ function BlurrableImage({
     </div>
   );
 }
-
-export { BlurrableImage };
