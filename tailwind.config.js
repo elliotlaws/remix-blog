@@ -40,6 +40,7 @@ module.exports = {
                 },
                 code: {
                   padding: "2em 1em",
+                  fontSize: "1em",
                 },
               },
             ],
@@ -53,6 +54,7 @@ module.exports = {
               code: {
                 background: "none",
                 padding: 0,
+                fontSize: "1em",
               },
               pre: {
                 margin: "2em 0",

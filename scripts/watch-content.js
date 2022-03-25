@@ -6,6 +6,24 @@ const path = require("path");
 const chokidar = require("chokidar");
 const exec = require("util").promisify(require("child_process").exec);
 
+(function checkLocalKvStore() {
+  const exists = fs.existsSync("./.mf/kv/CONTENT/blog");
+
+  // We have files in local kv so return early
+  if (exists && fs.readdirSync("./.mf/kv/CONTENT/blog") > 0) return;
+
+  const mdxFiles = fs.readdirSync("./content/blog");
+
+  mdxFiles.forEach(async (file) => {
+    const filePath = `content/blog/${file}`;
+    const command = `node scripts/mdx/compile-mdx.mjs --json --file ${filePath}`;
+
+    await exec(command).catch((e) => {
+      console.error(e);
+    });
+  });
+})();
+
 const refreshFilePath = "./app/.refresh.ignore";
 let refreshTimeout = undefined;
 

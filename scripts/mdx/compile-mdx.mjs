@@ -103,12 +103,6 @@ import calculateReadTime from "reading-time";
 
       const readTime = calculateReadTime(mdxSource);
 
-      // const env = process.env.NODE_ENV || "development";
-      // const apiUrl =
-      //   env === "production"
-      //     ? process.env.PROD_API_URL
-      //     : process.env.LOCAL_API_URL;
-
       const response = await fetch(`${process.env.API_URL}/api/post-content`, {
         method: "post",
         body: JSON.stringify({
