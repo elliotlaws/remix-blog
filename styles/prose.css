@@ -1,13 +1,152 @@
+pre {
+  overflow-x: auto;
+}
+
+/**
+ * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .code-highlight.
+ */
+.code-highlight {
+  float: left; /* 1 */
+  min-width: 100%; /* 2 */
+}
+
+.code-line {
+  display: block;
+  padding: 0 1.75rem;
+  border-left-width: 4px;
+  border-left-color: rgba(31, 41, 55, 0); /* Set code block color */
+}
+
+.code-line.inserted {
+  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
+}
+
+.code-line.line-number {
+  padding: 0 1.5rem;
+}
+
+.line-number::before {
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  margin-right: 24px;
+  color: rgb(156, 163, 175); /* Line number color */
+  content: attr(line);
+}
+
 .prose pre {
-  position: relative;
-  margin: 2em 0;
+  @apply bg-gray-50 m-0 lg:rounded-lg dark:bg-gray-900;
+  padding: 0px;
 }
 
-.prose pre code.hljs {
-  padding: 2em;
+.prose code {
+  @apply text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-zinc-800;
+}
+
+.prose pre code {
+  @apply text-gray-800 dark:text-gray-200;
   font-size: 16px;
+  padding: 1.75rem 0;
 }
 
-.prose :where(pre):not(:where([class~="not-prose"] *)) {
-  padding: 0;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-gray-700 dark:text-gray-400;
+}
+
+.token.punctuation {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-green-500;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-purple-500;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-yellow-500;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-blue-500;
+}
+
+.token.function,
+.token.class-name {
+  @apply text-pink-500;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-yellow-500;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  @apply text-gray-800 dark:text-gray-50;
+}
+
+.rehype-code-title {
+  @apply m-0 px-6 py-4 font-mono text-sm text-gray-800 bg-gray-300 rounded-t-lg dark:text-gray-200 dark:border-gray-700 dark:bg-zinc-900;
+}
+
+.rehype-code-title + pre {
+  @apply mt-0 rounded-t-none;
+}
+
+.highlight-line {
+  @apply block px-4 bg-gray-100 border-l-4 border-blue-500 dark:bg-gray-700;
+}
+
+.metric-card > a {
+  @apply no-underline;
+}
+
+.metric-card > p {
+  @apply my-2;
+}
+
+.step > h3 {
+  @apply my-0;
+}
+
+.prose .tweet a {
+  text-decoration: inherit;
+  font-weight: inherit;
+}
+
+table {
+  display: block;
+  max-width: fit-content;
+  overflow-x: auto;
+  white-space: nowrap;
 }

@@ -38,9 +38,6 @@ module.exports = {
                 pre: {
                   borderRadius: "0%",
                 },
-                code: {
-                  padding: "2em 1em",
-                },
               },
             ],
           },
@@ -49,14 +46,6 @@ module.exports = {
               "> *": {
                 marginLeft: "2rem",
                 marginRight: "2rem",
-              },
-              code: {
-                background: "none",
-                padding: 0,
-              },
-              pre: {
-                margin: "2em 0",
-                borderRadius: "0.5rem",
               },
               h2: {
                 fontSize: "1.5em",

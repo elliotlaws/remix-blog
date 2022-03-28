@@ -8,7 +8,7 @@ import * as React from "react";
 import { renderToString } from "react-dom/server.js";
 import { bundleMDX } from "mdx-bundler";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
-import rehypeHighlight from "rehype-highlight";
+import rehypePrism from "rehype-prism-plus";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
 
@@ -88,14 +88,15 @@ import calculateReadTime from "reading-time";
           // ]
           options.rehypePlugins = [
             ...(options.rehypePlugins ?? []),
-            rehypeHighlight,
+            rehypePrism,
           ];
           return options;
         },
       });
       const Component = getMDXComponent(code);
+
       const html = renderToString(React.createElement(Component));
-      const hasComponents = Object.keys(files).length > 0;
+      // const hasComponents = Object.keys(files).length > 0;
 
       const hash = crypto
         .createHash("sha256")
@@ -112,7 +113,7 @@ import calculateReadTime from "reading-time";
           readTime,
           hash,
           html,
-          code: hasComponents ? code : undefined,
+          code,
         }),
         headers: {
           authorization: `Bearer ${process.env.POST_API_KEY}`,
