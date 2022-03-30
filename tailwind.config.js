@@ -51,7 +51,36 @@ module.exports = {
                 fontSize: "1.5em",
                 fontWeight: "bold",
               },
+              pre: {
+                borderRadius: "0.5rem",
+              },
             },
+          },
+          light: {
+            css: [
+              {
+                color: "#3a3d4a",
+                "h1, h2, h3, h4, h5, h6": {
+                  color: "#111827",
+                },
+                code: {
+                  color: "#111827",
+                },
+              },
+            ],
+          },
+          dark: {
+            css: [
+              {
+                color: "#A1A1AA",
+                "h1, h2, h3, h4, h5, h6": {
+                  color: "#F1F1F1",
+                },
+                code: {
+                  color: "#F1F1F1",
+                },
+              },
+            ],
           },
         };
       },
@@ -60,5 +89,6 @@ module.exports = {
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
+    require("tailwind-scrollbar"),
   ],
 };

@@ -113,7 +113,7 @@ function App() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
-            <div className="container m-auto lg:max-w-screen-lg">
+            <div className="container m-auto max-w-screen-lg">
               <Outlet />
             </div>
           </div>
@@ -130,12 +130,11 @@ function App() {
 function Footer() {
   return (
     <footer className="py-8 mt-16 border-t-2 border-black dark:border-white border-slate-600">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-6 lg:px-2 flex items-center justify-between">
         <p className="text-zinc-700 dark:text-white flex items-center gap-2">
           <span className="text-xl">&copy;</span> 2022 Elliot Laws - Leeds
         </p>
         <div className="flex gap-4 items-center">
-          <p className="hidden lg:block">Links</p>
           <a href={externalLinks.github}>
             <GithubIcon size={32} />
           </a>

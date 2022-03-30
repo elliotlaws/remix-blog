@@ -33,7 +33,7 @@ For create-react-app projects, using the css prop requires that the JSX pragma b
 
 So to use the css prop, we need to place the following code at the top of the file before all our imports.
 
-```tsx showLineNumbers
+```tsx
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
@@ -96,7 +96,7 @@ To improve this, I decided to go with an approach that allows us to declare our 
 
 To get started with this approach, we first need to add a function that isn't provided out of the box with Emotion. Create a new file src/types/emotion-styles.ts and add the following code.
 
-```ts showLineNumbers
+```ts data-filename=types/createStyles.ts
 import { Interpolation, Theme } from "@emotion/react";
 
 function createStyles<T extends { [key: string]: Interpolation<Theme> }>(
@@ -144,7 +144,7 @@ Emotion does provide a theming solution straight out of the box, but I decided t
 
 Start by creating a new file src/styles/colours.ts and declare a new object consisting of your theme colours.
 
-```ts
+```ts data-filename=src/styles/colours.ts
 export const colours = {
   black: "#010101",
   primary: "#00378B",
@@ -201,7 +201,7 @@ In order to keep things separate, start by creating a separate TypeScript file s
 
 Notice how because we are using template literals, we can also use our theme colours by interpolating the hex value. In this example we've used a theme colour in our H2 styles.
 
-```tsx {1,3-4} showLineNumbers
+```tsx data-filename=src/styles/global.ts
 import { css } from '@emotion/react'
 import { colours } from 'styles.colours'
 import AvenirStd from '../fonts/AvenirLTStd-Roman.otf'

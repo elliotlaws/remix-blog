@@ -11,6 +11,32 @@ import { getMDXComponent } from "mdx-bundler/client/index.js";
 import rehypePrism from "rehype-prism-plus";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
+import { visit } from "unist-util-visit";
+
+function rehypeCodeTitles() {
+  return (tree) => visit(tree, "element", visitor);
+
+  function visitor(node, index, parent) {
+    if (!parent || node.tagName !== "pre") {
+      return;
+    }
+
+    const pre = node;
+    const code = Array.isArray(pre.children) ? pre.children[0] : pre.children;
+
+    if (!code.data || !code.data.meta) {
+      return;
+    }
+
+    const meta = code.data.meta;
+    const properties = meta.split(" ");
+
+    properties.forEach((property) => {
+      const [key, value] = property.split("=");
+      pre.properties[key] = value;
+    });
+  }
+}
 
 (async function () {
   config();
@@ -82,13 +108,11 @@ import calculateReadTime from "reading-time";
         // set cwd if mdx has file imports
         cwd,
         xdmOptions(options) {
-          // options.remarkPlugins = [
-          //   ...(options.remarkPlugins ?? []),
-          //   remarkMdxCodeMeta,
-          // ]
           options.rehypePlugins = [
             ...(options.rehypePlugins ?? []),
-            rehypePrism,
+            // rehypeCodeTitles must go before rehypePrism
+            rehypeCodeTitles,
+            [rehypePrism, { showLineNumbers: true }],
           ];
           return options;
         },

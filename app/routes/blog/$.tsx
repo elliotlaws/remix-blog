@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import clsx from "clsx";
+import { useMemo, useRef, useState } from "react";
 import {
   HeadersFunction,
   json,
@@ -12,48 +13,6 @@ import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
 import { getMDXComponent } from "~/utils/mdx.client";
 
-const CopyIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-      />
-    </svg>
-  );
-};
-
-const CheckIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  );
-};
-
-async function copyTextToClipboard(text: string) {
-  if ("clipboard" in navigator) {
-    return await navigator.clipboard.writeText(text);
-  } else {
-    return document.execCommand("copy", true, text);
-  }
-}
-
 const Pre = (props: any) => {
   const textInput = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
@@ -61,14 +20,20 @@ const Pre = (props: any) => {
 
   const onCopy = async () => {
     if (textInput.current && textInput.current?.textContent !== null) {
-      copyTextToClipboard(textInput.current.textContent).then(() => {
-        setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 2000);
-      });
+      setCopied(true);
+      await navigator.clipboard
+        .writeText(textInput.current.textContent)
+        .then(() => {
+          setTimeout(() => {
+            setCopied(false);
+          }, 2000);
+        });
     }
   };
+
+  if (props["data-showcopybutton"] === "false") {
+    return <pre {...props} />;
+  }
 
   return (
     <div
@@ -76,52 +41,55 @@ const Pre = (props: any) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
-        setCopied(false);
       }}
-      className="relative m-0"
+      className="relative mx-0 my-8"
     >
-      {hovered && (
-        <button
-          aria-label="Copy code"
-          type="button"
-          className={`absolute right-2 top-2 h-8 w-8 border-[1.5px] p-1 rounded-md ${
+      <button
+        aria-label="Copy code"
+        type="button"
+        className={clsx(
+          "absolute right-3 top-3 h-[35px] w-[35px] ring-offset-transparent ring-offset-2 ring-1 p-1 rounded-md transition-opacity duration-100 ease-in backdrop-blur-md",
+          copied
+            ? "ring-emerald-500 dark:ring-emerald-600"
+            : "ring-gray-500 dark:ring-[#989a9b]",
+          hovered ? "opacity-100" : "opacity-0"
+        )}
+        onClick={onCopy}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          fill="none"
+          height={26}
+          width={26}
+          strokeWidth={2}
+          className={clsx(
             copied
-              ? "border-emerald-500"
-              : "border-gray-800 dark:border-gray-300"
-          }`}
-          onClick={onCopy}
+              ? "text-emerald-500 dark:text-emerald-600"
+              : "text-gray-500 dark:text-[#989a9b]"
+          )}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="none"
-            strokeWidth={1.5}
-            className={
-              copied ? "text-emerald-500" : "text-gray-800 dark:text-gray-300"
-            }
-          >
-            {copied ? (
-              <>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </>
-            ) : (
-              <>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
-                />
-              </>
-            )}
-          </svg>
-        </button>
-      )}
-      <pre>{props.children}</pre>
+          {copied ? (
+            <>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </>
+          ) : (
+            <>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </>
+          )}
+        </svg>
+      </button>
+      <pre {...props} />
     </div>
   );
 };
@@ -153,7 +121,7 @@ export function HeroImage({ frontmatter }: any) {
   return (
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
-      className="aspect-w-16 aspect-h-9 lg:m-2"
+      className="aspect-w-16 aspect-h-9 lg:mx-4"
       img={<img className="lg:rounded-lg" {...imageProps} />}
     />
   );
@@ -270,7 +238,7 @@ export default function Post() {
       </div>
       <HeroImage frontmatter={frontmatter} />
       <div className="py-8 max-w-screen-lg lg:px-[4rem]">
-        <div className="pb-8 grid gap-2 mx-[1rem] lg:mx-[2rem]">
+        <div className="pb-8 grid gap-4 mx-[1rem] lg:mx-[2rem]">
           <h1 className="text-4xl font-bold dark:text-white">
             {frontmatter.title}
           </h1>
@@ -295,12 +263,12 @@ export default function Post() {
             )} */}
         </div>
         {Component ? (
-          <main className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert">
+          <main className="max-w-none prose prose-light lg:prose-lg dark:prose-dark">
             <Component components={{ pre: Pre }} />
           </main>
         ) : (
           <main
-            className="max-w-none prose prose-zinc lg:prose-lg dark:prose-invert pb-14"
+            className="max-w-none prose prose-light lg:prose-lg dark:prose-dark pb-14"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
