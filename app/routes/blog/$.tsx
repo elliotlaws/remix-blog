@@ -48,7 +48,7 @@ const Pre = (props: any) => {
         aria-label="Copy code"
         type="button"
         className={clsx(
-          "absolute right-3 top-3 h-[35px] w-[35px] ring-offset-transparent ring-offset-2 ring-1 p-1 rounded-md transition-opacity duration-100 ease-in backdrop-blur-md",
+          "absolute right-3 top-3 h-[35px] w-[35px] bg-[#d3d3d3] dark:bg-[#20242d] p-1 rounded-md transition-opacity duration-100 ease-in backdrop-blur-md",
           copied
             ? "ring-emerald-500 dark:ring-emerald-600"
             : "ring-gray-500 dark:ring-[#989a9b]",
@@ -63,7 +63,7 @@ const Pre = (props: any) => {
           fill="none"
           height={26}
           width={26}
-          strokeWidth={2}
+          strokeWidth={1.7}
           className={clsx(
             copied
               ? "text-emerald-500 dark:text-emerald-600"
@@ -121,7 +121,7 @@ export function HeroImage({ frontmatter }: any) {
   return (
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
-      className="aspect-w-16 aspect-h-9 lg:mx-4"
+      className="aspect-w-16 aspect-h-9 my-8"
       img={<img className="lg:rounded-lg" {...imageProps} />}
     />
   );
@@ -224,35 +224,36 @@ export default function Post() {
   // console.log("code", code);
 
   return (
-    <div className="py-6 max-w-screen-lg">
-      <div className="mb-6 px-4">
-        <Link
-          to="/blog"
-          className="group w-fit flex items-center font-medium text-lg dark:text-zinc-400 dark:hover:text-gray-500"
-        >
-          <div className="h-6 w-6 text-2xl group-hover:-translate-x-1 flex items-center mr-2 transition ease-out hover:ease-in">
-            ←
+    <div className="lg:mx-4">
+      <div className="py-8 max-w-screen-lg">
+        <div className="mx-8">
+          <div className="mb-14 ">
+            <Link
+              to="/blog"
+              className="group w-fit flex items-center text-lg dark:text-zinc-400 dark:hover:text-gray-500"
+            >
+              <div className="h-6 w-6 text-2xl group-hover:-translate-x-1 flex items-center mr-2 transition ease-out hover:ease-in">
+                ←
+              </div>
+              Articles
+            </Link>
           </div>
-          Back to posts
-        </Link>
-      </div>
-      <HeroImage frontmatter={frontmatter} />
-      <div className="py-8 max-w-screen-lg lg:px-[4rem]">
-        <div className="pb-8 grid gap-4 mx-[1rem] lg:mx-[2rem]">
-          <h1 className="text-4xl font-bold dark:text-white">
-            {frontmatter.title}
-          </h1>
+          <div className="grid gap-4">
+            <h1 className="text-4xl lg:text-5xl dark:text-white">
+              {frontmatter.title}
+            </h1>
 
-          <p className="dark:text-zinc-400 text-lg">
-            {frontmatter.date &&
-              new Date(frontmatter.date).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}{" "}
-            - {readTime?.text}
-          </p>
-          {/* {frontmatter.tags && (
+            <p className="dark:text-zinc-400">
+              {frontmatter.date &&
+                new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+              - {readTime?.text}
+            </p>
+
+            {/* {frontmatter.tags && (
               <div className="flex items-center gap-2">
                 {frontmatter.tags.map((tag: string) => (
                   <Link key={tag} to={`/blog/tags/${tag}`}>
@@ -261,20 +262,22 @@ export default function Post() {
                 ))}
               </div>
             )} */}
+          </div>
         </div>
+        <HeroImage frontmatter={frontmatter} />
         {Component ? (
-          <main className="max-w-none prose prose-light lg:prose-lg dark:prose-dark">
+          <main className="prose prose-light lg:prose-lg dark:prose-dark">
             <Component components={{ pre: Pre }} />
           </main>
         ) : (
           <main
-            className="max-w-none prose prose-light lg:prose-lg dark:prose-dark pb-14"
+            className="prose prose-light lg:prose-lg dark:prose-dark pb-14"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
-        <div className="text-4xl text-center">
+        {/* <div className="text-4xl text-center">
           <p className="font-bold">〰</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

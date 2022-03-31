@@ -25,7 +25,7 @@ const LINKS = [
     name: "Blog",
     to: "/blog",
   },
-  { name: "Music", to: "/music" },
+  // { name: "Music", to: "/music" },
   { name: "About", to: "/about" },
 ];
 
@@ -34,36 +34,36 @@ export default function Navbar() {
     <nav className="dark:text-zinc-200">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
-          <div className="flex space-x-4">
+          <div className="flex items-center">
             <div>
               <Link
                 to="/"
                 className="flex items-center hover:text-gray-900 dark:hover:text-zinc-300"
               >
-                <h1 className="text-2xl font-medium">Elliot Laws</h1>
+                <h1 className="text-2xl">Elliot Laws</h1>
               </Link>
+            </div>
+            <div className="hidden md:flex items-center space-x-5 ml-24">
+              {LINKS.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  prefetch="intent"
+                  className={({ isActive }) =>
+                    clsx(
+                      isActive
+                        ? "active dark:text-zinc-100 "
+                        : "dark:text-zinc-400",
+                      "py-5 underlined dark:text-zinc-200 dark:hover:text-zinc-200"
+                    )
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
             </div>
           </div>
 
-          <div className="hidden md:flex items-center space-x-5">
-            {LINKS.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                prefetch="intent"
-                className={({ isActive }) =>
-                  clsx(
-                    isActive
-                      ? "active dark:text-zinc-100"
-                      : "dark:text-zinc-400",
-                    "py-5 underlined font-medium dark:text-zinc-200 dark:hover:text-zinc-200"
-                  )
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
-          </div>
           <div className="hidden md:block">
             <DarkModeToggle />
           </div>
@@ -145,7 +145,6 @@ function MobileMenuList() {
       document.body.classList.add("overflow-y-scroll");
       // alternatively, get bounding box of the menu, and set body height to that.
       document.body.style.width = "100vw";
-      document.body.style.height = "100vh";
     } else {
       document.body.classList.remove("fixed");
       document.body.classList.remove("overflow-y-scroll");
@@ -155,43 +154,41 @@ function MobileMenuList() {
 
   return (
     <AnimatePresence>
-      {isExpanded ? (
-        <MenuPopover
-          position={(r) => ({
-            top: `calc(${Number(r?.top) + Number(r?.height)}px + 1.75rem)`, // 2.25 rem = py-9 from navbar
-            left: 0,
-            bottom: 0,
-            right: 0,
-          })}
+      <MenuPopover
+        position={(r) => ({
+          top: `calc(${Number(r?.top) + Number(r?.height)}px + 1.75rem)`, // 2.25 rem = py-9 from navbar
+          left: 0,
+          bottom: 0,
+          right: 0,
+        })}
+      >
+        <motion.div
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -30, opacity: 0 }}
+          transition={{
+            duration: shouldReduceMotion ? 0 : 0.15,
+            ease: "linear",
+          }}
+          className="text-base flex h-full flex-col overflow-y-scroll border-t-2 border-gray-200 pb-12 bg-primary"
         >
-          <motion.div
-            initial={{ y: -30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -30, opacity: 0 }}
-            transition={{
-              duration: shouldReduceMotion ? 0 : 0.15,
-              ease: "linear",
-            }}
-            className="backdrop-blur-md text-base flex h-full flex-col overflow-y-scroll border-t-2 border-gray-200 pb-12"
-          >
-            <MenuItems className="border-none bg-primary p-0 min-h-screen">
-              {LINKS.map((link) => (
-                <MenuLink
-                  className="text-base font-medium p-6  hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b-2 border-gray-200"
-                  key={link.to}
-                  as={Link}
-                  to={link.to}
-                >
-                  {link.name}
-                </MenuLink>
-              ))}
-              <div className="p-8 w-screen flex justify-center">
-                <DarkModeToggle />
-              </div>
-            </MenuItems>
-          </motion.div>
-        </MenuPopover>
-      ) : null}
+          <MenuItems className="border-none p-0 min-h-screen bg-transparent">
+            {LINKS.map((link) => (
+              <MenuLink
+                className="text-base font-medium p-6 bg-primary hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b-2 border-gray-200"
+                key={link.to}
+                as={Link}
+                to={link.to}
+              >
+                {link.name}
+              </MenuLink>
+            ))}
+            <div className="p-8 w-screen flex justify-center">
+              <DarkModeToggle />
+            </div>
+          </MenuItems>
+        </motion.div>
+      </MenuPopover>
     </AnimatePresence>
   );
 }

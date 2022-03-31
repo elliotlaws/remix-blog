@@ -10,7 +10,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
     <Link
       key={slug}
       to={`/${slug}`}
-      className="group hover:cursor-pointer col-span-4  rounded-lg hover:-translate-y-2 transition-all duration-100 ease-out drop-shadow-sm hover:drop-shadow-md"
+      className="group hover:cursor-pointer col-span-4  rounded-lg  transition-all duration-100 ease-out "
     >
       <div className="grid">
         {frontmatter?.image?.url && (
@@ -31,16 +31,21 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
                   ],
                   aspectRatio: "16:9",
                 })}
-                className="rounded-t-lg"
+                className="rounded-lg"
               />
             }
           />
         )}
-        <div className="px-4 py-4 grid bg-white dark:bg-[#25252ef0] rounded-b-lg">
-          <h2 className="text-xl mb-2">{frontmatter.title}</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-            {frontmatter.description}
-          </p>
+        <div className="pt-4 grid rounded-b-lg">
+          <div className="mb-6">
+            <h2 className="text-2xl mb-2">{frontmatter.title}</h2>
+            <p className="text-zinc-600 dark:text-zinc-400 ">
+              {frontmatter.description}
+            </p>
+          </div>
+          {/* <div className="text-2xl transition-all duration-150 ease-in opacity-0 group-hover:opacity-100">
+            →
+          </div> */}
           <p className="text-zinc-600 dark:text-zinc-400 mb-2">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {

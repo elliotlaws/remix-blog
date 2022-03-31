@@ -31,12 +31,12 @@ export default function Index() {
   );
 
   return (
-    <div className="mt-4 dark:text-zinc-200 px-4 md:px-6 lg:px-4">
+    <div className="mt-4 dark:text-zinc-200 px-4 py-2 md:px-6 lg:px-4">
       <div className="flex justify-between items-baseline">
-        <h1 className="text-3xl pb-2 text-center md:text-left dark:text-zinc-200">
-          Blog Posts
+        <h1 className="text-2xl pb-2 text-center md:text-left dark:text-zinc-200">
+          Articles <span className="text-lg ml-1">/ {posts.length}</span>
         </h1>
-        <p className="text-lg">{posts.length} Articles</p>
+        {/* <p className="text-lg">{posts.length}</p> */}
       </div>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
         {orderedPosts.map((article) => (

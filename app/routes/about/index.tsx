@@ -28,7 +28,7 @@ const WavingHand = () => (
 
 export default function Index() {
   return (
-    <div className="grid mt-6 grid-cols-1 gap-10 px-4 lg:px-24 md:px-6">
+    <div className="grid mt-6 grid-cols-1 gap-10 px-4 lg:px-32 md:px-6">
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
         <h2 className="text-3xl text-black dark:text-white mb-4 font-medium leading-10">
           Hi <WavingHand /> &nbsp;I'm Elliot,&nbsp;

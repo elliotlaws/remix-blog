@@ -76,6 +76,9 @@ module.exports = {
                 "h1, h2, h3, h4, h5, h6": {
                   color: "#F1F1F1",
                 },
+                strong: {
+                  color: "#A1A1AA",
+                },
                 code: {
                   color: "#F1F1F1",
                 },

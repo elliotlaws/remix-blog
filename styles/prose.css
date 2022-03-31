@@ -35,7 +35,7 @@ pre {
   --hue-6: hsl(35, 99%, 36%);
   --hue-6-2: hsl(35, 99%, 40%);
   --syntax-fg: hsl(230, 8%, 24%);
-  --syntax-bg: hsl(230, 1%, 98%);
+  --syntax-bg: hsl(240, 7%, 92%);
   --syntax-gutter: hsl(230, 1%, 62%);
   --syntax-guide: hsla(230, 8%, 24%, 0.2);
   --syntax-accent: hsl(230, 100%, 66%);
@@ -501,7 +501,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .prose pre[data-filename]:before {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='22' height='22' viewBox='0 0 24 24' stroke='%23989a9b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: 0 3px;
+  background-position: 0px 2px;
   display: inline-block;
   margin-top: 1rem;
   margin-left: 0.8rem;
