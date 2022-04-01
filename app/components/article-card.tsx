@@ -1,13 +1,17 @@
 import { Link } from "@remix-run/react";
+import { motion, MotionConfig } from "framer-motion";
+import { useState } from "react";
 import type { MdxListItem } from "types";
 import { BlurrableImage } from "./blurrable-image";
 import { getImageProps } from "./image";
 
 export function ArticleCard({ article }: { article: MdxListItem }) {
   const { slug, frontmatter, readTime } = article;
+  const [hovered, setHovered] = useState(false);
 
   return (
     <Link
+      onMouseEnter={() => setHovered(true)}
       key={slug}
       to={`/${slug}`}
       className="group hover:cursor-pointer col-span-4  rounded-lg  transition-all duration-100 ease-out "
@@ -56,6 +60,7 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
             - {readTime?.text}
           </p>
         </div>
+        <div className="my-4 opacity-60 border-cyan-900 dark:border-cyan-700 border-b-[3px] w-0 group-hover:w-full group-hover:opacity-100 transition-all duration-300 ease-out"></div>
       </div>
     </Link>
   );

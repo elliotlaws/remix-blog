@@ -43,6 +43,8 @@ export default function Navbar() {
                 <h1 className="text-2xl">Elliot Laws</h1>
               </Link>
             </div>
+          </div>
+          <div className="flex justify-between items-center space-x-8">
             <div className="hidden md:flex items-center space-x-5 ml-24">
               {LINKS.map((link) => (
                 <NavLink
@@ -62,10 +64,9 @@ export default function Navbar() {
                 </NavLink>
               ))}
             </div>
-          </div>
-
-          <div className="hidden md:block">
-            <DarkModeToggle />
+            <div className="hidden md:block">
+              <DarkModeToggle />
+            </div>
           </div>
           <div className="md:hidden flex items-center z-100">
             <MobileMenu />
