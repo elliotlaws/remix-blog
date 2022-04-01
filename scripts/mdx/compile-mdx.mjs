@@ -9,9 +9,11 @@ import { renderToString } from "react-dom/server.js";
 import { bundleMDX } from "mdx-bundler";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import rehypePrism from "rehype-prism-plus";
+import rehypeSlug from "rehype-slug";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
 import { visit } from "unist-util-visit";
+import remarkSectionize from "remark-sectionize";
 
 function rehypeCodeTitles() {
   return (tree) => visit(tree, "element", visitor);
@@ -108,10 +110,15 @@ function rehypeCodeTitles() {
         // set cwd if mdx has file imports
         cwd,
         xdmOptions(options) {
+          options.remarkPlugins = [
+            ...(options.remarkPlugins ?? []),
+            remarkSectionize,
+          ];
           options.rehypePlugins = [
             ...(options.rehypePlugins ?? []),
             // rehypeCodeTitles must go before rehypePrism
             rehypeCodeTitles,
+            rehypeSlug,
             [rehypePrism, { showLineNumbers: true }],
           ];
           return options;

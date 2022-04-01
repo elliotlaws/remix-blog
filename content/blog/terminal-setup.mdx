@@ -9,11 +9,11 @@ image:
 
 When I get my hands on a new mac, I always forget how to set up the terminal the way I like. So, in this post, I’ll go through the steps I take to set up my terminal to get it looking all fancy with syntax highlighting and autocomplete etc.
 
-## 1. iTerm
+## iTerm
 
 Install latest iTerms [https://iterm2.com/downloads.html](https://iterm2.com/downloads.html)
 
-## 2. Install Oh My Zsh
+## Install Oh My Zsh
 
 Install oh-my-zsh using curls
 
@@ -23,7 +23,7 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 Make zsh the default shell `chsh -s $(which zsh)` then log out and log back in again to use your new default shell.
 
-## 4. Set the theme
+## Set the theme
 
 Install Powerlevel10k
 
@@ -39,7 +39,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 After the terminal has been restarted complete the questions to configure the theme.
 
-## 5. Install plugins
+## Install plugins
 
 Clone the zsh-autosuggestions repo
 
@@ -71,7 +71,7 @@ Then, enable syntax highlighting in the current interactive shell
 source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
-## 6. Configure VS Code
+## Configure VS Code
 
 In VS code, open settings.json and add the following to set the default terminal profile and ensure icons show correctly.
 

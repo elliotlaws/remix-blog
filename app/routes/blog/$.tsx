@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   HeadersFunction,
   json,
@@ -11,6 +11,7 @@ import {
 } from "remix";
 import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
+import { TableContents } from "~/components/table-contents";
 import { getMDXComponent } from "~/utils/mdx.client";
 
 const Pre = (props: any) => {
@@ -215,6 +216,26 @@ export const meta: MetaFunction = ({ data }) => {
 export default function Post() {
   const { html, frontmatter, code, readTime } = useLoaderData();
   let Component = null;
+  const [ids, setIds] = useState<Array<{ id: string; title: string }>>([]);
+
+  useEffect(() => {
+    /**
+     * Working around some race condition quirks :) (don't judge)
+     * TODO @MaximeHeckel: see if there's a better way through a remark plugin to do this
+     */
+    setTimeout(() => {
+      const titles = document.querySelectorAll("h2");
+      const idArrays = Array.prototype.slice
+        .call(titles)
+        .map((title) => ({ id: title.id, title: title.innerText })) as Array<{
+        id: string;
+        title: string;
+      }>;
+      setIds(idArrays);
+    }, 500);
+  }, []);
+
+  console.log("ids", ids);
 
   if (typeof window !== "undefined" && code) {
     Component = useMemo(() => getMDXComponent(code), [code]);
@@ -252,7 +273,7 @@ export default function Post() {
                 })}{" "}
               - {readTime?.text}
             </p>
-
+            <TableContents ids={ids} />
             {/* {frontmatter.tags && (
               <div className="flex items-center gap-2">
                 {frontmatter.tags.map((tag: string) => (
