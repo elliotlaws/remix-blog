@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 import useProgress from "~/hooks/useProgress";
 import useScrollSpy from "~/hooks/useScrollSpy";
@@ -16,12 +17,14 @@ const OFFSET = 150;
 
 export function TableContents({ ids }: Props) {
   const readingProgress = useProgress();
+  const shouldReduceMotion = useReducedMotion();
 
   /**
    * Only show the table of content between 7% and 95%
    * of the page scrolled.
    */
-  const shouldShowTableOfContent = readingProgress > 0.15;
+  const shouldShowTableOfContent =
+    readingProgress > 0.07 && readingProgress < 0.95;
 
   /**
    * Handles clicks on links of the table of content and smooth
@@ -49,6 +52,19 @@ export function TableContents({ ids }: Props) {
   };
 
   /**
+   * Variants handling hidding/showing the table of content
+   * based on the amount scrolled by the reader
+   */
+  const variants = {
+    hide: {
+      opacity: shouldReduceMotion ? 1 : 0,
+    },
+    show: (shouldShowTableOfContent: boolean) => ({
+      opacity: shouldReduceMotion || shouldShowTableOfContent ? 1 : 0,
+    }),
+  };
+
+  /**
    * Get the index of the current active section that needs
    * to have its corresponding title highlighted in the
    * table of content
@@ -62,28 +78,34 @@ export function TableContents({ ids }: Props) {
 
   return (
     <div
-      className={clsx(
-        "fixed right-[80px] h-[500px] -translate-y-1/2 top-1/2",
-        shouldShowTableOfContent ? "flex" : "hidden"
-      )}
+      className="fixed h-[500px] top-1/2 left-[75%] flex"
+      style={{ transform: "translateY(-47vh)" }}
     >
       <ReadingProgress progress={readingProgress} />
       {ids.length > 0 ? (
         <ul className="grid gap-8 px-4 content-start">
           {ids.map((item, index) => {
             return (
-              <li key={item.id}>
+              <motion.li
+                key={item.id}
+                initial="hide"
+                className={currentActiveIndex === index ? "isCurrent" : ""}
+                variants={variants}
+                animate="show"
+                transition={{ type: "spring" }}
+                custom={shouldShowTableOfContent}
+              >
                 <a
                   href={`#${item.id}`}
                   className={clsx(
-                    "text-lg transition-all duration-200 ease-in",
+                    "transition-all duration-200 ease-in",
                     currentActiveIndex === index ? "opacity-100" : "opacity-50"
                   )}
                   onClick={(event) => handleLinkClick(event, item.id)}
                 >
                   {item.title}
                 </a>
-              </li>
+              </motion.li>
             );
           })}
         </ul>

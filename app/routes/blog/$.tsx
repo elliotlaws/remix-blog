@@ -13,6 +13,7 @@ import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
 import { TableContents } from "~/components/table-contents";
 import { getMDXComponent } from "~/utils/mdx.client";
+import { useInView } from "react-intersection-observer";
 
 const Pre = (props: any) => {
   const textInput = useRef<HTMLDivElement>(null);
@@ -215,8 +216,9 @@ export const meta: MetaFunction = ({ data }) => {
 
 export default function Post() {
   const { html, frontmatter, code, readTime } = useLoaderData();
-  let Component = null;
   const [ids, setIds] = useState<Array<{ id: string; title: string }>>([]);
+  const { ref, inView } = useInView({ threshold: 0.4 });
+  let Component = null;
 
   useEffect(() => {
     /**
@@ -240,9 +242,6 @@ export default function Post() {
   if (typeof window !== "undefined" && code) {
     Component = useMemo(() => getMDXComponent(code), [code]);
   }
-
-  // console.log("html", html);
-  // console.log("code", code);
 
   return (
     <div className="lg:mx-4">
@@ -273,19 +272,11 @@ export default function Post() {
                 })}{" "}
               - {readTime?.text}
             </p>
-            <TableContents ids={ids} />
-            {/* {frontmatter.tags && (
-              <div className="flex items-center gap-2">
-                {frontmatter.tags.map((tag: string) => (
-                  <Link key={tag} to={`/blog/tags/${tag}`}>
-                    <Tag>{tag}</Tag>
-                  </Link>
-                ))}
-              </div>
-            )} */}
           </div>
         </div>
-        <HeroImage frontmatter={frontmatter} />
+        <div ref={ref}>
+          <HeroImage frontmatter={frontmatter} />
+        </div>
         {Component ? (
           <main className="prose prose-light lg:prose-lg dark:prose-dark">
             <Component components={{ pre: Pre }} />
@@ -296,9 +287,7 @@ export default function Post() {
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
-        {/* <div className="text-4xl text-center">
-          <p className="font-bold">〰</p>
-        </div> */}
+        <TableContents ids={ids} />
       </div>
     </div>
   );

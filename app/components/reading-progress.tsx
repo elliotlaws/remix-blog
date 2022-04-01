@@ -1,8 +1,8 @@
 import { motion, useReducedMotion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const ReadingProgress = ({ progress }: { progress: number }) => {
-  const [visibility, setVisibility] = React.useState(true);
+  const [visibility, setVisibility] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
   const progressBarWrapperVariants = {
@@ -14,7 +14,10 @@ export const ReadingProgress = ({ progress }: { progress: number }) => {
     }),
   };
 
-  React.useEffect(() => setVisibility(progress >= 0.15), [progress]);
+  useEffect(
+    () => setVisibility(progress > 0.07 && progress < 0.95),
+    [progress]
+  );
 
   return (
     <motion.div
@@ -23,14 +26,14 @@ export const ReadingProgress = ({ progress }: { progress: number }) => {
       animate="show"
       transition={{ type: "spring" }}
       custom={visibility}
-      className="w-[4px] bg-slate-500 h-[calc(88vh - 40px)]"
+      className="w-[4px] bg-gray-700 h-[calc(88vh - 40px)]"
     >
       <motion.div
         style={{
           transformOrigin: "top",
           scaleY: progress,
         }}
-        className="w-[4px] h-full bg-white"
+        className="w-[4px] h-full bg-cyan-500"
         data-testid="progress-bar"
         data-testprogress={progress}
       />
