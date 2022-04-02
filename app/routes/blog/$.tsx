@@ -14,6 +14,7 @@ import { getImageProps } from "~/components/image";
 import { TableContents } from "~/components/table-contents";
 import { getMDXComponent } from "~/utils/mdx.client";
 import { useInView } from "react-intersection-observer";
+import { AnimatePresence } from "framer-motion";
 
 const Pre = (props: any) => {
   const textInput = useRef<HTMLDivElement>(null);
@@ -124,7 +125,13 @@ export function HeroImage({ frontmatter }: any) {
     <BlurrableImage
       blurDataUrl={frontmatter.image.blurDataUrl}
       className="aspect-w-16 aspect-h-9 my-8"
-      img={<img className="lg:rounded-lg" {...imageProps} />}
+      img={
+        <img
+          className="lg:rounded-lg"
+          {...imageProps}
+          style={{ zIndex: 100 }}
+        />
+      }
     />
   );
 }
@@ -217,7 +224,7 @@ export const meta: MetaFunction = ({ data }) => {
 export default function Post() {
   const { html, frontmatter, code, readTime } = useLoaderData();
   const [ids, setIds] = useState<Array<{ id: string; title: string }>>([]);
-  const { ref, inView } = useInView({ threshold: 0.4 });
+  const { ref, inView: imageInView } = useInView({ rootMargin: "100px 0px" });
   let Component = null;
 
   useEffect(() => {
@@ -237,14 +244,12 @@ export default function Post() {
     }, 500);
   }, []);
 
-  console.log("ids", ids);
-
   if (typeof window !== "undefined" && code) {
     Component = useMemo(() => getMDXComponent(code), [code]);
   }
 
   return (
-    <div className="lg:mx-4">
+    <div className="">
       <div className="py-8 max-w-screen-lg">
         <div className="mx-8">
           <div className="mb-14 ">
@@ -278,16 +283,18 @@ export default function Post() {
           <HeroImage frontmatter={frontmatter} />
         </div>
         {Component ? (
-          <main className="prose prose-light lg:prose-lg dark:prose-dark">
+          <main className="max-w-none lg:max-w-[65ch] prose prose-light lg:prose-lg dark:prose-dark">
             <Component components={{ pre: Pre }} />
           </main>
         ) : (
           <main
-            className="prose prose-light lg:prose-lg dark:prose-dark pb-14"
+            className="max-w-none lg:max-w-[65ch] prose prose-light lg:prose-lg dark:prose-dark pb-14"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
-        <TableContents ids={ids} />
+        <AnimatePresence>
+          {!imageInView ? <TableContents ids={ids} /> : null}
+        </AnimatePresence>
       </div>
     </div>
   );

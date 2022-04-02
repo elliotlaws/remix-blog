@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect } from "react";
 import useProgress from "~/hooks/useProgress";
 import useScrollSpy from "~/hooks/useScrollSpy";
 import { ReadingProgress } from "./reading-progress";
@@ -24,7 +23,7 @@ export function TableContents({ ids }: Props) {
    * of the page scrolled.
    */
   const shouldShowTableOfContent =
-    readingProgress > 0.07 && readingProgress < 0.95;
+    readingProgress > 0.1 && readingProgress < 0.95;
 
   /**
    * Handles clicks on links of the table of content and smooth
@@ -59,9 +58,13 @@ export function TableContents({ ids }: Props) {
     hide: {
       opacity: shouldReduceMotion ? 1 : 0,
     },
-    show: (shouldShowTableOfContent: boolean) => ({
+    show: () => ({
       opacity: shouldReduceMotion || shouldShowTableOfContent ? 1 : 0,
     }),
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.1 },
+    },
   };
 
   /**
@@ -77,9 +80,14 @@ export function TableContents({ ids }: Props) {
   );
 
   return (
-    <div
-      className="fixed h-[500px] top-1/2 left-[75%] flex"
+    <motion.div
+      className={clsx("hidden lg:flex fixed h-[500px] top-1/2 left-[75%] ")}
       style={{ transform: "translateY(-47vh)" }}
+      variants={variants}
+      initial="hide"
+      animate="show"
+      exit="exit"
+      transition={{ type: "spring" }}
     >
       <ReadingProgress progress={readingProgress} />
       {ids.length > 0 ? (
@@ -88,28 +96,33 @@ export function TableContents({ ids }: Props) {
             return (
               <motion.li
                 key={item.id}
-                initial="hide"
-                className={currentActiveIndex === index ? "isCurrent" : ""}
-                variants={variants}
-                animate="show"
-                transition={{ type: "spring" }}
-                custom={shouldShowTableOfContent}
+                initial="inactive"
+                animate={currentActiveIndex === index ? "active" : "inactive"}
+                transition={{ type: "spring", stiffness: 70 }}
+                variants={{
+                  active: {
+                    opacity: "100%",
+                    fontSize: "16.5px",
+                  },
+                  inactive: {
+                    opacity: "60%",
+                    fontSize: "16px",
+                  },
+                }}
               >
-                <a
+                <motion.a
                   href={`#${item.id}`}
-                  className={clsx(
-                    "transition-all duration-200 ease-in",
-                    currentActiveIndex === index ? "opacity-100" : "opacity-50"
-                  )}
+                  className="
+                    text-[#3a3d4a] dark:text-[#A1A1AA]"
                   onClick={(event) => handleLinkClick(event, item.id)}
                 >
                   {item.title}
-                </a>
+                </motion.a>
               </motion.li>
             );
           })}
         </ul>
       ) : null}
-    </div>
+    </motion.div>
   );
 }

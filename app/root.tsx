@@ -129,7 +129,7 @@ function App() {
 
 function Footer() {
   return (
-    <footer className="py-8 mt-16 border-t-2 border-black dark:border-white border-slate-600">
+    <footer className="py-8 mt-16 border-t-2 border-slate-600 dark:border-white ">
       <div className="max-w-5xl mx-auto px-6 lg:px-2 flex items-center justify-between">
         <p className="text-zinc-700 dark:text-white flex items-center gap-2">
           <span className="text-xl">&copy;</span> 2022 Elliot Laws - Leeds

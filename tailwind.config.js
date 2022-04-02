@@ -25,28 +25,17 @@ module.exports = {
           DEFAULT: {
             css: [
               {
-                "> *": {
-                  marginLeft: "1rem",
-                  marginRight: "1rem",
-                },
                 p: {
                   fontSize: fontSize("lg"),
                 },
                 ul: {
                   fontSize: fontSize("lg"),
                 },
-                pre: {
-                  borderRadius: "0%",
-                },
               },
             ],
           },
           lg: {
             css: {
-              "> *": {
-                marginLeft: "2rem",
-                marginRight: "2rem",
-              },
               h2: {
                 fontSize: "1.5em",
                 fontWeight: "bold",
