@@ -31,6 +31,9 @@ module.exports = {
                 ul: {
                   fontSize: fontSize("lg"),
                 },
+                pre: {
+                  borderRadius: "0%",
+                },
               },
             ],
           },
@@ -65,7 +68,7 @@ module.exports = {
                 "h1, h2, h3, h4, h5, h6": {
                   color: "#F1F1F1",
                 },
-                strong: {
+                "strong, a": {
                   color: "#A1A1AA",
                 },
                 code: {

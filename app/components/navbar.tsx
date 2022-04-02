@@ -45,7 +45,7 @@ export default function Navbar() {
             </div>
           </div>
           <div className="flex justify-between items-center space-x-8">
-            <div className="hidden md:flex items-center space-x-5 ml-24">
+            <div className="hidden md:flex items-center space-x-6 ml-24">
               {LINKS.map((link) => (
                 <NavLink
                   key={link.to}
@@ -162,6 +162,7 @@ function MobileMenuList() {
           bottom: 0,
           right: 0,
         })}
+        style={{ zIndex: 200 }}
       >
         <motion.div
           initial={{ y: -30, opacity: 0 }}

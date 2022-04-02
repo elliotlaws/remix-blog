@@ -49,13 +49,14 @@ pre {
   --scrollbar-thumb: rgb(160, 160, 160);
 }
 
-.prose > * {
+.prose > :not(section) {
   margin-right: 1rem;
   margin-left: 1rem;
 }
 
-section {
-  margin: 0;
+.prose section > :not(pre) {
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 code[class*="language-"],

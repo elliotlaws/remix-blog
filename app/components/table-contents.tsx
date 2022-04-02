@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { motion, useReducedMotion } from "framer-motion";
 import useProgress from "~/hooks/useProgress";
 import useScrollSpy from "~/hooks/useScrollSpy";
@@ -81,7 +80,7 @@ export function TableContents({ ids }: Props) {
 
   return (
     <motion.div
-      className={clsx("hidden lg:flex fixed h-[500px] top-1/2 left-[75%] ")}
+      className="hidden lg:flex fixed h-[500px] top-1/2 left-[75%]"
       style={{ transform: "translateY(-47vh)" }}
       variants={variants}
       initial="hide"
@@ -92,35 +91,32 @@ export function TableContents({ ids }: Props) {
       <ReadingProgress progress={readingProgress} />
       {ids.length > 0 ? (
         <ul className="grid gap-8 px-4 content-start">
-          {ids.map((item, index) => {
-            return (
-              <motion.li
-                key={item.id}
-                initial="inactive"
-                animate={currentActiveIndex === index ? "active" : "inactive"}
-                transition={{ type: "spring", stiffness: 70 }}
-                variants={{
-                  active: {
-                    opacity: "100%",
-                    fontSize: "16.5px",
-                  },
-                  inactive: {
-                    opacity: "60%",
-                    fontSize: "16px",
-                  },
-                }}
+          {ids.map((item, index) => (
+            <motion.li
+              key={item.id}
+              initial="inactive"
+              animate={currentActiveIndex === index ? "active" : "inactive"}
+              transition={{ type: "spring", stiffness: 70 }}
+              variants={{
+                active: {
+                  opacity: "100%",
+                  fontSize: "16.5px",
+                },
+                inactive: {
+                  opacity: "60%",
+                  fontSize: "16px",
+                },
+              }}
+            >
+              <motion.a
+                href={`#${item.id}`}
+                className="text-[#3a3d4a] dark:text-[#A1A1AA]"
+                onClick={(event) => handleLinkClick(event, item.id)}
               >
-                <motion.a
-                  href={`#${item.id}`}
-                  className="
-                    text-[#3a3d4a] dark:text-[#A1A1AA]"
-                  onClick={(event) => handleLinkClick(event, item.id)}
-                >
-                  {item.title}
-                </motion.a>
-              </motion.li>
-            );
-          })}
+                {item.title}
+              </motion.a>
+            </motion.li>
+          ))}
         </ul>
       ) : null}
     </motion.div>

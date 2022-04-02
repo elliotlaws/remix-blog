@@ -250,9 +250,9 @@ export default function Post() {
 
   return (
     <div className="">
-      <div className="py-8 max-w-screen-lg">
-        <div className="mx-8">
-          <div className="mb-14 ">
+      <div className="max-w-screen-lg">
+        <div className="px-4 lg:px-8">
+          <div className="mb-14">
             <Link
               to="/blog"
               className="group w-fit flex items-center text-lg dark:text-zinc-400 dark:hover:text-gray-500"
@@ -279,7 +279,7 @@ export default function Post() {
             </p>
           </div>
         </div>
-        <div ref={ref}>
+        <div ref={ref} className="lg:px-2">
           <HeroImage frontmatter={frontmatter} />
         </div>
         {Component ? (
