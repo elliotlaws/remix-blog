@@ -545,10 +545,6 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   min-width: 100%; /* 2 */
 }
 
-.code-line {
-  padding: 0 1.75rem;
-}
-
 .code-line.inserted {
   background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
 }
@@ -585,7 +581,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 
 .prose pre code {
   font-size: 16px;
-  padding: 1.5rem 0;
+  padding: 1rem;
 }
 
 /* Works on Firefox */
