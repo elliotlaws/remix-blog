@@ -249,9 +249,9 @@ export default function Post() {
   }
 
   return (
-    <div className="">
-      <div className="max-w-screen-lg">
-        <div className="px-4 lg:px-8">
+    <div className="max-w-5xl mx-auto lg:px-4">
+      <header className="mx-auto">
+        <div className="px-4 mx-auto xl:mx-0 lg:px-0 xl:px-4 lg:max-w-[70ch]">
           <div className="mb-14">
             <Link
               to="/blog"
@@ -279,23 +279,23 @@ export default function Post() {
             </p>
           </div>
         </div>
-        <div ref={ref} className="lg:px-4">
+        <div ref={ref} className="">
           <HeroImage frontmatter={frontmatter} />
         </div>
-        {Component ? (
-          <main className="max-w-none lg:max-w-[65ch] prose prose-light lg:prose-lg dark:prose-dark">
-            <Component components={{ pre: Pre }} />
-          </main>
-        ) : (
-          <main
-            className="max-w-none lg:max-w-[65ch] prose prose-light lg:prose-lg dark:prose-dark pb-14"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        )}
-        <AnimatePresence>
-          {!imageInView ? <TableContents ids={ids} /> : null}
-        </AnimatePresence>
-      </div>
+      </header>
+      {Component ? (
+        <main className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark">
+          <Component components={{ pre: Pre }} />
+        </main>
+      ) : (
+        <main
+          className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark pb-14"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+      <AnimatePresence>
+        {!imageInView ? <TableContents ids={ids} /> : null}
+      </AnimatePresence>
     </div>
   );
 }

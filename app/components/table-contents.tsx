@@ -80,7 +80,7 @@ export function TableContents({ ids }: Props) {
 
   return (
     <motion.div
-      className="hidden lg:flex fixed h-[500px] top-1/2 left-[75%]"
+      className="hidden xl:flex fixed h-[500px] top-1/2 left-[75%]"
       style={{ transform: "translateY(-47vh)" }}
       variants={variants}
       initial="hide"
