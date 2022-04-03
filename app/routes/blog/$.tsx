@@ -279,7 +279,7 @@ export default function Post() {
             </p>
           </div>
         </div>
-        <div ref={ref} className="lg:px-2">
+        <div ref={ref} className="lg:px-4">
           <HeroImage frontmatter={frontmatter} />
         </div>
         {Component ? (

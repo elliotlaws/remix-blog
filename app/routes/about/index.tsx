@@ -32,7 +32,7 @@ export default function Index() {
       <div className="mr-6 text-lg text-zinc-600 dark:text-zinc-400">
         <h2 className="text-3xl text-black dark:text-white mb-4 font-medium leading-10">
           Hi <WavingHand /> &nbsp;I'm Elliot,&nbsp;
-          <span className="text-zinc-600 dark:text-zinc-400">
+          <span className="text-zinc-500 dark:text-zinc-400">
             A Leeds based{" "}
             <span className="text-black dark:text-white">
               Software Engineer 👨‍💻{" "}
