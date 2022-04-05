@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
-import useProgress from "~/hooks/useProgress";
-import useScrollSpy from "~/hooks/useScrollSpy";
+import { useProgress } from "~/hooks/useProgress";
+import { useScrollSpy } from "~/hooks/useScrollSpy";
 import { ReadingProgress } from "./reading-progress";
 
 interface Props {

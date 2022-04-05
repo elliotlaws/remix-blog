@@ -17,15 +17,10 @@ import {
 import { useEffect } from "react";
 import { NavLink } from "remix";
 import { Link } from "remix";
-import { Switch } from "@headlessui/react";
 import { Theme, useTheme } from "~/utils/theme-provider";
 
 const LINKS = [
-  {
-    name: "Blog",
-    to: "/blog",
-  },
-  // { name: "Music", to: "/music" },
+  { name: "Blog", to: "/blog" },
   { name: "About", to: "/about" },
 ];
 
@@ -77,7 +72,7 @@ export default function Navbar() {
   );
 }
 
-export function MobileMenu() {
+function MobileMenu() {
   return (
     <Menu>
       <MobileMenuButton />
