@@ -8,12 +8,14 @@ import * as React from "react";
 import { renderToString } from "react-dom/server.js";
 import { bundleMDX } from "mdx-bundler";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
-import rehypePrism from "rehype-prism-plus";
-import rehypeSlug from "rehype-slug";
 import { Command } from "commander/esm.mjs";
 import calculateReadTime from "reading-time";
 import { visit } from "unist-util-visit";
+
+import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrism from "rehype-prism-plus";
 
 function rehypeCodeTitles() {
   return (tree) => visit(tree, "element", visitor);
@@ -116,9 +118,17 @@ function rehypeCodeTitles() {
           ];
           options.rehypePlugins = [
             ...(options.rehypePlugins ?? []),
-            // rehypeCodeTitles must go before rehypePrism
+            // rehypePlugins must go before rehypePrism
             rehypeCodeTitles,
             rehypeSlug,
+            [
+              rehypeAutolinkHeadings,
+              {
+                properties: {
+                  className: ["anchor"],
+                },
+              },
+            ],
             [rehypePrism, { showLineNumbers: true }],
           ];
           return options;

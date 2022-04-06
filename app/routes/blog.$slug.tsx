@@ -70,7 +70,7 @@ type BlogContentType = {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
 
 export const loader: LoaderFunction = async ({ request, params, context }) => {
-  const slug = params["*"];
+  const slug = params.slug;
 
   if (slug === undefined) {
     throw new Response("Not Found", { status: 404 });

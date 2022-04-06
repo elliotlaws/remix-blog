@@ -608,3 +608,28 @@ pre::-webkit-scrollbar-thumb {
   border-radius: 20px;
   border: 3px solid var(--scrollbar-bg);
 }
+
+.prose .anchor {
+  opacity: 0;
+  text-decoration: none;
+  position: absolute;
+  margin-left: -1.25em;
+  padding-right: 0.5em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.prose .anchor:hover {
+  opacity: 0.3;
+}
+
+.prose a {
+  transition: all;
+  transition-duration: 150ms;
+}
+
+.prose .anchor:after {
+  color: var(--mono-3);
+  content: "#";
+}
