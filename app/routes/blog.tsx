@@ -1,6 +1,7 @@
 import { LoaderFunction, useLoaderData, json } from "remix";
 import { MdxListItem } from "types";
 import { ArticleCard } from "~/components/article-card";
+import { H2 } from "~/components/typography";
 
 export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.env.CONTENT as KVNamespace).list({
@@ -33,10 +34,9 @@ export default function Index() {
   return (
     <div className="mt-4 dark:text-zinc-200 px-4 py-2 md:px-6 lg:px-4">
       <div className="flex justify-between items-baseline">
-        <h1 className="text-2xl pb-2 text-center md:text-left dark:text-zinc-200">
-          Articles <span className="text-lg ml-1">/ {posts.length}</span>
-        </h1>
-        {/* <p className="text-lg">{posts.length}</p> */}
+        <H2 className="pb-2 text-center md:text-left">
+          Articles&nbsp;<span className="text-xl"> / {posts.length}</span>
+        </H2>
       </div>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
         {orderedPosts.map((article) => (

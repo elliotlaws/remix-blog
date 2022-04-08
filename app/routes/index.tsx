@@ -1,8 +1,11 @@
+import clsx from "clsx";
 import { Link, LoaderFunction, useLoaderData, json } from "remix";
 import type { MdxListItem } from "types";
+import { Arrow } from "~/components/arrow";
 import { ArticleCard } from "~/components/article-card";
 import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
+import { H2, H3, H4, Paragraph } from "~/components/typography";
 
 export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.env.CONTENT as KVNamespace).list({
@@ -87,10 +90,10 @@ function FeaturedArticle({
         )}
       </div>
       <div className="col-span-4 grid content-around">
-        <div>
-          <h2 className="text-3xl mb-2">{frontmatter.title}</h2>
-          <p className="dark:text-zinc-400 mb-2">{frontmatter.description}</p>
-          <p className="text-slate-700 dark:text-zinc-400 mt-4">
+        <div className="grid gap-4">
+          <H2 className="">{frontmatter.title}</H2>
+          <Paragraph>{frontmatter.description}</Paragraph>
+          <Paragraph>
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",
@@ -98,18 +101,11 @@ function FeaturedArticle({
                 day: "numeric",
               })}{" "}
             - {readTime?.text}
-          </p>
+          </Paragraph>
         </div>
-
-        <div>
-          <div className="flex gap-2 items-center mt-10">
-            <p className="text-xl dark:text-white  dark:group-hover:text-zinc-300">
-              Read the full post
-            </p>
-            <div className="h-10 w-10 text-2xl group-hover:translate-x-1 transition ease-out hover:ease-in flex items-center">
-              →
-            </div>
-          </div>
+        <div className="flex gap-2 items-center mt-10">
+          <H4>Read the full post</H4>
+          <Arrow />
         </div>
       </div>
     </Link>

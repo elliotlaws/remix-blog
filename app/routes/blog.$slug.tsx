@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   HeadersFunction,
   json,
@@ -16,6 +16,8 @@ import { getMDXComponent } from "~/utils/mdx.client";
 import { useInView } from "react-intersection-observer";
 import { AnimatePresence } from "framer-motion";
 import { Pre } from "~/components/mdx-components";
+import { H1, Paragraph } from "~/components/typography";
+import { Arrow } from "~/components/arrow";
 
 export function HeroImage({ frontmatter }: any) {
   if (!frontmatter?.image.url) return null;
@@ -166,20 +168,15 @@ export default function Post() {
           <div className="mb-14">
             <Link
               to="/blog"
-              className="group w-fit flex items-center text-lg dark:text-zinc-400 dark:hover:text-gray-500"
+              className="group w-fit flex items-center text-lg text-primary"
             >
-              <div className="h-6 w-6 text-2xl group-hover:-translate-x-1 flex items-center mr-2 transition ease-out hover:ease-in">
-                ←
-              </div>
+              <Arrow dir="left" />
               Articles
             </Link>
           </div>
           <div className="grid gap-4">
-            <h1 className="text-4xl lg:text-5xl dark:text-white">
-              {frontmatter.title}
-            </h1>
-
-            <p className="dark:text-zinc-400">
+            <H1>{frontmatter.title}</H1>
+            <Paragraph>
               {frontmatter.date &&
                 new Date(frontmatter.date).toLocaleDateString("en-GB", {
                   year: "numeric",
@@ -187,22 +184,19 @@ export default function Post() {
                   day: "numeric",
                 })}{" "}
               - {readTime?.text}
-            </p>
+            </Paragraph>
           </div>
         </div>
-        <div ref={ref} className="">
+        <div ref={ref}>
           <HeroImage frontmatter={frontmatter} />
         </div>
       </header>
       {Component ? (
-        <main className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark">
+        <Main>
           <Component components={{ pre: Pre }} />
-        </main>
+        </Main>
       ) : (
-        <main
-          className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark pb-14"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <Main dangerouslySetInnerHTML={{ __html: html }} />
       )}
       <AnimatePresence>
         {!imageInView ? <TableContents ids={ids} /> : null}
@@ -210,6 +204,19 @@ export default function Post() {
     </div>
   );
 }
+
+type MainProps =
+  | { children: React.ReactNode }
+  | { dangerouslySetInnerHTML: { __html: string } };
+
+const Main = (props: MainProps) => {
+  return (
+    <main
+      className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark pb-14"
+      {...props}
+    />
+  );
+};
 
 function generateWeakHash(commitSha: string, hash: string) {
   return `W/${commitSha.substring(0, 20)}-${hash.substring(0, 20)}`;

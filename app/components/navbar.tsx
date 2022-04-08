@@ -26,15 +26,12 @@ const LINKS = [
 
 export default function Navbar() {
   return (
-    <nav className="dark:text-zinc-200">
+    <nav className="text-primary">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <div>
-              <Link
-                to="/"
-                className="flex items-center hover:text-gray-900 dark:hover:text-zinc-300"
-              >
+              <Link to="/" className="flex items-center">
                 <h1 className="text-2xl">Elliot Laws</h1>
               </Link>
             </div>
@@ -48,10 +45,8 @@ export default function Navbar() {
                   prefetch="intent"
                   className={({ isActive }) =>
                     clsx(
-                      isActive
-                        ? "active dark:text-zinc-100 "
-                        : "dark:text-zinc-400",
-                      "py-5 underlined dark:text-zinc-200 dark:hover:text-zinc-200"
+                      isActive ? "active text-primary" : "text-secondary",
+                      "py-5 underlined hover:text-primary"
                     )
                   }
                 >

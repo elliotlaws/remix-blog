@@ -40,8 +40,8 @@ module.exports = {
           lg: {
             css: {
               h2: {
-                fontSize: "1.5em",
-                fontWeight: "bold",
+                fontSize: "1.75rem",
+                fontWeight: "normal",
               },
               pre: {
                 borderRadius: "0.5rem",
@@ -51,12 +51,12 @@ module.exports = {
           light: {
             css: [
               {
-                color: "#3a3d4a",
+                color: theme("colors.zinc.600"),
                 "h1, h2, h3, h4, h5, h6": {
-                  color: "#111827",
+                  color: theme("colors.zinc.800"),
                 },
                 code: {
-                  color: "#111827",
+                  color: theme("colors.zinc.800"),
                 },
               },
             ],
@@ -64,15 +64,15 @@ module.exports = {
           dark: {
             css: [
               {
-                color: "#A1A1AA",
+                color: theme("colors.zinc.400"),
                 "h1, h2, h3, h4, h5, h6": {
-                  color: "#F1F1F1",
+                  color: theme("colors.zinc.100"),
                 },
                 "strong, a": {
-                  color: "#A1A1AA",
+                  color: theme("colors.zinc.600"),
                 },
                 code: {
-                  color: "#F1F1F1",
+                  color: theme("colors.zinc.100"),
                 },
               },
             ],

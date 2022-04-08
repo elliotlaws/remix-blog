@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { MdxListItem } from "types";
 import { BlurrableImage } from "./blurrable-image";
 import { getImageProps } from "./image";
+import { H3, Paragraph } from "./typography";
 
 export function ArticleCard({ article }: { article: MdxListItem }) {
   const { slug, frontmatter, readTime } = article;
@@ -41,16 +42,9 @@ export function ArticleCard({ article }: { article: MdxListItem }) {
           />
         )}
         <div className="pt-4 grid rounded-b-lg">
-          <div className="mb-6">
-            <h2 className="text-2xl mb-2">{frontmatter.title}</h2>
-            <p className="text-zinc-600 dark:text-zinc-400 ">
-              {frontmatter.description}
-            </p>
-          </div>
-          {/* <div className="text-2xl transition-all duration-150 ease-in opacity-0 group-hover:opacity-100">
-            →
-          </div> */}
-          <p className="text-zinc-600 dark:text-zinc-400 mb-2">
+          <H3 className="mb-2">{frontmatter.title}</H3>
+          <p className="text-secondary mb-6">{frontmatter.description}</p>
+          <p className="text-secondary mb-2">
             {frontmatter.date &&
               new Date(frontmatter.date).toLocaleDateString("en-GB", {
                 year: "numeric",

@@ -108,7 +108,7 @@ function App() {
         <Links />
         <NonFlashOfWrongThemeEls ssrTheme={Boolean(data.theme)} />
       </head>
-      <body className="min-h-screen min-w-screen bg-primary text-gray-900 dark:text-zinc-200">
+      <body className="min-h-screen min-w-screen bg-primary">
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1 mb-6">
