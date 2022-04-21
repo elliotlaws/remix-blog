@@ -32,16 +32,18 @@ export default function Index() {
   );
 
   return (
-    <div className="mt-4 dark:text-zinc-200 px-4 py-2 md:px-6 lg:px-4">
-      <div className="flex justify-between items-baseline">
-        <H2 className="pb-2 text-center md:text-left">
-          Articles&nbsp;<span className="text-xl"> / {posts.length}</span>
-        </H2>
-      </div>
-      <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
-        {orderedPosts.map((article) => (
-          <ArticleCard article={article} key={article.slug} />
-        ))}
+    <div className="grid grid-cols-[1fr_minmax(auto,_1024px)__1fr]">
+      <div className="col-start-2 mt-4 dark:text-zinc-200 px-4 py-2 md:px-6 lg:px-4">
+        <div className="flex justify-between items-baseline">
+          <H2 className="pb-2 text-center md:text-left">
+            Articles&nbsp;<span className="text-xl"> / {posts.length}</span>
+          </H2>
+        </div>
+        <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6 mt-6">
+          {orderedPosts.map((article) => (
+            <ArticleCard article={article} key={article.slug} />
+          ))}
+        </div>
       </div>
     </div>
   );

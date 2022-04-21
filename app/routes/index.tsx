@@ -1,11 +1,10 @@
-import clsx from "clsx";
 import { Link, LoaderFunction, useLoaderData, json } from "remix";
 import type { MdxListItem } from "types";
 import { Arrow } from "~/components/arrow";
 import { ArticleCard } from "~/components/article-card";
 import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
-import { H2, H3, H4, Paragraph } from "~/components/typography";
+import { H2, H4, Paragraph } from "~/components/typography";
 
 export const loader: LoaderFunction = async ({ context }) => {
   const slugs = await (context.env.CONTENT as KVNamespace).list({
@@ -42,13 +41,15 @@ export default function Index() {
   );
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 mt-6 px-6 py-4 lg:px-4">
-      <div className="col-span-4 md:col-span-8 lg:col-span-12">
-        <FeaturedArticle article={featuredArticle} />
+    <div className="grid grid-cols-[1fr_minmax(auto,_1024px)__1fr]">
+      <div className="col-start-2 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 mt-6 px-6 py-4 lg:px-4 ">
+        <div className="col-span-4 md:col-span-8 lg:col-span-12">
+          <FeaturedArticle article={featuredArticle} />
+        </div>
+        {otherPosts.map((article) => (
+          <ArticleCard article={article} key={article.slug} />
+        ))}
       </div>
-      {otherPosts.map((article) => (
-        <ArticleCard article={article} key={article.slug} />
-      ))}
     </div>
   );
 }
@@ -62,7 +63,7 @@ function FeaturedArticle({
     <Link
       key={slug}
       to={`/${slug}`}
-      className="lg:bg-inherit rounded-lg group  hover:cursor-pointer transition duration-50 hover:ease-in col-span-4 grid grid-cols-4 md:grid-cols-span-12 lg:grid-cols-12 gap-6"
+      className="lg:bg-inherit rounded-lg group hover:cursor-pointer transition duration-50 hover:ease-in col-span-4 grid grid-cols-4 md:grid-cols-span-12 lg:grid-cols-12 gap-6"
     >
       <div className="col-span-4 md:col-span-6 lg:col-span-8">
         {frontmatter?.image?.url && (

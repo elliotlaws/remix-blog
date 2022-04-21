@@ -27,8 +27,8 @@ const LINKS = [
 export default function Navbar() {
   return (
     <nav className="text-primary">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-5xl mx-auto py-8">
+        <div className="flex justify-between items-center mx-4 lg:mx-2">
           <div className="flex items-center">
             <div>
               <Link to="/" className="flex items-center">
@@ -36,7 +36,7 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-between items-center space-x-8">
+          <div className="flex text-primary justify-between items-center space-x-8">
             <div className="hidden md:flex items-center space-x-6 ml-24">
               {LINKS.map((link) => (
                 <NavLink
@@ -162,12 +162,12 @@ function MobileMenuList() {
             duration: shouldReduceMotion ? 0 : 0.15,
             ease: "linear",
           }}
-          className="text-base flex h-full flex-col overflow-y-scroll border-t-2 border-gray-200 pb-12 bg-primary"
+          className="text-primary flex h-full flex-col overflow-y-scroll border-t-2 border-gray-200 pb-12 bg-primary"
         >
           <MenuItems className="border-none p-0 min-h-screen bg-transparent">
             {LINKS.map((link) => (
               <MenuLink
-                className="text-base font-medium p-6 bg-primary hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b-2 border-gray-200"
+                className="text-primary font-medium p-6 bg-primary hover:bg-gray-200 focus:bg-gray-200 hover:text-black border-b-2 border-gray-200"
                 key={link.to}
                 as={Link}
                 to={link.to}

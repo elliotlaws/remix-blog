@@ -2,22 +2,12 @@ import React from "react";
 
 export const useScrollSpy = (
   elements: Element[],
-  options?: {
+  options: {
     offset?: number;
     root?: Element;
   }
-): [number, Element[]] => {
-  const [currentActiveSectionIndex, setCurrentActiveSectionIndex] =
-    React.useState(-1);
-
-  const rootMargin = `-${(options && options.offset) || 0}px 0px 0px 0px`;
-
-  // this is just a shortcut for some other usecase I may have
-  const scrolledSections =
-    currentActiveSectionIndex >= 0
-      ? elements.slice(0, currentActiveSectionIndex + 1)
-      : [];
-
+): [number] => {
+  const [activeSectionIndex, setActiveSectionIndex] = React.useState(-1);
   const observer = React.useRef<IntersectionObserver>();
 
   React.useEffect(() => {
@@ -26,30 +16,23 @@ export const useScrollSpy = (
     }
 
     observer.current = new IntersectionObserver(
-      (entries) => {
-        // find the index of the section that is currently intersecting
-        const indexOfSectionToHighlight = entries.findIndex((entry) => {
-          return entry.intersectionRatio > 0;
-        });
-
-        setCurrentActiveSectionIndex(indexOfSectionToHighlight);
-      },
+      (entries) =>
+        setActiveSectionIndex(
+          entries.findIndex((entry) => entry.isIntersecting)
+        ),
       {
-        root: (options && options.root) || null,
-        // use this option to handle custom offset
-        rootMargin,
+        root: options?.root || null,
+        rootMargin: `-${options?.offset || 0}px 0px 0px 0px`,
       }
     );
 
     const { current: currentObserver } = observer;
 
     // observe all the elements passed as argument of the hook
-    elements.forEach((element) =>
-      element ? currentObserver.observe(element) : null
-    );
+    elements.forEach((element) => currentObserver.observe(element));
 
     return () => currentObserver.disconnect();
-  }, [elements, options, rootMargin]);
+  }, [elements, options]);
 
-  return [currentActiveSectionIndex, scrolledSections];
+  return [activeSectionIndex];
 };

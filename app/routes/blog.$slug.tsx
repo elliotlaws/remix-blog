@@ -1,14 +1,5 @@
-import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
-import {
-  HeadersFunction,
-  json,
-  MetaFunction,
-  LoaderFunction,
-  useLoaderData,
-  LinksFunction,
-  Link,
-} from "remix";
+import { useMemo } from "react";
+import { json, MetaFunction, LoaderFunction, useLoaderData, Link } from "remix";
 import { BlurrableImage } from "~/components/blurrable-image";
 import { getImageProps } from "~/components/image";
 import { TableContents } from "~/components/table-contents";
@@ -18,8 +9,22 @@ import { AnimatePresence } from "framer-motion";
 import { Pre } from "~/components/mdx-components";
 import { H1, Paragraph } from "~/components/typography";
 import { Arrow } from "~/components/arrow";
+import { useProgress } from "~/hooks/useProgress";
 
-export function HeroImage({ frontmatter }: any) {
+type Frontmatter = {
+  [key: string]: any;
+};
+
+type BlogContentType = {
+  slug: string;
+  frontmatter: Frontmatter;
+  html: string;
+  code: string;
+  hash: string;
+  readTime: any;
+};
+
+function HeroImage({ frontmatter }: Frontmatter) {
   if (!frontmatter?.image.url) return null;
 
   const imageProps = getImageProps({
@@ -40,7 +45,7 @@ export function HeroImage({ frontmatter }: any) {
       className="aspect-w-16 aspect-h-9 my-8"
       img={
         <img
-          className="lg:rounded-lg"
+          className="md:rounded-lg"
           {...imageProps}
           style={{ zIndex: 100 }}
         />
@@ -49,75 +54,19 @@ export function HeroImage({ frontmatter }: any) {
   );
 }
 
-export const links: LinksFunction = () => [
-  {
-    rel: "stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark.min.css",
-  },
-];
-
-type Frontmatter = {
-  [key: string]: any;
-};
-
-type BlogContentType = {
-  slug: string;
-  frontmatter: Frontmatter;
-  html: string;
-  code: string;
-  hash: string;
-  readTime: any;
-};
-
-export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders;
-
 export const loader: LoaderFunction = async ({ request, params, context }) => {
   const slug = params.slug;
-
-  if (slug === undefined) {
-    throw new Response("Not Found", { status: 404 });
-  }
+  if (slug === undefined) throw new Response("Not Found", { status: 404 });
 
   const data = (await context.env.CONTENT.get(
     `blog/${slug}`,
     "json"
   )) as BlogContentType;
-  if (!data) {
-    throw new Response("Not Found", { status: 404 });
-  }
-
-  const { commit }: any = (await context.env.CONTENT.get(
-    "$$deploy-sha",
-    "json"
-  )) ?? {
-    commit: {},
-  };
-  const commitSha = commit.sha ?? "0";
-
-  const { frontmatter, html, code, hash, readTime } = data;
-
-  // weak hash should include commit sha since changes in code
-  // could result in changes to the content page
-  const weakHash = generateWeakHash(commitSha, hash);
-  const etag = request.headers.get("If-None-Match");
-
-  if (etag === weakHash) {
-    return new Response(null, { status: 304 });
-  }
+  if (!data) throw new Response("Not Found", { status: 404 });
 
   return json(
-    { slug, frontmatter, html, code, readTime },
-    {
-      headers: {
-        // use weak etag because Cloudflare only supports
-        // strong etag on Enterprise plans :(
-        // ETag: weakHash,
-        // // add cache control and status for cloudflare?
-        "cache-control": "max-age=3600000",
-        // //'CF-Cache-Status': 'MISS',
-        // "x-remix": "test",
-      },
-    }
+    { ...data, slug },
+    { headers: { "cache-control": "max-age=3600000" } }
   );
 };
 
@@ -136,71 +85,67 @@ export const meta: MetaFunction = ({ data }) => {
 
 export default function Post() {
   const { html, frontmatter, code, readTime } = useLoaderData();
-  const [ids, setIds] = useState<Array<{ id: string; title: string }>>([]);
-  const { ref, inView: imageInView } = useInView({ rootMargin: "100px 0px" });
+  const { showTableOfContents = true } = frontmatter;
+  const { ref, inView: imageInView } = useInView();
+  const readingProgress = useProgress();
   let Component = null;
 
-  useEffect(() => {
-    /**
-     * Working around some race condition quirks :) (don't judge)
-     * TODO @MaximeHeckel: see if there's a better way through a remark plugin to do this
-     */
-    setTimeout(() => {
-      const titles = document.querySelectorAll("h2");
-      const idArrays = Array.prototype.slice
-        .call(titles)
-        .map((title) => ({ id: title.id, title: title.innerText })) as Array<{
-        id: string;
-        title: string;
-      }>;
-      setIds(idArrays);
-    }, 500);
-  }, []);
+  const shouldShowTableOfContents = !imageInView && showTableOfContents;
 
   if (typeof window !== "undefined" && code) {
     Component = useMemo(() => getMDXComponent(code), [code]);
   }
 
   return (
-    <div className="max-w-5xl mx-auto lg:px-4">
-      <header className="mx-auto">
-        <div className="px-4 mx-auto xl:mx-0 lg:px-0 xl:px-4 lg:max-w-[70ch]">
-          <div className="mb-14">
-            <Link
-              to="/blog"
-              className="group w-fit flex items-center text-lg text-primary"
-            >
-              <Arrow dir="left" />
-              Articles
-            </Link>
-          </div>
-          <div className="grid gap-4">
-            <H1>{frontmatter.title}</H1>
-            <Paragraph>
-              {frontmatter.date &&
-                new Date(frontmatter.date).toLocaleDateString("en-GB", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}{" "}
-              - {readTime?.text}
-            </Paragraph>
+    <div className="max-w-7xl mx-auto md:mx-[5vw] lg:mx-auto">
+      <header className="">
+        <div className="grid grid-cols-[1fr_2rem_repeat(6,_1fr)_2rem_4rem_1em_1fr]">
+          <div className="lg:col-start-3 col-span-12 lg:col-span-6 px-4">
+            <div className="mb-8">
+              <Link
+                to="/blog"
+                className="group w-fit flex items-center text-lg text-primary"
+              >
+                <Arrow dir="left" />
+                Articles
+              </Link>
+            </div>
+            <div className="grid gap-4">
+              <H1>{frontmatter.title}</H1>
+              <Paragraph>
+                {frontmatter.date &&
+                  new Date(frontmatter.date).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}{" "}
+                - {readTime?.text}
+              </Paragraph>
+            </div>
           </div>
         </div>
-        <div ref={ref}>
-          <HeroImage frontmatter={frontmatter} />
+        <div className="grid grid-cols-[1fr_1rem_repeat(8,_1fr)_1rem_1fr]">
+          <div ref={ref} className="col-span-12 lg:col-start-3 lg:col-span-8">
+            <HeroImage frontmatter={frontmatter} />
+          </div>
         </div>
       </header>
-      {Component ? (
-        <Main>
-          <Component components={{ pre: Pre }} />
-        </Main>
-      ) : (
-        <Main dangerouslySetInnerHTML={{ __html: html }} />
-      )}
-      <AnimatePresence>
-        {!imageInView ? <TableContents ids={ids} /> : null}
-      </AnimatePresence>
+      <div className="grid grid-cols-[1fr_1rem_1rem_repeat(5,_1fr)_4rem_1rem_1fr_1fr]">
+        {Component ? (
+          <Main>
+            <Component components={{ pre: Pre }} />
+          </Main>
+        ) : (
+          <Main dangerouslySetInnerHTML={{ __html: html }} />
+        )}
+        <AnimatePresence>
+          {shouldShowTableOfContents ? (
+            <div className="hidden xl:block col-start-11 col-span-2 sticky top-0 self-start pt-8">
+              <TableContents readingProgress={readingProgress} />
+            </div>
+          ) : null}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -212,12 +157,8 @@ type MainProps =
 const Main = (props: MainProps) => {
   return (
     <main
-      className="max-w-none mx-auto lg:max-w-[65ch] xl:mx-0 prose prose-light lg:prose-lg dark:prose-dark pb-14"
+      className="col-span-12 lg:col-start-4 lg:col-span-5 prose prose-light lg:prose-lg dark:prose-dark pb-14 max-w-[100vw]"
       {...props}
     />
   );
 };
-
-function generateWeakHash(commitSha: string, hash: string) {
-  return `W/${commitSha.substring(0, 20)}-${hash.substring(0, 20)}`;
-}

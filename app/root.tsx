@@ -112,9 +112,7 @@ function App() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1 mb-6">
-            <div className="container m-auto max-w-screen-lg">
-              <Outlet />
-            </div>
+            <Outlet />
           </div>
           <Footer />
           <ScrollRestoration />

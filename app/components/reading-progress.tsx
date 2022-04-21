@@ -8,7 +8,7 @@ export const ReadingProgress = ({ progress }: { progress: number }) => {
           transformOrigin: "top",
           scaleY: progress,
         }}
-        className="w-[4px] h-full bg-cyan-600 dark:bg-cyan-500"
+        className="w-[4px] h-[500px] bg-cyan-600 dark:bg-cyan-500"
         data-testid="progress-bar"
         data-testprogress={progress}
       />

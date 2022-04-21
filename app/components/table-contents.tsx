@@ -1,28 +1,23 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useProgress } from "~/hooks/useProgress";
+import { useEffect, useMemo, useState } from "react";
 import { useScrollSpy } from "~/hooks/useScrollSpy";
 import { ReadingProgress } from "./reading-progress";
 
-interface Props {
-  ids: Array<{ id: string; title: string }>;
-}
-
-/**
- * This offset is meant for the smooth scrolling and
- * Scrollspy to take into account the header height
- */
-const OFFSET = 150;
-
-export function TableContents({ ids }: Props) {
-  const readingProgress = useProgress();
+export function TableContents({
+  readingProgress,
+}: {
+  readingProgress: number;
+}) {
   const shouldReduceMotion = useReducedMotion();
+  const [ids, setIds] = useState<Array<{ id: string; title: string }>>([]);
 
-  /**
-   * Only show the table of content between 7% and 95%
-   * of the page scrolled.
-   */
-  const shouldShowTableOfContent =
-    readingProgress > 0.1 && readingProgress < 0.95;
+  useEffect(() => {
+    const newIds = [...document.querySelectorAll("h2")].map((title) => ({
+      id: title.id,
+      title: title.innerText,
+    }));
+    setIds(newIds);
+  }, []);
 
   /**
    * Handles clicks on links of the table of content and smooth
@@ -57,32 +52,37 @@ export function TableContents({ ids }: Props) {
     hide: {
       opacity: shouldReduceMotion ? 1 : 0,
     },
-    show: () => ({
-      opacity: shouldReduceMotion || shouldShowTableOfContent ? 1 : 0,
+    show: (shouldShowTableOfContents: boolean) => ({
+      opacity: shouldReduceMotion || shouldShowTableOfContents ? 1 : 0,
     }),
     exit: {
       opacity: 0,
-      transition: { duration: 0.1 },
+      transition: { duration: 0.2 },
     },
   };
+
+  const articleSections = useMemo(
+    () =>
+      ids.map(
+        ({ id }) => document.querySelector(`#${id}`)?.closest("section")!
+      ),
+    [ids]
+  );
 
   /**
    * Get the index of the current active section that needs
    * to have its corresponding title highlighted in the
    * table of content
    */
-  const [currentActiveIndex] = useScrollSpy(
-    ids.map(
-      (item) => document.querySelector(`#${item.id}`)?.closest("section")!
-    ),
-    { offset: OFFSET }
-  );
+  const [activeIndex] = useScrollSpy(articleSections, {
+    offset: 100,
+  });
 
   return (
     <motion.div
-      className="hidden xl:flex fixed h-[500px] top-1/2 left-[75%]"
-      style={{ transform: "translateY(-47vh)" }}
+      className="sticky top-0 self-start flex"
       variants={variants}
+      custom={readingProgress > 0.1}
       initial="hide"
       animate="show"
       exit="exit"
@@ -91,29 +91,27 @@ export function TableContents({ ids }: Props) {
       <ReadingProgress progress={readingProgress} />
       {ids.length > 0 ? (
         <ul className="grid gap-8 px-4 content-start">
-          {ids.map((item, index) => (
+          {ids.map(({ id, title }, index) => (
             <motion.li
-              key={item.id}
+              key={id}
               initial="inactive"
-              animate={currentActiveIndex === index ? "active" : "inactive"}
+              animate={activeIndex === index ? "active" : "inactive"}
               transition={{ type: "spring", stiffness: 70 }}
               variants={{
                 active: {
                   opacity: "100%",
-                  fontSize: "16.5px",
                 },
                 inactive: {
                   opacity: "60%",
-                  fontSize: "16px",
                 },
               }}
             >
               <motion.a
-                href={`#${item.id}`}
+                href={`#${id}`}
                 className="text-[#3a3d4a] dark:text-[#A1A1AA]"
-                onClick={(event) => handleLinkClick(event, item.id)}
+                onClick={(event) => handleLinkClick(event, id)}
               >
-                {item.title}
+                {title}
               </motion.a>
             </motion.li>
           ))}
